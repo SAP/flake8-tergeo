@@ -64,18 +64,18 @@ dev = [
     "types-flake8-typing-imports==1.16.0.20241013",
     "pylint-per-file-ignores==1.4.0",
     "types-stdlib-list==0.8.3.4",
-    "pytest-datadir==1.5.0",
 ]
 test = [
     "pytest==8.3.3",
     "pytest-mock==3.14.0",
     "pytest-cov==5.0.0",
+    "pytest-xdist==3.6.1",
+    "pytest-randomly==3.16.0",
+    "pytest-datadir==1.5.0",
     "coverage==7.6.1",
     "diff-cover==9.2.0",
     "flake8-json==24.4.0",
     "anys==0.3.1",
-    "pytest-xdist==3.6.1",
-    "pytest-randomly==3.16.0",
 ]
 
 [tool.setuptools.packages.find]
