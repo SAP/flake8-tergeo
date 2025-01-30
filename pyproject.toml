@@ -149,6 +149,7 @@ skip_covered = true
 
 [tool.coverage.run]
 branch = true
+source = ["_flake8_tergeo"]
 
 [tool.diff_cover]
 include_untracked = true
