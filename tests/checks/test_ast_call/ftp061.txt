@@ -1,0 +1,8 @@
+# code to ignore
+foo()
+x.format(2)
+x.format(c=2)
+
+# code to find
+'a{}'.format(2)
+'a{c}'.format(c=2)

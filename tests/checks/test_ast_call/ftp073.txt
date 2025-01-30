@@ -1,0 +1,14 @@
+{imp}
+
+# code without issues
+{func}(typed=True)
+{func}(123)
+{func}(maxsize=123)
+{func}(123, typed=True)
+{func}(maxsize=123, typed=True)
+{func}(123, True)
+{func}(myfunc)
+
+# code with issues
+{func}(None)
+{func}(maxsize=None)

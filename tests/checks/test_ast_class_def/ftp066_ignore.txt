@@ -1,0 +1,8 @@
+from foo import Enum
+from foo import enum
+
+class MyEnum(Enum, int):
+    A = 1
+
+class MyEnum2(enum.Enum, int):
+    A = 1

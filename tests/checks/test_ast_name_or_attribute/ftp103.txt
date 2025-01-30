@@ -1,0 +1,11 @@
+{imp}
+from pathlib import Path, PurePath
+
+# code without issue
+Path("foo")
+PurePath("foo")
+x = Path = PurePath
+
+# code with issue
+{path}
+{path}("foo")

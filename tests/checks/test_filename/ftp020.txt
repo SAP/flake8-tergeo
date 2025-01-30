@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+a = 2
+
+# -*- coding: utf-16 -*-
+b = 3
+
+# vim:fileencoding=ascii
+# coding=latin-1
+
+# unrelated coding comment
+# -*- code: -*-

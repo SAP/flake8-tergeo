@@ -1,0 +1,16 @@
+# code to ignore
+int(foo)
+int('1')
+int(1.1)
+int(-1.1)
+int(+1.1)
+int(1 + bar)
+int(True)
+int(None)
+int('1', 2)
+
+# code to find
+int(0)
+int(1)
+int(-1)
+int(+5)

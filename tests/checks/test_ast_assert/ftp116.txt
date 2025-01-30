@@ -1,0 +1,10 @@
+# code without issues
+a = foo
+assert foo
+assert x == 123
+assert None
+assert x and y and (that == 123)
+
+# code with issues
+assert foo() and more and (x := 123) == 0
+assert (x:=123)

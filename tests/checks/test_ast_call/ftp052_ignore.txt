@@ -1,0 +1,4 @@
+from foo import pp
+
+pp()
+foo.pp()

@@ -1,0 +1,11 @@
+# code without issues
+from foo import foo
+from foo.bar import foo
+import foo
+import bar as foo
+
+# code with issues
+import foo as foo
+import bar, foo as foo, baz
+from bar import bar as bar
+from bar import do as do, it, now

@@ -1,0 +1,13 @@
+# code without issues
+a = 2
+a = '2'
+a = '2' + '3'
+a = ('1', '2')
+a = (
+    '2',
+    '3'
+)
+
+# code with issues
+a = '2' '3'
+a = '2' '3' + '4'

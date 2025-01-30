@@ -1,0 +1,10 @@
+import urlparse2
+import urllib2
+from urllib.parse import urlparse2
+import urllib.parse
+
+urlpars(a)
+urllib2.parse.urlparse()
+foo()()
+urlsplit()
+urlparse('a')

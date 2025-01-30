@@ -1,0 +1,32 @@
+# code without issues
+a = 1
+a = 1
+
+class MyClass:
+    a = 1
+    foo.a = 1
+    x = y = 1
+
+    def a(self):
+        pass
+
+    def __init__(self):
+        a = 1
+        a = 1
+        self.b = 1
+        self.b = 1
+
+
+# code with issues
+class MyClass:
+    a = 1
+    b = 2
+    c = 3
+
+    def foo(): pass
+
+    a = 2
+    c = 5
+    d = 1
+    a = 2
+    x = _ = x = 1

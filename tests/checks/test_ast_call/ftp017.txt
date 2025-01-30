@@ -1,0 +1,7 @@
+{imp}
+
+# code without issues
+class Foo({func}): pass
+
+# code with issues
+{func}()

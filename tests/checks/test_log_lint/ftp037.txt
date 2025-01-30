@@ -1,0 +1,11 @@
+import logging
+logger = logging.getLogger(__name__)
+
+# code without issues
+logging.exception('foo', extra={'foo': 2, 'threadName2': "foo"})
+logging.exception('msg', extra={'foo': 2, msg: 3})
+logging.exception('msg', extra=extra)
+
+# code with issues
+logging.exception('foo', extra={'foo': 2, 'msg': 3})
+logging.exception('foo', extra={'foo': 2, 'threadName': "foo"})

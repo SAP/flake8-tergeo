@@ -1,0 +1,11 @@
+# code which is fine
+a = {}
+a = {123: foo}
+a = {"1.2": 1.2}
+
+# code which has issues
+a = {1.0: foo}
+a = {a: b, 0.1: foo}
+a = {0.8: abc}
+a = {-1.4: abc}
+a = {+1.4: abc}

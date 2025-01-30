@@ -1,0 +1,19 @@
+from . import datetime
+from datetime import datetime
+from datetime.x import y
+from foo import x
+from root_additional import x
+from root_additional.x import y
+from .relative import bar
+# namespace package checks
+from ns.a import baz
+from ns.b import baz
+
+import datetime
+import datetime.datetime
+import foo
+import foo.x
+# namespace package checks
+import ns.a
+import ns.b
+import ns.a.bat

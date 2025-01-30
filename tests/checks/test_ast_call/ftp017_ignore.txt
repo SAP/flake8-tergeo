@@ -1,0 +1,6 @@
+from foo import NamedTuple
+
+class Foo(NamedTuple): pass
+
+NamedTuple()
+foo.NamedTuple()

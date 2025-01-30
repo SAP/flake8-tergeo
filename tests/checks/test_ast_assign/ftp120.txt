@@ -1,0 +1,13 @@
+# code without issues
+slots = 123
+class Foo:
+    __slots__ = 123
+    if True:
+        __slots__ = 456
+
+# code with issues
+__slots__ = 123
+foo = __slots__ = 123
+class Foo:
+    def foo():
+        a = __slots__ = (12,34)

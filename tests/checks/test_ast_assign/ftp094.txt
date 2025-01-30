@@ -1,0 +1,23 @@
+# code without issues
+a = []
+__slots__: Any
+__slots__ = (a, b)
+__slots__ = slots = (a, b)
+__slots__ = (
+    a,
+)
+__slots__ = (buzz,)
+__slots__ = 'test1', 'test2'
+a = b = 40
+
+# code with issues
+__slots__ = foo
+__slots__ = slots = foo
+__slots__ = []
+__slots__ = ('foo')
+__slots__ = get_slots()
+__slots__ = _get_slots()
+__slots__ = [
+    'test1',
+    'test2'
+]

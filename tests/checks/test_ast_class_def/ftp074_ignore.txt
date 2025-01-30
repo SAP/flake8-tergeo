@@ -1,0 +1,14 @@
+from functools2 import cache
+
+@cache
+def foo(): pass
+
+class Foo:
+    @cache
+    def foo(self): pass
+
+    @cache()
+    def foo(self): pass
+
+    @some()
+    def foo(self): pass

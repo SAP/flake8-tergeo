@@ -1,0 +1,8 @@
+# code to ignore
+foo()
+str.format(x, 2)
+str.format(x, c=2)
+
+# code to find
+str.format('{}', 2)
+str.format('{c}', c=2)

@@ -1,0 +1,13 @@
+{future}
+
+from typing import TYPE_CHECKING
+{imp}
+
+if TYPE_CHECKING:
+    a: {union}[A,B]
+    A = {union}[A,B]
+
+a: {union}[A,B]
+def foo() -> {union}[A,B]: pass
+a: OtherUnion[A,B]
+A = {union}[A,B]

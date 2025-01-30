@@ -1,0 +1,10 @@
+# code without issues
+foo()
+foo("")
+some.print("")
+print()
+print("dada")
+print("", "dada")
+
+# code with issues
+print("")

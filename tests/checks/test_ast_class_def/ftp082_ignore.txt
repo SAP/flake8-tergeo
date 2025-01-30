@@ -1,0 +1,5 @@
+class Abc(): pass
+class Foo(Bar):pass
+class Foo(abc.ABC): pass
+class Foo(ABC): pass
+class Foo(metaclass=Other): pass

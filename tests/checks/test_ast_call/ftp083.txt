@@ -1,0 +1,14 @@
+# code to ignore
+str(foo)
+str(1)
+str(1.1)
+str('foo' + bar)
+str(True)
+str(None)
+
+# code to find
+str('')
+str('foo')
+str('1')
+str(f'foo')
+str(f'foo{bar}')

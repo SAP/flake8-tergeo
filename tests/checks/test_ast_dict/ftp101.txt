@@ -1,0 +1,12 @@
+# code which is fine
+a = {}
+a = {123: foo}
+a = {"1.2": 1.2}
+a = {"a": 1, **x, "b": 2}
+a = a|b
+
+# code which has issues
+a = {**x}
+a = {**x, "b": 2}
+a = {"b": 2, **x}
+a = {**x, "b": 2, **x}

@@ -1,0 +1,21 @@
+# code to ignore
+print()
+print(1)
+print(a=1)
+print([1,2,3])
+print(*foo)
+print(*foo())
+print(**{"1": 1, some: 2})
+print(**{foo(): "123"})
+print(*1)
+print(**1)
+
+# code to find
+print(*[])
+print(*(1,2))
+print(*[3,4])
+print(*{"a": 1})
+print(**{"a": 1})
+print(*"a")
+print(*b"a")
+print(1,2,*[1,2], a=1, **{"a": 1})

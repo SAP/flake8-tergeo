@@ -1,0 +1,12 @@
+# code which is fine
+{**bar}
+{}
+{'a': 'foo'}
+{**foo, **bar}
+
+# code which has issues
+{**foo, **{"bar": 10}}
+{**{"bar": 10}}
+{**{}}
+{**{"bar": 10, "foo": 2}}
+{**foo, **{"bar": 10}, a:2}

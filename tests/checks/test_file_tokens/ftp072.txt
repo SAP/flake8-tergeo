@@ -1,0 +1,17 @@
+# code without issues
+u = 2
+r'abc'
+"abc"
+
+# single quote
+u'abc'
+U'abc'
+# triple single quote
+u'''abc'''
+U'''abc'''
+# single quote
+u"abc"
+U"abc"
+# triple single quote
+u"""abc"""
+U"""abc"""

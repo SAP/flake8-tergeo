@@ -1,0 +1,8 @@
+# code without issues
+import foo
+import foo.bat
+from foo.bar import bar
+
+# code with issues
+from ..a import foo
+from .a.bar import foo

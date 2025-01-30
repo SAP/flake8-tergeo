@@ -1,0 +1,7 @@
+{imp}
+
+# code without issues
+{cls}([], stream=stream)
+
+# code with issues
+{cls}([])

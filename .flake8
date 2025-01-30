@@ -1,0 +1,41 @@
+[flake8]
+max-line-length = 100
+select =
+    FT,  # flake8-tergeo
+    C901,  # flake8-mccabe
+    E,  # flake8-pycodestyle
+    F,  # flake8-pyflakes
+    W,  # flake8-pycodestyle
+enable-extensions =
+    FT,  # flake8-tergeo
+ignore=
+    # conflict with black formatter
+    W503,E203,E704,
+    # covered by pylint
+    FTD1,FTB902,FTB904
+    # leads to confusing code/conflicts
+    FTB907,FTB908
+max-complexity = 10
+per-file-ignores =
+    tests/*:FTD,FTU019
+    tests/_flake8/checks/test_wrappers.py:FTD
+    _flake8_tergeo/*:FTB028
+
+# flake8-pytest-styles config
+ftp-pytest-parametrize-names-type = csv
+
+# flake8-docstrings config
+ftp-docstring-convention=google
+
+# requirements check
+ftp-distribution-name = flake8-tergeo
+ftp-requirements-packages = tests,_flake8_tergeo
+ftp-requirements-ignore-type-checking-block = true
+ftp-requirements-mapping =
+    bugbear:flake8-bugbear,
+ftp-requirements-module-extra-mapping =
+    tests | *,
+
+# general
+ftp-python-version = 3.9.0
+ftp-auto-manage-options = true

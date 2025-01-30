@@ -1,0 +1,7 @@
+# code without issues
+__all__ = ("a", "b")
+
+# code with issues
+if True: __all__ = ("a", "b")
+def foo(): __all__=  ("a", "b")
+class Foo: __all__ = ("a", "b")

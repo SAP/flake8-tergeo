@@ -1,0 +1,13 @@
+{future}
+
+from typing import TYPE_CHECKING
+{imp}
+
+if TYPE_CHECKING:
+    a: {optional}[A]
+    A = {optional}[A,B]
+
+a: {optional}[A]
+def foo() -> {optional}[A]: pass
+a: OtherOptional[B]
+A = {optional}[A,B]

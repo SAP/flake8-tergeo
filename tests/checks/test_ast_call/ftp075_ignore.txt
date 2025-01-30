@@ -1,0 +1,10 @@
+from x import run
+from y import Popen
+
+foo(universal_newlines=True)
+universal_newlines = Foo
+
+run(universal_newlines=True)
+foo.run(universal_newlines=True)
+Popen(universal_newlines=True)
+foo.Popen(universal_newlines=True)

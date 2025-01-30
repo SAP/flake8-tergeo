@@ -1,0 +1,27 @@
+{imp}
+
+# wrong names
+def foo(): pass
+def foo() -> str: pass
+def hasfoo() -> bool: pass
+def Isfoo() -> bool: pass
+def hasfoo(): pass
+def isort() -> None: pass
+def _foo(): pass
+# missing annotation
+def is_foo(): pass
+# right annotation
+def is_foo() -> bool: pass
+def is_foo() -> {cls}[Foo]: pass
+def is_foo() -> {cls}[None]: pass
+
+def is_foo() -> foo.{cls}[None]: pass
+def Is_foo() -> Union[bool, str]: pass
+def Is_foo() -> Optional[bool]: pass
+def Is_foo() -> str: pass
+def is_foo() -> None: pass
+def Have_foo() -> float: return 2.5
+def has_foo() -> int: return 8
+def can_foo() -> list: return [5,8,9]
+def _can_foo() -> list: return None
+def __can_foo__() -> list: return None

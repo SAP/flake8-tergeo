@@ -1,0 +1,44 @@
+# code without issues
+def foo(): pass
+def geta(): pass
+def _foo(): pass
+def is_foo(): pass
+def get_foo(): return None
+def get_foo():
+    if a:
+        return True
+    return False
+def get_foo():
+    if a:
+        if b:
+            return True
+def get_foo(): yield 123
+def get_foo():
+    if a:
+        yield True
+    return None
+def get_foo():
+    if a:
+        yield from [1,23]
+    return None
+def get_foo():
+    pass
+def get_foo():
+    raise Exception
+def get_foo():
+    '''foo'''
+    raise Exception
+def get_cached_entries(self):
+    try:
+        with self._exclusive_metadb_session() as session:
+            entries = session.query(CacheEntry).all()
+            return {entry.payload_id: entry.size for entry in entries}
+    except TemporaryFailure:
+        return None
+
+# code with issue
+def get_foo(): a=2
+def get__bar(): a=2
+def get_bar(): calc()
+def _get_foo(): a=2
+def __get_foo__(): a=2

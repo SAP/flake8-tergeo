@@ -1,0 +1,21 @@
+# nothing to check
+some = ['z', 'a']
+__foo__ = ['z', 'a']
+{name}: Any
+# invalid type
+{name} = list()
+{name} = func()
+# already sorted
+{name} = ['a', 'z']
+{name} = ('a', 'z')
+# already sorted but contains non-strings
+{name} = [foo(), 'a', 'z', others()]
+{name} = (foo(), 'a', 'z', others())
+# not sorted
+{name} = ['z', 'a']
+{name} = ('z', 'a')
+# not sorted and contains non-strings
+{name} = [foo(), 'z', 'a', others()]
+{name} = (foo(), 'z', 'a', others())
+# not sorted with multi-assign
+foo = {name} = ['z', 'a']

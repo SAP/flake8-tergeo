@@ -1,0 +1,9 @@
+import datetime
+from x import timezone
+
+x = datetime.UTC
+x = datetime.utc
+x = foo.timezone.utc
+x = timezone.utc
+
+foo(utc="dada")

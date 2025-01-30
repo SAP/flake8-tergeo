@@ -1,0 +1,8 @@
+import subprocess2
+from foo import run
+from subprocess import PIPE
+
+subprocess2.run(stdout=PIPE, a=1, stderr=PIPE)
+run(stdout=PIPE, a=1, stderr=PIPE)
+foo()
+foo(stdout=PIPE, stderr=PIPE)

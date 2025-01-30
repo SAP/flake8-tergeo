@@ -1,0 +1,12 @@
+# code without issues
+import foo
+import xml
+import xml.etree
+import xml.etree.ElementTree
+import foo.cElementTree
+from xml import etree
+from xml.etree import ElementTree
+
+# code with issues
+from xml.etree import cElementTree
+import xml.etree.cElementTree

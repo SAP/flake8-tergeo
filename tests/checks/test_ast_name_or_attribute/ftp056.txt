@@ -1,0 +1,13 @@
+{future}
+
+from typing import TYPE_CHECKING
+{imp}
+
+if TYPE_CHECKING:
+    a: {builtin}[str]
+    A = {builtin}[A,B]
+
+a: {builtin}[str]
+def foo() -> {builtin}[A]: pass
+a: Foo[str]
+A = {builtin}[A,B]

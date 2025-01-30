@@ -1,0 +1,6 @@
+# code to ignore
+foo()
+x.exit()
+
+# code to find
+{func}()

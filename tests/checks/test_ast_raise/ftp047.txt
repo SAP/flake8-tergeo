@@ -1,0 +1,8 @@
+raise OSError
+raise OSError()
+raise bar.Exception
+
+raise Exception
+raise BaseException
+raise BaseException()
+raise BaseException(foo)

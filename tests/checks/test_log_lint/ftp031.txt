@@ -1,0 +1,14 @@
+import logging
+logger = logging.getLogger(__name__)
+
+# code without errors
+logging.info()
+logging.log(12)
+logging.info(message)
+logging.info('foo %i', 2)
+logging.info('foo', extra={{'bar' % 2}})
+foo()
+
+# code with errors
+logging.info('Hello %i' % 1)
+logging.error('Hello %i' % 1)

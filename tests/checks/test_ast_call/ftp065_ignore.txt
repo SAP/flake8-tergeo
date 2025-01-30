@@ -1,0 +1,10 @@
+from foo import namedtuple
+from collections import foo
+from typing import NamedTuple
+
+namedtuple()
+
+namedtuple = foo
+
+class Foo(NamedTuple):
+    a: str

@@ -1,0 +1,27 @@
+# code without issues
+## not a for loop
+enumerate([])
+enumerate.that
+## not enumerate
+for idx, _ in that.enumerate([]): pass
+for idx, _ in foo([]): pass
+for x in []: pass
+## not tuple as target
+for that in enumerate([]): pass
+# target not a name
+for that._, value in enumerate([]): pass
+# empty target
+for () in enumerate([]): pass
+# valid names
+for idx, value in enumerate([]): pass
+for idx_, value in enumerate([]): pass
+for i_dx, value in enumerate([]): pass
+for idx, value_ in enumerate([]): pass
+# unrelated underscores
+for idx, _ in enumerate([]): pass
+for idx, _val in enumerate([]): pass
+for _idx, val in enumerate([]): pass
+for _idx, _val in enumerate([]): pass
+
+# code with issues
+for _, val in enumerate([]): pass

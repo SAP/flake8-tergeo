@@ -1,0 +1,11 @@
+# code without issues
+a = 1
+a = 1  # type:ignore
+a = 1  # type: ignore
+a = 1  # type: ignore[foo]
+a = 1  # type    :      ignore
+
+# code with issues
+a = 1  # type: int
+a = 1  # other  # type    : int
+a = 1  # pylint: disable=protected-access,no-member  # type:int

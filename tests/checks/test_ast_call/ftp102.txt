@@ -1,0 +1,12 @@
+{imp}
+
+# code without issues
+{func}()
+{func}("")
+{func}(123)
+{func}(".", some=more)
+{func}(".", "more", "than")
+{func}(123)
+
+# code with issues
+{func}(".")

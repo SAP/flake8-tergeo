@@ -1,0 +1,12 @@
+# code to ignore
+foo()
+float('11')
+float()
+float(1.1)
+float(foo)
+float(nan)
+
+# code to find
+float('nan')
+float('NAN')
+float('nAn')

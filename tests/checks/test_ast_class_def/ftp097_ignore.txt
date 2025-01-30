@@ -1,0 +1,13 @@
+from foo import enum
+from enum2 import Enum
+from other import unique
+
+class Foo: pass
+
+@unique
+class Foo: pass
+
+@unique
+class Foo(Enum): pass
+
+class Foo(enum.Enum): pass

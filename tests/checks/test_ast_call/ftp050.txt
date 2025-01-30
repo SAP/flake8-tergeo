@@ -1,0 +1,6 @@
+# code to ignore
+foo.print()
+
+# code to find
+print()
+print(2,3)

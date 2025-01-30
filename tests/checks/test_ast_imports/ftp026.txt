@@ -1,0 +1,23 @@
+# code without issues
+import foo
+from foo import this
+import that
+import gravity
+import anti
+from foo import antigravity
+import hello
+import __hello_
+import _hello_
+from foo import __hello__
+from _hello_ import foo
+import phello
+import __phello_
+import _phello_
+from foo import __phello__
+from _phello_ import foo
+
+# code with issues
+import this
+import antigravity
+import __hello__
+import __phello__

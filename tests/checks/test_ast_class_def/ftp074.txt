@@ -1,0 +1,16 @@
+{imp}
+
+@{func}
+def foo(): pass
+
+class Foo:
+    @staticmethod
+    @{func}
+    def foo(): pass
+
+    @classmethod
+    @{func}
+    def foo(cls): pass
+
+    @{func}
+    def foo(self): pass

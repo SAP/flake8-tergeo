@@ -1,0 +1,9 @@
+{imp}
+
+# code without issues
+x: {union}[int, float]
+x: {union}[foo()]
+
+# code with issues
+x: {union}[int]
+x: {union}[foo.Bar]

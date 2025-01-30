@@ -1,0 +1,8 @@
+# code with issues
+from __future__ import barry_as_FLUFL
+
+# code without issues
+from __future__ import annotations
+import __future__.unknown_future
+from foo import __future__
+from future import nested_scopes
