@@ -27,7 +27,7 @@ PARSE_OPTIONS_REGISTRY: list[ParseOptionsFunc] = []
 
 
 def register_function_def(
-    func: Callable[[AnyFunctionDef], IssueGenerator]
+    func: Callable[[AnyFunctionDef], IssueGenerator],
 ) -> Callable[[AnyFunctionDef], IssueGenerator]:
     """Register a AST visit method for function definitions.
 
@@ -44,7 +44,7 @@ def register(
     """Decorator to register a AST visit method."""
 
     def register_decorator(
-        func: Callable[PARAM, IssueGenerator]
+        func: Callable[PARAM, IssueGenerator],
     ) -> Callable[PARAM, IssueGenerator]:
         for ast_type in type_:
             AST_REGISTRY[ast_type].append(func)
