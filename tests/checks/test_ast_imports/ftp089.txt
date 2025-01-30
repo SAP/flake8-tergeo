@@ -1,0 +1,7 @@
+# code without issues
+from socket import foo
+from foo import error
+
+# code with issues
+from socket import error
+from select import error

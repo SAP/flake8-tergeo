@@ -1,0 +1,9 @@
+# code to ignore
+foo.isinstance()
+other()
+isinstance()
+isinstance(foo, Type)
+isinstance(foo, (Type1, Type2))
+
+# code to find
+isinstance(foo, (Type,))

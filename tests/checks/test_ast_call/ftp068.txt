@@ -1,0 +1,8 @@
+{imp}
+
+{func}(["a", "b"])
+{func}(stdout={pipe})
+{func}(stdout={pipe}, stderr=None)
+{func}(stdout={pipe}, stderr=foo)
+
+{func}(stdout={pipe}, a=1, stderr={pipe})

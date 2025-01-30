@@ -1,0 +1,18 @@
+# code without issues
+from pdb2 import x, y
+from _pdb import x as y
+from foo import bar
+from foo import pdb
+import pdb2
+import foo
+import foo as pdb
+
+# code with issues
+import pdb
+import ipdb
+import pudb
+import debug
+import pdbpp
+import wdb
+from pdb import foo
+from pdb.x import foo

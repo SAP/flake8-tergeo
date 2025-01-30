@@ -1,0 +1,8 @@
+# code without issue
+Foo
+OSError
+
+# code with issues
+EnvironmentError
+IOError
+WindowsError

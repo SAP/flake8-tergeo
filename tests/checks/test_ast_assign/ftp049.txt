@@ -1,0 +1,11 @@
+# code to ignore
+a = []
+a,b = foo
+(a,b) = foo
+(a) = foo
+a: int
+
+# code with issues
+(a,) = foo
+(a,) = x = foo
+[a] = foo

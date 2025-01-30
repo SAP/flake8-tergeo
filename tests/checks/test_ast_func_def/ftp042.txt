@@ -1,0 +1,9 @@
+# code without issues
+def foo(): pass
+def {func}(): pass
+class Foo:
+    def foo(): pass
+
+# code with issues
+class Foo:
+    def {func}(): pass

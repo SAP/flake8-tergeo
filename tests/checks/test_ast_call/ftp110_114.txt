@@ -1,0 +1,8 @@
+# code without issues
+foo()
+{func}(123)
+{func}(123)
+x = {func}
+
+# code with issues
+{func}()

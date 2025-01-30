@@ -1,0 +1,11 @@
+{imp}
+from typing import NoReturn
+
+# code without issues
+def foo() -> NoReturn: pass
+def bar(a: {never}): pass
+a: {never} = 1
+a = {never}
+
+# code with issues
+def foo() -> {never}: pass

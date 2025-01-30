@@ -1,0 +1,7 @@
+from foo import Path
+from pathlib import X
+
+Path()
+Path(".")
+X(".")
+bar.Path(".")

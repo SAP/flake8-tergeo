@@ -1,0 +1,15 @@
+class Foo:
+
+    @classmethod
+    def foo1(cls): pass
+
+    @property
+    def foo2(self): pass
+
+    @classmethod
+    @other_property
+    def foo3(cls): pass
+
+    @classmethod
+    @property
+    def foo4(cls): pass

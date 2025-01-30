@@ -1,0 +1,12 @@
+# code which is ok
+a['abc']
+a[foo]
+a['1.0']
+a[1]
+a[1:2]
+
+# code with issues
+a[.0]
+a[1.0]
+a[-1.0]
+a[+1.0]

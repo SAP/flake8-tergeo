@@ -1,0 +1,12 @@
+raise Error
+raise foo.Error
+raise
+raise foo.Error from Error
+raise Error from foo.Error
+raise err()
+raise err() from err
+raise err() from err()
+raise Error from err()
+
+raise err from err
+raise foo.err from foo.err

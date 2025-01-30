@@ -1,0 +1,8 @@
+{imp}
+
+# code to ignore
+@{unique}
+class Foo({enum}): pass
+
+# code to find
+class Foo({enum}): pass

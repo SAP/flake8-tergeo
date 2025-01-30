@@ -1,0 +1,14 @@
+# code to ignore
+float(foo)
+float(1)
+float(-1)
+float(+1)
+float('1.1')
+float(1.1 + bar)
+float(True)
+float(None)
+
+# code to find
+float(1.1)
+float(-1.1)
+float(+1.5)

@@ -1,0 +1,7 @@
+from foo import abort
+from flask.bar import abort
+from flask import aborter
+
+x = abort
+abort()
+aborter()

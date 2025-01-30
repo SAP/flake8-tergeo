@@ -1,0 +1,8 @@
+# code which is fine
+a = "abcdefghijklmnopqrstuvwxyz"
+a = 123456789
+a = "123456789"
+
+# code which has issues
+a = "0123456789"
+a = "00012345678911"

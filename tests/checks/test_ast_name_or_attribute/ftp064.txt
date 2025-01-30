@@ -1,0 +1,8 @@
+# code without issues
+debug
+__debug
+_debug_
+foo
+
+# code with issues
+__debug__

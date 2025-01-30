@@ -1,0 +1,5 @@
+open('foo')
+foo.open()
+foo()
+foo.bar()
+foo.io.open()

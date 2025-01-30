@@ -1,0 +1,16 @@
+{imp}
+
+class MyEnum({enum}):
+    A = 1
+
+class MyEnum({enum}, str):
+    A = 1
+
+class MyEnum(str, {enum}):
+    A = 1
+
+class MyEnum(str, {enum}, Foo):
+    A = 1
+
+class MyEnum({enum}, foo(), metaclass=Foo):
+    pass

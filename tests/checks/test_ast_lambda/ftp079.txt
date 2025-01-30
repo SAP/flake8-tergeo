@@ -1,0 +1,10 @@
+lambda a : a + 10
+lambda a: [a, 2]
+lambda a: (a, 2)
+lambda a: {'key1': 1, 'key2': 2}
+lambda *_: []
+lambda a: []
+
+lambda : []
+lambda : ()
+lambda : {}

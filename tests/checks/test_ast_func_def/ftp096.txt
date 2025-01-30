@@ -1,0 +1,24 @@
+# code without issues
+def foo(): pass
+@prop
+def foo(): pass
+@foo.property
+def foo(): pass
+class Foo:
+    @{descriptor}
+    def foo(): pass
+
+class Foo:
+    if True:
+        if more:
+            @{descriptor}
+            def foo(): pass
+
+# code with issues
+@{descriptor}
+def foo(): pass
+
+class Foo:
+    def foo():
+        @{descriptor}
+        def bar(): pass

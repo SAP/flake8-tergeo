@@ -1,0 +1,8 @@
+# code without issues
+metaclass
+__metaclass
+__meta__
+foo
+
+# code with issues
+__metaclass__

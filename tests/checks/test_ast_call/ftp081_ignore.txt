@@ -1,0 +1,10 @@
+import os_
+from os import foo
+from foo import walk
+
+os.walk('a')
+walk('a')
+
+os.path(foo)
+foo.walk(bar)
+foo()()

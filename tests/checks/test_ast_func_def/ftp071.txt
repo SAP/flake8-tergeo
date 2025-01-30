@@ -1,0 +1,83 @@
+# code without issues
+def foo():
+    x, _ = bar()
+    return x
+def foo():
+    bar()
+    return x
+def foo():
+    pass
+def foo():
+    x = "foo"
+    return 1
+def foo():
+    z = "foo"
+    return x
+def get_foo(id) -> Optional[Foo]:
+    maybeFoo: Optional[Foo] = Foo.objects.filter(
+        id=id
+    ).first()
+    return bar
+def foo():
+    if True:
+        x = 1
+    else:
+        x = 2
+    return x
+def foo():
+    global x
+    x = 2
+    return x
+def foo():
+    global y, x
+    y = 42
+    x = 2
+    return x
+def foo(x):
+    try:
+        if True:
+            x = 123
+            return x
+    finally:
+        print(x)
+
+# code with issues
+def foo():
+    x = 'bar'
+    return x
+def foo():
+    global xx
+    x = 'bar'
+    return x
+def foo():
+    if True:
+        x = 1
+        return x
+    else:
+        return 2
+def foo(id):
+    maybeFoo: Optional[Foo] = Foo.objects.filter(
+        id=id
+    ).first()
+    return maybeFoo
+def foo():
+    try:
+        if True:
+            x = 123
+            return x
+    except:
+        x = 123
+def foo():
+    try:
+        if True:
+            x = 123
+            return x
+    finally:
+        print(y)
+def foo(x):
+    try:
+        if True:
+            x = 123
+            return x
+    finally:
+        foo.x = 123

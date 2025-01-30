@@ -1,0 +1,33 @@
+{deprecated_imp}
+{warnings_imp}
+
+# code without issues
+def foo():
+    pass
+
+def foo():
+    some()
+
+@{deprecated}
+def foo():
+    print("that")
+    if some:
+        {warn}("", DeprecationWarning)
+
+@{deprecated}
+def foo():
+    print("that")
+    {warn}("")
+    {warn}("", UserWarning)
+    {warn}("", some.DeprecationWarning)
+
+# code with issues (FTP117)
+@{deprecated}
+def foo():
+    print("that")
+    {warn}("", DeprecationWarning)
+
+# code with issues (FTP118)
+def foo():
+    print("that")
+    {warn}("", DeprecationWarning)

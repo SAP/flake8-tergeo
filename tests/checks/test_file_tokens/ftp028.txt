@@ -1,0 +1,5 @@
+#: test
+foo = 2 #: test
+
+foo = 2 #:
+#:

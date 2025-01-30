@@ -1,0 +1,7 @@
+{imp}
+
+# code without issues
+{func}([], stream=stream)
+
+# code with issues
+{func}([])

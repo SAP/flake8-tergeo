@@ -1,0 +1,4 @@
+{imp}
+
+{func}('a', onerror=None)
+{func}('a')

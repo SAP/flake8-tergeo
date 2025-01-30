@@ -1,0 +1,19 @@
+{future}
+
+from typing import TYPE_CHECKING
+{imp}
+
+X: {name}[Foo, X, X]
+X: {name}[Foo, None, X]
+X: {name}[Foo]
+X: {name}[Foo,]
+
+if TYPE_CHECKING:
+    a: {name}[Foo, None, None]
+    A = {name}[Foo, None, None]
+
+a: {name}[Foo, None, None]
+a: {name}[Foo, None]
+def foo() -> {name}[Foo, None, None]: pass
+a: OtherGenerator[Foo, None, None]
+A = {name}[Foo, None, None]

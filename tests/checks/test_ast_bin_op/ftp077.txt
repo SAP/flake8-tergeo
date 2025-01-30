@@ -1,0 +1,21 @@
+# code to ignore
+## assign
+a = 123
+a: Foo = 123
+a: a | b
+a = None
+a: X | none = None
+a: int | None = 123
+## func def
+def foo(): pass
+def foo(a: int, b: None, c: int|None): pass
+def foo(*, a: int|None = None) -> int|None: pass
+
+# code to find
+# assign
+a: int | None | float
+a: None | int
+b: Callable[[None|int], None|str]
+# func def
+def foo(a: int, b: None|int|float|str, *, c: None|str = "foo"): pass
+def foo() -> None|int: pass

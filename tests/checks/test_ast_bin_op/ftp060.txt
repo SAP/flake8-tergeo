@@ -1,0 +1,8 @@
+# code to ignore
+x = 2 % 3
+x % 2
+
+# code to find
+'a%s' % 'foo'
+'a%d' % 1
+f'foo%s' % 'bar'

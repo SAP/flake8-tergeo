@@ -1,0 +1,10 @@
+import multiprocessing_
+from multiprocessing import foo
+from foo import set_start_method
+
+multiprocessing.foo()
+foo.set_start_method()
+foo()()
+
+multiprocessing.set_start_method()
+set_start_method()

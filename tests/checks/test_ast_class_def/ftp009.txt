@@ -1,0 +1,8 @@
+# code with issues
+class Foo: pass
+class Foo(BseException): pass
+class Foo(bar.BaseException): pass
+
+# code without issues
+class Foo(BaseException): pass
+class Foo(Bar, Baz, BaseException): pass

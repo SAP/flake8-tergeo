@@ -1,0 +1,12 @@
+# code to ignore
+bytes(foo)
+bytes(1)
+bytes(1.1)
+bytes(b'foo' + bar)
+bytes(True)
+bytes(None)
+
+# code to find
+bytes(b'')
+bytes(b'foo')
+bytes(b'1')

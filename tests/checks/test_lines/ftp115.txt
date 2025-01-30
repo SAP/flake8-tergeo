@@ -1,0 +1,8 @@
+# code without issues
+foo = bar
+"a very long and complicated ઠЏϪḈ string"
+"okay \u034f to use"
+
+# code with issues
+"invalid­string"
+weird͏ = 123

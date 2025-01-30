@@ -1,0 +1,73 @@
+# code without issues
+print("hello world")
+print((1, 2, 3))
+print(())
+print((
+))
+sum((block.code for block in blocks), [])
+def f():
+    x = int((yield 1))
+def f(a):
+    return a,
+def f():
+    return a,b
+def f():
+    return ()
+def f():
+    return (
+            a,
+            )
+def f():
+    return (
+    a
+    )
+def f():
+    return (a,
+        b
+        )
+def f():
+    return (
+            a
+            + b
+            + c
+            )
+def f():
+    return (foo.x,
+        bar.x)
+def f():
+    return (
+    "foo bar"
+    )
+def f():
+    return (a-b)*c
+def f():
+    return (a/b).foo()
+def f():
+    return (model.as_unreal_atom() for model in models)
+def f():
+    return (1,) ** 2
+
+# code with issues
+print(("hello world"))
+print(("foo{}".format(1)))
+print((1))
+print(
+    ('foo{}'.format(1))
+)
+print(
+    (
+        'foo'
+    )
+)
+def f():
+    x = int(((yield 1)))
+def f():
+    return (a,b)
+def f():
+    return (1,a)
+def f():
+    return (1,a,)
+def f():
+    return (-1,a)
+def f():
+    return ((a,))

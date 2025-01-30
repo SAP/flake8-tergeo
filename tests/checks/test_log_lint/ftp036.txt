@@ -1,0 +1,8 @@
+import logging
+logger = logging.getLogger(__name__)
+
+# code without errors
+logging.info('foo', exc_info=True)
+
+# code with errors
+logging.error('foo', exc_info=True)

@@ -1,0 +1,6 @@
+from foo import TypedDict
+
+class Foo(TypedDict): pass
+
+TypedDict()
+foo.TypedDict()

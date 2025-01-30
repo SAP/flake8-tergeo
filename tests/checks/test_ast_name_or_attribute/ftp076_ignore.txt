@@ -1,0 +1,6 @@
+from foo import DEBUG
+import re
+
+re.FOO
+DEBUG
+dada.DEBUG

@@ -1,0 +1,4 @@
+import subprocess
+from foo import PIPE
+
+subprocess.run(stdout=PIPE, a=1, stderr=PIPE)

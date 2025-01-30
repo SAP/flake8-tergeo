@@ -1,0 +1,8 @@
+# code without issues
+__a__ = 1
+__a_b__ = 1
+_a_ = 1
+
+# code with issues
+foo__bar = 1
+_foo__bar_ = 1

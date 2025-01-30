@@ -1,0 +1,7 @@
+# code which is fine
+a = "bcdefghijklmnopqrstuvwxyz"
+a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+# code which has issues
+a = "abcdefghijklmnopqrstuvwxyz"
+a = "fooabcdefghijklmnopqrstuvwxyzbar"

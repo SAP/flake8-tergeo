@@ -1,0 +1,6 @@
+import foo, functools
+from foo import functools
+
+foo()
+functools.foo()
+foo.lru_cache()

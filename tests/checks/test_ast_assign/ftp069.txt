@@ -1,0 +1,8 @@
+# code without issues
+a = 123
+foo.{name} = 123
+func(math.{name})
+
+# code with issues
+{name} = 123
+foo = {name} = 123

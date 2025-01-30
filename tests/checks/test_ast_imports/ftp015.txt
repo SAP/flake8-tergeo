@@ -1,0 +1,9 @@
+# code without issues
+import foo
+import pkgresources
+import pkg_resources2
+from pkg_resources_ import foo
+
+# code with issues
+import pkg_resources
+from pkg_resources import foo

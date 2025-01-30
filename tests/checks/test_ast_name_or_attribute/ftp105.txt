@@ -1,0 +1,12 @@
+{imp}
+
+# code without issue
+X = {union}[int, float]
+X = {union}[int]
+X = {union}[List[{union}[int, float]], str]
+X = {union}[{union}]
+
+
+# code with issue
+X = {union}[{union}[int, float], {union}[X], str]
+X = {union}[{union}[X, Y]]

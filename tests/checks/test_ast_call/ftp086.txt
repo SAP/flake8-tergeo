@@ -1,0 +1,11 @@
+# code to ignore
+bool(foo)
+bool(1)
+bool(1.1)
+bool('foo' + bar)
+bool('True')
+bool(None)
+
+# code to find
+bool(True)
+bool(False)

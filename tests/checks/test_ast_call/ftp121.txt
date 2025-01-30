@@ -1,0 +1,9 @@
+{imp}
+
+# code without issues
+x = {func}
+foo.{func}()
+{func} = 123
+
+# code with issues
+{func}()

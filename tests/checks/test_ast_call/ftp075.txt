@@ -1,0 +1,8 @@
+{imp}
+
+# code without issues
+{func}(other=False)
+
+# code with issues
+{func}(universal_newlines=True)
+{func}(universal_newlines=False)

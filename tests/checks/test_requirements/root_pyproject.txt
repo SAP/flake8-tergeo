@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{name}"
+version = "0.1"
+dependencies = ["{p1}"]
+
+[tool.setuptools.packages.find]
+where  = ["."]
+
+[project.optional-dependencies]
+dev = ["{p2}"]
+doc = ["{p3}"]

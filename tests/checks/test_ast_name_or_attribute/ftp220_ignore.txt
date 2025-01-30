@@ -1,0 +1,7 @@
+import requests
+from x import codes
+
+x = requests.foo
+x = codes.ok
+
+foo(codes="dada")

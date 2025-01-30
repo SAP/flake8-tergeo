@@ -1,0 +1,9 @@
+{imp}
+
+# code without issues
+x : Foo | None
+x: {class_}
+
+# code with issues
+x: {class_} | None
+x : A | {class_} | B

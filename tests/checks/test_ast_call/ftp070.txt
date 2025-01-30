@@ -1,0 +1,6 @@
+# code to ignore
+super(A, B)
+super()
+
+# code to find
+super(A, self)

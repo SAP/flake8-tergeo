@@ -1,0 +1,11 @@
+import logging
+logger = logging.getLogger(__name__)
+
+# code without errors
+logging.info(message)
+logging.info('foo', extra={{f'bar'}})
+foo()
+
+# code with errors
+logging.info(f'Hello {bar}')
+logging.error(f'Hello')

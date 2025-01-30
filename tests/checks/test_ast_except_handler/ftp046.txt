@@ -1,0 +1,50 @@
+try:
+    pass
+except:
+    raise err
+
+try:
+    pass
+except Exception:
+    raise
+
+try:
+    pass
+except Exception:
+    raise err
+
+try:
+    pass
+except Exception as err:
+    foo()
+
+try:
+    pass
+except Exception as err:
+    raise
+
+try:
+    pass
+except Exception as err:
+    foo(); raise err
+
+try:
+    pass
+except Exception as err:
+    raise err from foo
+
+try:
+    pass
+except Exception as err:
+    raise foo()
+
+try:
+    pass
+except Exception as err:
+    raise err2
+
+
+try:
+    pass
+except Exception as err:
+    raise err
