@@ -4,7 +4,7 @@
 
 ## About this project
 
-flake8-tergeo is a flake8 plugin which adds many new rules to improve your code quality. Out of the box it also brings a curated lists of other plugins without additional efforts needed.
+flake8-tergeo is a flake8 plugin which adds many new rules to improve your code quality. Out of the box it also brings a curated list of other plugins without additional efforts needed.
 
 ## Requirements and Setup
 
