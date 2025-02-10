@@ -9,9 +9,9 @@ Out of the box it also brings a curated lists of other plugins without additiona
 In difference to other projects, the list of included plugins is rather small and actively maintained.
 
 The included plugins and checks are opinionated, meaning that e.g. f-strings are preferred.
-Therefore, a checks to find other formatting methods are included but none, to find f-strings.
+Therefore, checks to find other formatting methods are included but none, to find f-strings.
 
-Also, code formatters like ``black`` and ``isort`` are recommended; therefore not code
+Also, code formatters like ``black`` and ``isort`` are recommended; therefore no code
 formatting rules are included.
 
 ## Documentation

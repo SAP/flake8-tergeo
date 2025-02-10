@@ -22,18 +22,18 @@ Developer comments are comments such as *TODO xxx* or *FIXME later*.
 
 With these options it is possible to enforce certain style rules for these comments, such as:
 * disallow certain identifier like *FIXME*
-* enforce jira ticket links
+* enforce identifier to a tracking system like jira (e.g. `SOME-123 TODO this needs to be done`)
 * enforce a description
 
 Please note, that the check is case-insensitive, meaning that all dev comment identifier, comments and
 project ids are converted to uppercase for comparison.
 
-* `ftp-dev-comments-jira-project-ids`: defines the jira projects which must be present in a dev comment.
+* `ftp-dev-comments-tracking-project-ids`: defines the tracking projects which must be present in a dev comment.
   If the configuration is not set, the check will not be executed. By default an empty list
 * `ftp-dev-comments-allowed-synonyms`: List of valid dev comment identifiers. The default value is *TODO*
 * `ftp-dev-comments-disallowed-synonyms`: List of invalid dev comment identifier. Defaults to *FIXME*
 * `ftp-dev-comments-enforce-description`: Checks if after the dev comment identifier (and optionally after
-  the jira project id) additional text is present. By default false
+  the tracking project id) additional text is present. By default false
 
 
 ## Requirements check
@@ -44,8 +44,8 @@ setuptools or poetry but pure requirement.txt files are not supported.
 This check is not active if the configuration `ftp-distribution-name` is not set.
 
 The check will go through all import statements and check if it's listed as a requirement.
-Most projects will use packages which are not part of the requirements. e.g. `infra-basement` uses
-the packages `infra_basement` and in it's test code `tests`.
+Most projects will use packages which are not part of the requirements. e.g. `my-project` uses
+the packages `my_project` and in it's test code `tests`.
 These need to be specified inside the configuration `ftp-distribution-name`.
 
 Also not always does the package match the distribution name, e.g. `git` is distributed as
@@ -66,11 +66,11 @@ With the above the matching algorithm is as followed:
 #. Check if the distribution name is part of the project requirements, a stdlib module or listed
    in `ftp-requirements-packages`
 
-Please note, that this checks bases on the current working directory map the current analysed file
+Please note, that these checks base on the current working directory to map the current analysed file
 to a module name.
-Therefore, always execute `flake` in the projects root folder, else the behavior and findings
-of this check are not defined.
-Also, if a files are given directly to the flake8 command, the path should be relative to the
+Therefore, always execute `flake8` in the projects root folder, else the behavior and findings
+of this check is not defined.
+Also, if files are given directly to the flake8 command, the path should be relative to the
 projects root folder.
 
 * `ftp-distribution-name`: name of the project
@@ -82,7 +82,7 @@ projects root folder.
 * `ftp-requirements-module-extra-mapping`: comma separate list of mappings in the format
   `<module> | extra [extra]`. Each mapping defines, that the given modules and all submodules
   are allowed to use the requirements specified in the extras.
-  The module name can also limit itself to a function or class inside the module ,
+  The module name can also limit itself to a function or class inside the module,
   e.g. for a class `A` with a method `foo` in the module `mod` the mapping would be `mod::A::foo`.
-  If multiples module names matching to the file under check, the extra lists are combined.
+  If multiples module names match to the file under check, the extra lists are combined.
   If the option is not set, all modules can import all requirements from all extras

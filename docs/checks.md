@@ -20,15 +20,15 @@ Checks if the debug builtin `breakpoint` is used
 ## FTP003
 Checks for usage of `datetime.datetime.utcnow`. The value is current UTC time but
 without any timezone assigned. Preferred is `datetime.datetime.now` with a timezone
-parameter or `infra_basement.common.utcnow`.
+parameter.
 The check is only active if `datetime.datetime.utcnow` is somehow imported.
 
 ## FTP004
-Checks if a module/file name follows the PEP-8_ convention
+Checks if a module/file name follows the PEP-8 convention
 
 ## FTP005
 Find duplicate class fields (multiple assigns to the same name in the class body).
-No functions or blocks are checked. |
+No functions or blocks are checked.
 
 ## FTP006
 Find any usage of unicode directionality formatting characters. These characters are used to
@@ -41,8 +41,7 @@ detect these issues. The easiest way is to ban these characters. For details see
 ## FTP007
 Checks for usage of `datetime.datetime.utcfromtimestamp`.
 The value is current UTC time but without any timezone assigned.
-Preferred is `datetime.datetime.fromtimestamp` with a timezone parameter or
-`infra_basement.common.utcfromtimestamp`.
+Preferred is `datetime.datetime.fromtimestamp` with a timezone parameter.
 The check is only active if `datetime.datetime.utcfromtimestamp` is somehow imported.
 
 ## FTP008
@@ -59,11 +58,11 @@ Checks if a disallowed developer comment identifier is used.
 Please refer to the developer comment configuration.
 
 ## FTP011
-Checks if the jira project reference in a developer comment is missing.
+Checks if the tracking id reference in a developer comment is missing.
 Please refer to the developer comment configuration.
 
 ## FTP012
-Checks if a invalid jira project reference in a developer comment is used.
+Checks if an invalid tracking id reference in a developer comment is used.
 Please refer to the developer comment configuration.
 
 ## FTP013
@@ -212,7 +211,7 @@ Checks if a `pprint.pp` statement is used
 Checks if a `pprint.PrettyPrinter` statement is used
 
 ## FTP054
-Checks if a union type annotations can utilize the new syntax of PEP 604. For example,
+Checks if a union type annotation can utilize the new syntax of PEP 604. For example,
 `a: Union[Foo, Bar]` can be rewritten to `a: Foo|bar`.
 This check is only active when at least one of the following conditions is true:
 
@@ -227,7 +226,7 @@ at least one of the following conditions is true:
 * the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP055
-Checks if a optional type annotations can utilize the new syntax of PEP 604. For example,
+Checks if an optional type annotations can utilize the new syntax of PEP 604. For example,
 `a: Optional[Foo]` can be rewritten to `a: Foo|None`.
 For more details see `BMT054`
 
@@ -245,7 +244,6 @@ This check is only active when at least one of the following conditions is true:
 Also, the check will only consider type annotations (to prevent invalid syntax) if
 at least one of the following conditions is true:
 
-* python 3.8 is used
 * the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP057
@@ -288,12 +286,12 @@ Check if `collections.namedtuple` is used. `typing.NamedTuple` should be used
 instead, since it integrates nicer with IDE's and type checkers
 
 ## FTP066
-Check if a `enum.Enum` subclass is used which also extends `int`, so e.g.
+Check if an `enum.Enum` subclass is used which also extends `int`, so e.g.
 `class MyEnum(Enum, int)`.
 For that the alias `enum.IntEnum` can be used
 
 ## FTP067
-Check if a `enum.Enum` subclass is used which also extends `str`, so e.g.
+Check if an `enum.Enum` subclass is used which also extends `str`, so e.g.
 `class MyEnum(Enum, str)`.
 For that the alias `enum.StrEnum` can be used.
 The check is only active for python3.11+
@@ -310,7 +308,7 @@ Checks for super calls with arguments
 
 ## FTP071
 Check for assign and return statements.
-Normally the check also find statements like `a: int = 2; return a`.
+Normally the check also finds statements like `a: int = 2; return a`.
 To configure the step to ignore assignments with annotations, use `ignore-annotation-in-assign-return`.
 By default the check is disabled if the variable name happens to be part of a global/nonlocal statement.
 The check is also suppressed, if the assign-return is part of a `try` block and in the
@@ -321,13 +319,11 @@ Checks for unicode string prefixes like `u"abc"`
 
 ## FTP073
 Checks for the usage of `functools.lru_cache` which can be replaced with
-`functools.cache` on python 3.9+ or `infra_basement.common.cache`
-on python 3.8.
+`functools.cache`.
 The check is only active if `functools.lru_cache` is somehow imported.
 
 ## FTP074
-Checks if a `infra_basement.common.cache`, `infra_basement.common.olru_cache`,
-`functools.cache` or `functools.lru_cache` is used on a class method.
+Checks if a `functools.cache` or `functools.lru_cache` is used on a class method.
 Since the `self` argument is cached as well, garbage collection is blocked, leading to memory leaks.
 If the method is decorated with `staticmethod` or `classmethod`, the issue doesn't happen.
 Note, that the check only considers methods which are defined as a direct child of a class.
@@ -343,7 +339,7 @@ Checks for import of `from re import DEBUG` or usage of `re.DEBUG`
 Checks for type comments which should be replaced by annotations. `type:ignore` is ignored
 
 ## FTP077
-Check if in a type annotation containing an union, `None` always comes last. For instance
+Check if in a type annotation containing a union, `None` always comes last. For instance
 `a: int|float|None` is okay, but `a: int|None|float` is not.
 This check does not work for unions using `typing.Union` and does also not consider
 `typing.Optional`
@@ -390,7 +386,7 @@ In this case, calls like `raise socket.error()` are not checked.
 Checks for unsorted `__all__` attributes on any level.
 The check is only done if the type is a list, tuple or set during parsing
 (e.g. `list` is a function and not a list during parsing).
-Only items which are strings are used in the sort check. all others are ignored.
+Only items which are strings are used in the sort check, all others are ignored.
 
 ## FTP091
 Checks if backslashes are used to split long lines.
@@ -456,7 +452,7 @@ Find nested `typing.Union` types like `Union[Union[int, str], float]`.
 These can be simplified to `Union[int, str, float]`
 
 ## FTP106
-Find `typing.Union` with only element, e.g. `Union[int]`. This can be simplified to
+Find `typing.Union` with a single element, e.g. `Union[int]`. This can be simplified to
 `int`
 
 ## FTP107

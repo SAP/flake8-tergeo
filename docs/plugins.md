@@ -1,6 +1,6 @@
 # Plugins
 
-flake8-tergeo is a flake8 plugin that not only includes other essential plugins but also manages their execution and configuration.
+flake8-tergeo is a flake8 plugin that also includes other essential plugins and manages their execution and configuration.
 This integration provides several benefits:
 
 1. **Simplified Management**: Managing multiple flake8 plugins individually can be cumbersome,

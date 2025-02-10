@@ -23,7 +23,7 @@ _WHITESPACE = re.compile(r" +")
 class _ParseOptions(Protocol):
     dev_comments_disallowed_synonyms: list[str]
     dev_comments_enforce_description: bool
-    dev_comments_jira_regex: re.Pattern[str] | None
+    dev_comments_tracking_regex: re.Pattern[str] | None
     dev_comments_allowed_synonyms: list[str]
 
 
@@ -40,7 +40,7 @@ def check(file_tokens: Sequence[tokenize.TokenInfo]) -> IssueGenerator:
 def _check_comment(token: tokenize.TokenInfo) -> Issue | None:
     parts = _parse_comment(token.string)
     options: _ParseOptions = base.get_plugin().get_options()
-    jira_regex = options.dev_comments_jira_regex
+    tracking_regex = options.dev_comments_tracking_regex
 
     if parts[0] in options.dev_comments_disallowed_synonyms:
         return Issue(
@@ -52,23 +52,23 @@ def _check_comment(token: tokenize.TokenInfo) -> Issue | None:
 
     if parts[0] in options.dev_comments_allowed_synonyms:
         parts = parts[1:]
-        if not parts and jira_regex:
+        if not parts and tracking_regex:
             return Issue(
                 line=token.start[0],
                 column=token.start[1],
                 issue_number="011",
-                message="Missing jira ticket in dev comment.",
+                message="Missing tracking id in dev comment.",
             )
 
-        if jira_regex and not jira_regex.fullmatch(parts[0]):
+        if tracking_regex and not tracking_regex.fullmatch(parts[0]):
             return Issue(
                 line=token.start[0],
                 column=token.start[1],
                 issue_number="012",
-                message=f"Invalid jira ticket id '{parts[0]}' in dev comment.",
+                message=f"Invalid tracking id '{parts[0]}' in dev comment.",
             )
 
-        if jira_regex:
+        if tracking_regex:
             parts = parts[1:]  # if a project id exists, strip it
 
         if not parts and options.dev_comments_enforce_description:
@@ -91,7 +91,7 @@ def _parse_comment(text: str) -> list[str]:
 def add_options(option_manager: OptionManager) -> None:
     """Add options for this checker."""
     option_manager.add_option(
-        "--dev-comments-jira-project-ids",
+        "--dev-comments-tracking-project-ids",
         parse_from_config=True,
         comma_separated_list=True,
         default=[],
@@ -118,8 +118,8 @@ def add_options(option_manager: OptionManager) -> None:
 @register_parse_options
 def parse_options(options: Namespace) -> None:
     """Parse options for this checker."""
-    options.dev_comments_jira_regex = _build_jira_ticket_regex(
-        options.dev_comments_jira_project_ids
+    options.dev_comments_tracking_regex = _build_tracking_id_regex(
+        options.dev_comments_tracking_project_ids
     )
     options.dev_comments_allowed_synonyms = [
         option.upper() for option in options.dev_comments_allowed_synonyms
@@ -129,7 +129,7 @@ def parse_options(options: Namespace) -> None:
     ]
 
 
-def _build_jira_ticket_regex(project_ids: list[str]) -> re.Pattern[str] | None:
+def _build_tracking_id_regex(project_ids: list[str]) -> re.Pattern[str] | None:
     if not project_ids:
         return None
 

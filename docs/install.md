@@ -16,7 +16,8 @@ To start using flake8-tergeo, follow these steps:
         enable-extensions = FT
         ```
 
-    - Set the `select` option to include `C`, `E`, `F`, `W`, and `FT` to ensure that only the necessary checks are executed:
+    - Set the `select` option to include `C` (`mccabe`), `E` (`pycodestyle`), `F` (`pyflakes`),
+    `W` (`pycodestyle`), and `FT` (`flake8-tergeo`) to ensure that only the necessary checks are executed:
         ```ini
         [flake8]
         select = C,E,F,W,FT
