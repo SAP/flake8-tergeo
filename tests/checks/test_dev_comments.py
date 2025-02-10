@@ -17,12 +17,12 @@ _FTP010 = partial(
 FTP011 = partial(
     Issue,
     issue_number="FTP011",
-    message="Missing jira ticket in dev comment.",
+    message="Missing tracking id in dev comment.",
 )
 _FTP012 = partial(
     Issue,
     issue_number="FTP012",
-    message="Invalid jira ticket id '{ticket_id}' in dev comment.",
+    message="Invalid tracking id '{ticket_id}' in dev comment.",
 )
 FTP013 = partial(
     Issue,
@@ -69,7 +69,7 @@ class TestFTP011:
         results = runner(
             filename="ftp011.txt",
             issue_number="FTP011",
-            args=("--ftp-dev-comments-jira-project-ids", "PRO"),
+            args=("--ftp-dev-comments-tracking-project-ids", "PRO"),
         )
         assert results == [FTP011(line=5, column=1)]
 
@@ -82,7 +82,7 @@ class TestFTP012:
         results = runner(
             filename="ftp012.txt",
             issue_number="FTP012",
-            args=("--ftp-dev-comments-jira-project-ids", "PRO"),
+            args=("--ftp-dev-comments-tracking-project-ids", "PRO"),
         )
         assert results == [
             FTP012(line=8, column=1, ticket_id="XXX"),
@@ -110,7 +110,7 @@ def test_add_options(mocker: MockerFixture) -> None:
 
     assert option_manager.add_option.call_args_list == [
         mocker.call(
-            "--dev-comments-jira-project-ids",
+            "--dev-comments-tracking-project-ids",
             parse_from_config=True,
             comma_separated_list=True,
             default=[],
@@ -137,14 +137,14 @@ def test_add_options(mocker: MockerFixture) -> None:
 
 def test_parse_options(mocker: MockerFixture) -> None:
     options = mocker.Mock()
-    options.dev_comments_jira_project_ids = ["p1"]
+    options.dev_comments_tracking_project_ids = ["p1"]
     options.dev_comments_allowed_synonyms = ["a1", "A2"]
     options.dev_comments_disallowed_synonyms = ["D1", "d2"]
     options.dev_comments_enforce_description = True
 
     dev_comments.parse_options(options)
-    assert options.dev_comments_jira_project_ids == ["p1"]
+    assert options.dev_comments_tracking_project_ids == ["p1"]
     assert options.dev_comments_allowed_synonyms == ["A1", "A2"]
     assert options.dev_comments_disallowed_synonyms == ["D1", "D2"]
     assert options.dev_comments_enforce_description
-    assert options.dev_comments_jira_regex.pattern == r"(P1-[0-9]+)"
+    assert options.dev_comments_tracking_regex.pattern == r"(P1-[0-9]+)"

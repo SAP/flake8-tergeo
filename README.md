@@ -4,11 +4,22 @@
 
 ## About this project
 
-flake8-tergeo is a flake8 plugin which adds many new rules to improve your code quality. Out of the box it also brings a curated list of other plugins without additional efforts needed.
+flake8-tergeo is a flake8 plugin which adds many new rules to improve your code quality.
+Out of the box it also brings a curated lists of other plugins without additional efforts needed.
+In difference to other projects, the list of included plugins is rather small and actively maintained.
 
-## Requirements and Setup
+The included plugins and checks are opinionated, meaning that e.g. f-strings are preferred.
+Therefore, checks to find other formatting methods are included but none, to find f-strings.
 
-*Insert a short description what is required to get your project running...*
+Also, code formatters like ``black`` and ``isort`` are recommended; therefore no code
+formatting rules are included.
+
+## Documentation
+
+* [Installation](docs/install.md)
+* [Plugins](docs/plugins.md)
+* [Configuration](docs/configuration.md)
+* [Checks](docs/checks.md)
 
 ## Support, Feedback, Contributing
 
