@@ -228,7 +228,7 @@ at least one of the following conditions is true:
 ## FTP055
 Checks if an optional type annotations can utilize the new syntax of PEP 604. For example,
 `a: Optional[Foo]` can be rewritten to `a: Foo|None`.
-For more details see `BMT054`
+For more details see `FTP054`
 
 ## FTP056
 Checks if a builtin alias in the `typing` module can be rewritten as the builtin itself
