@@ -72,7 +72,7 @@ test = [
     "pytest-xdist==3.6.1",
     "pytest-randomly==3.16.0",
     "pytest-datadir==1.6.1",
-    "coverage==7.6.11",
+    "coverage==7.6.12",
     "diff-cover==9.2.2",
     "flake8-json==24.4.0",
     "anys==0.3.1",
