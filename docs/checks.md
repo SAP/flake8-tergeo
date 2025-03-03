@@ -530,6 +530,13 @@ at least one of the following conditions is true:
 ## FTP124
 Find assignments to `__all__` on non-module level, e.g. in classes or functions
 
+## FTP125
+Checks if the `typing.override` decorator is the first decorator applied to a function.
+If descriptor based decorators like `@property` are present, too, `typing.override` should be the
+seconds decorator applied.
+
+See [here](https://peps.python.org/pep-0698/#limitations-of-setting-override) for details why the order matters
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

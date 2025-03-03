@@ -1,0 +1,37 @@
+{imp}
+
+# code without issues
+def foo(): pass
+
+@some
+def foo(): pass
+
+@{override}
+def foo(): pass
+
+@property
+@{override}
+def foo(): pass
+
+@other
+@property
+@{override}
+def foo(): pass
+
+@{override}
+@other()
+def foo(): pass
+
+# code with issues
+@other()
+@{override}
+def foo(): pass
+
+@{override}
+@property
+@other()
+def foo(): pass
+
+@{override}
+@classmethod
+def foo(): pass
