@@ -53,6 +53,12 @@ FTP107 = partial(
     issue_number="FTP107",
     message="Instead of using typing.Never for return annotations, use typing.NoReturn.",
 )
+FTP125 = partial(
+    Issue,
+    issue_number="FTP125",
+    message="The override decorator should be the first decorator or "
+    "if present placed directly below descriptor based decorators.",
+)
 
 
 def FTP042(  # pylint:disable=invalid-name
@@ -204,3 +210,35 @@ class TestFTP107:
             filename="ftp107.txt", issue_number="FTP107", imp=imp, never=never
         )
         assert results == [FTP107(line=11, column=14)]
+
+
+class TestFTP125:
+    @pytest.mark.parametrize(
+        "imp,override",
+        [
+            ("import foo", "foo.override"),
+            ("from foo import override", "override"),
+            ("from foo import override", "typing.override"),
+        ],
+    )
+    def test_ignore(self, runner: Flake8Runner, imp: str, override: str) -> None:
+        assert not runner(
+            filename="ftp125.txt", issue_number="FTP125", imp=imp, override=override
+        )
+
+    @pytest.mark.parametrize(
+        "imp,override",
+        [
+            ("from typing import override", "override"),
+            ("import typing", "typing.override"),
+        ],
+    )
+    def test(self, runner: Flake8Runner, imp: str, override: str) -> None:
+        results = runner(
+            filename="ftp125.txt", issue_number="FTP125", imp=imp, override=override
+        )
+        assert results == [
+            FTP125(line=27, column=2),
+            FTP125(line=30, column=2),
+            FTP125(line=35, column=2),
+        ]

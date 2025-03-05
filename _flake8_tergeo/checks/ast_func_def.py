@@ -37,6 +37,7 @@ def check_func_def(node: AnyFunctionDef) -> IssueGenerator:
     yield from _check_py2_methods(node)
     yield from _check_class_property(node)
     yield from _check_valid_return_annotation(node)
+    yield from _check_override_first_decorator(node)
 
 
 def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
@@ -255,4 +256,36 @@ def _check_valid_return_annotation(node: AnyFunctionDef) -> IssueGenerator:
             column=child.col_offset,
             issue_number="107",
             message="Instead of using typing.Never for return annotations, use typing.NoReturn.",
+        )
+
+
+def _check_override_first_decorator(node: AnyFunctionDef) -> IssueGenerator:
+    decorator_list = node.decorator_list
+    if not decorator_list or len(decorator_list) == 1:
+        return
+
+    for index, decorator in enumerate(decorator_list):
+        if not is_expected_node(decorator, "typing", "override"):
+            continue
+
+        try:
+            descriptor_index: int | None = next(
+                idx
+                for idx, val in enumerate(decorator_list)
+                if isinstance(val, ast.Name) and val.id in DESCRIPTORS
+            )
+        except StopIteration:
+            descriptor_index = None
+
+        if descriptor_index is None and index == 0:
+            return
+        if descriptor_index is not None and index == descriptor_index + 1:
+            return
+
+        yield Issue(
+            line=decorator.lineno,
+            column=decorator.col_offset,
+            issue_number="125",
+            message="The override decorator should be the first decorator or "
+            "if present placed directly below descriptor based decorators.",
         )
