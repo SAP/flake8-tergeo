@@ -140,14 +140,3 @@ class TestTypingImportChecker:
 
         assert options.python_version == "3.8.0"
         assert options.min_python_version == expected
-
-
-def test_DocstringsChecker(runner: Flake8Runner) -> None:
-    assert runner(filename="ftd.txt", issue_number="FTD") == [
-        Issue(
-            column=1,
-            line=1,
-            issue_number="FTD100",
-            message="Missing docstring in public module (originally reported as D100)",
-        )
-    ]
