@@ -30,7 +30,6 @@ management process, ensuring that their code adheres to best practices with mini
 | FTB | flake8-bugbear | B | Checks for common issues | 001, 016, 905 (if python <3.10), 950 |
 | FTU | flake8-builtins | A | Checks for overwritten built-in methods | |
 | FTC | flake8-comprehensions | C | Checks set/list/dict comprehensions | |
-| FTD | flake8-docstrings | D | Checks for compliance of docstrings | 107, 301 |
 | FTT | flake8-pytest-style | PT | Checks common style issues or inconsistencies with pytest-based tests | 004, 005, 013, 019 |
 | FTM | flake8-simplify | SIM | Checks for simplifications in your code | 116, 901 |
 | FTY | flake8-typing-imports | TYP | Checks for incompatible use of the typing module for a defined python version | |

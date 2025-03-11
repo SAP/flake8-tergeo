@@ -12,20 +12,16 @@ ignore=
     # conflict with black formatter
     W503,E203,E704,
     # covered by pylint
-    FTD1,FTB902,FTB904
+    FTB902,FTB904
     # leads to confusing code/conflicts
     FTB907,FTB908
 max-complexity = 10
 per-file-ignores =
-    tests/*:FTD,FTU019
-    tests/_flake8/checks/test_wrappers.py:FTD
+    tests/*:FTU019
     _flake8_tergeo/*:FTB028
 
 # flake8-pytest-styles config
 ftp-pytest-parametrize-names-type = csv
-
-# flake8-docstrings config
-ftp-docstring-convention=google
 
 # requirements check
 ftp-distribution-name = flake8-tergeo

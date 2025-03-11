@@ -37,7 +37,6 @@ dependencies = [
     "flake8-simplify==0.21.0",
     "flake8-pytest-style==2.1.0",
     "flake8-typing-imports==1.16.0",
-    "flake8-docstrings==1.7.0",
     "stdlib-list==0.11.0;python_version<'3.10'",
     "packaging>=24",
 ]
@@ -60,7 +59,6 @@ dev = [
     "types-flake8-simplify==0.21.0.0",
     "types-flake8-builtins==2.5.0.20240411",
     "types-flake8-bugbear==24.12.12.20241214",
-    "types-flake8-docstrings==1.7.0.3",
     "types-flake8-typing-imports==1.16.0.20241013",
     "pylint-per-file-ignores==1.4.0",
     "types-stdlib-list==0.8.3.4",

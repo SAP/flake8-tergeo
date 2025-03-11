@@ -9,7 +9,6 @@ from functools import lru_cache
 from bugbear import BugBearChecker as _BugBearPlugin
 from flake8_builtins import BuiltinsChecker as BuiltinsPlugin
 from flake8_comprehensions import ComprehensionChecker as ComprehensionPlugin
-from flake8_docstrings import pep257Checker as DocstringsPlugin
 from flake8_pytest_style.plugin import PytestStylePlugin
 from flake8_simplify import Plugin as SimplifyPlugin
 from flake8_typing_imports import Plugin as TypingImportPlugin
@@ -151,20 +150,3 @@ class TypingImportChecker(BaseWrapperChecker):
         """Pre-processing of plugin options."""
         if options.ftp_is_default("min_python_version"):
             options.min_python_version = options.python_version
-
-
-class DocstringChecker(BaseWrapperChecker):
-    """Check wrapper for DocstringsPlugin."""
-
-    prefix = "D"
-    old_prefix = "D"
-    checker_class = DocstringsPlugin
-    disabled = ["107", "301"]
-
-    def __init__(self, tree: ast.AST, filename: str, lines: list[str]) -> None:
-        super().__init__(DocstringsPlugin(tree=tree, filename=filename, lines=lines))
-
-    @override
-    def check(self) -> IssueGenerator:
-        """Execute the check."""
-        yield from super().check()
