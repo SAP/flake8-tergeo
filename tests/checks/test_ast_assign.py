@@ -36,6 +36,11 @@ FTP124 = partial(
     issue_number="FTP124",
     message="__all__ should only be assigned on module level",
 )
+FTP126 = partial(
+    Issue,
+    issue_number="FTP126",
+    message="TypeAlias is deprecated and the type statements should be used instead.",
+)
 
 
 def FTP069(  # pylint: disable=invalid-name
@@ -111,3 +116,37 @@ def test_ftp124(runner: Flake8Runner) -> None:
         FTP124(line=6, column=12),
         FTP124(line=7, column=12),
     ]
+
+
+@pytest.mark.parametrize(
+    "imp,find_by_imp,type_alias",
+    [
+        ("from typing import TypeAlias", True, "TypeAlias"),
+        ("import typing", True, "typing.TypeAlias"),
+        ("import foo", False, "foo.TypeAlias"),
+        ("from foo import TypeAlias", False, "TypeAlias"),
+        ("from foo import typing", False, "typing.TypeAlias"),
+    ],
+)
+@pytest.mark.parametrize(
+    "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
+)
+def test_ftp126(
+    runner: Flake8Runner,
+    imp: str,
+    find_by_imp: bool,
+    type_alias: str,
+    version: str,
+    find_by_version: bool,
+) -> None:
+    results = runner(
+        filename="ftp126.txt",
+        issue_number="FTP126",
+        imp=imp,
+        type_alias=type_alias,
+        args=("--ftp-python-version", version),
+    )
+    if find_by_imp and find_by_version:
+        assert results == [FTP126(line=9, column=1)]
+    else:
+        assert not results
