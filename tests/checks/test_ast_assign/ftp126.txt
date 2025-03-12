@@ -1,0 +1,9 @@
+{imp}
+
+# code without issues
+X = {type_alias}
+X: int = 123
+X = int
+
+# code with issues
+X: {type_alias} = int

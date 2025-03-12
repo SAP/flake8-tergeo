@@ -5,8 +5,14 @@ from __future__ import annotations
 import ast
 from dataclasses import dataclass
 
-from _flake8_tergeo.ast_util import get_parent, get_parents, is_constant_node
+from _flake8_tergeo.ast_util import (
+    get_parent,
+    get_parents,
+    is_constant_node,
+    is_expected_node,
+)
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.registry import register
 
 BAD_NAMES = ["pi", "e", "tau", "inf", "nan"]
@@ -57,6 +63,7 @@ def check_assign(node: ast.Assign | ast.AnnAssign) -> IssueGenerator:
         yield from _check_invalid_slots_type(assignment)
         yield from _check_slots_assign(assignment)
         yield from _check_all_only_on_module(assignment)
+        yield from _check_type_alias(assignment)
 
 
 def _check_all_only_on_module(assignment: Assignment) -> IssueGenerator:
@@ -183,4 +190,19 @@ def _check_slots_assign(assignment: Assignment) -> IssueGenerator:
 def _has_slots_target(assignment: Assignment) -> bool:
     return (
         isinstance(assignment.target, ast.Name) and assignment.target.id == "__slots__"
+    )
+
+
+def _check_type_alias(assignment: Assignment) -> IssueGenerator:
+    if get_python_version() < (3, 12):
+        return
+    if not isinstance(assignment.node, ast.AnnAssign):
+        return
+    if not is_expected_node(assignment.node.annotation, "typing", "TypeAlias"):
+        return
+    yield Issue(
+        line=assignment.lineno,
+        column=assignment.col_offset,
+        issue_number="126",
+        message="TypeAlias is deprecated and the type statements should be used instead.",
     )
