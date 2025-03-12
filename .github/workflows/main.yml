@@ -1,6 +1,6 @@
 name: CI
 
-permissions: write-all
+permissions: {}
 
 on:
   push:
