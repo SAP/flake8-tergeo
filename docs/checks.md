@@ -542,6 +542,11 @@ Checks if `typing.TypeAlias` is used.
 With [PEP 695](https://peps.python.org/pep-0695/) the `type` statement should be used instead.
 The check is only active for python 3.12 and onwards
 
+## FTP127
+Checks if `typing.TypeVar` is used.
+With [PEP 695](https://peps.python.org/pep-0695/), `TypeVar`s are no longer needed.
+The check is only active for python 3.12 and onwards
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

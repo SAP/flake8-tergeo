@@ -12,6 +12,7 @@ from _flake8_tergeo.ast_util import (
     stringify,
 )
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.registry import register
 
 BAD_CALLS = (
@@ -74,6 +75,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_primitive_function_call(node)
     yield from _check_deprecated_decorator(node)
     yield from _check_bad_subprocess_aliases(node)
+    yield from _check_typevar_usage(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -646,4 +648,17 @@ def _check_bad_subprocess_aliases(node: ast.Call) -> IssueGenerator:
         column=node.col_offset,
         issue_number="121",
         message=f"Function {name} should be replaced with function of the subprocess module.",
+    )
+
+
+def _check_typevar_usage(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 12):
+        return
+    if not is_expected_node(node.func, "typing", "TypeVar"):
+        return
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="127",
+        message="Use the new generic syntax instead of TypeVar.",
     )
