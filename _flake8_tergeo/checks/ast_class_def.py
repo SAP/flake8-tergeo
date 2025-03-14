@@ -27,6 +27,7 @@ def check_ast_class_def(node: ast.ClassDef) -> IssueGenerator:
     yield from _check_lru_on_class(node)
     yield from _check_enum_bases(node)
     yield from _check_duplicate_class_fields(node)
+    yield from _check_class_extends_generic(node)
 
 
 def _check_abc(node: ast.ClassDef) -> IssueGenerator:
@@ -151,3 +152,18 @@ def _check_duplicate_class_fields(node: ast.ClassDef) -> IssueGenerator:
                     ),
                 )
             seen.add(target)
+
+
+def _check_class_extends_generic(node: ast.ClassDef) -> IssueGenerator:
+    if get_python_version() < (3, 12):
+        return
+    for base in node.bases:
+        if isinstance(base, ast.Subscript) and is_expected_node(
+            base.value, "typing", "Generic"
+        ):
+            yield Issue(
+                line=base.lineno,
+                column=base.col_offset,
+                issue_number="128",
+                message="Use the new generic syntax instead of Generic.",
+            )

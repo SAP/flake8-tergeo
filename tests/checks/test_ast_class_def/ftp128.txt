@@ -1,0 +1,12 @@
+{imp}
+
+# code without issues
+Foo = {generic}
+
+class X({generic}): pass
+class X: pass
+
+# code with issues
+class X({generic}[T]): pass
+class X({generic}[S, T]): pass
+class X(list, {generic}[T]): pass
