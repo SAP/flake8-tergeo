@@ -1,0 +1,9 @@
+{imp}
+
+# code without issues
+Type()
+x = 123
+{type_var}
+
+# code with issues
+T = {type_var}("T")

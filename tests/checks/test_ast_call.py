@@ -211,6 +211,11 @@ _FTP121 = partial(
     issue_number="FTP121",
     message="Function {func} should be replaced with function of the subprocess module.",
 )
+FTP127 = partial(
+    Issue,
+    issue_number="FTP127",
+    message="Use the new generic syntax instead of TypeVar.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -809,3 +814,37 @@ class TestFTP121:
             filename="ftp121.txt", issue_number="FTP121", imp=imp, func=func
         )
         assert results == [FTP121(line=9, column=1, func=func)]
+
+
+@pytest.mark.parametrize(
+    "imp,find_by_imp,type_var",
+    [
+        ("from typing import TypeVar", True, "TypeVar"),
+        ("import typing", True, "typing.TypeVar"),
+        ("import foo", False, "foo.TypeVar"),
+        ("from foo import TypeVar", False, "TypeVar"),
+        ("from foo import typing", False, "typing.TypeVar"),
+    ],
+)
+@pytest.mark.parametrize(
+    "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
+)
+def test_ftp127(
+    runner: Flake8Runner,
+    imp: str,
+    find_by_imp: bool,
+    type_var: str,
+    version: str,
+    find_by_version: bool,
+) -> None:
+    results = runner(
+        filename="ftp127.txt",
+        issue_number="FTP127",
+        imp=imp,
+        type_var=type_var,
+        args=("--ftp-python-version", version),
+    )
+    if find_by_imp and find_by_version:
+        assert results == [FTP127(line=9, column=5)]
+    else:
+        assert not results
