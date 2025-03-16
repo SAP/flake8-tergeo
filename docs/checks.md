@@ -547,6 +547,11 @@ Checks if `typing.TypeVar` is used.
 With [PEP 695](https://peps.python.org/pep-0695/), `TypeVar`s are no longer needed.
 The check is only active for python 3.12 and onwards
 
+## FTP128
+Checks if `typing.Generic` is used.
+With [PEP 695](https://peps.python.org/pep-0695/), `Generic` is no longer needed.
+The check is only active for python 3.12 and onwards
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

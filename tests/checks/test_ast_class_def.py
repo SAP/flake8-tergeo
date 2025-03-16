@@ -49,6 +49,11 @@ _FTP005 = partial(
         "and use only one assign statement."
     ),
 )
+FTP128 = partial(
+    Issue,
+    issue_number="FTP128",
+    message="Use the new generic syntax instead of Generic.",
+)
 
 
 def FTP082(line: int, column: int, clazz: str) -> Issue:  # pylint:disable=invalid-name
@@ -202,3 +207,41 @@ def test_ftp005(runner: Flake8Runner) -> None:
         FTP005(line=31, column=5, field="a"),
         FTP005(line=32, column=5, field="x"),
     ]
+
+
+@pytest.mark.parametrize(
+    "imp,find_by_imp,generic",
+    [
+        ("from typing import Generic", True, "Generic"),
+        ("import typing", True, "typing.Generic"),
+        ("import foo", False, "foo.Generic"),
+        ("from foo import Generic", False, "Generic"),
+        ("from foo import typing", False, "typing.Generic"),
+    ],
+)
+@pytest.mark.parametrize(
+    "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
+)
+def test_ftp128(
+    runner: Flake8Runner,
+    imp: str,
+    find_by_imp: bool,
+    generic: str,
+    version: str,
+    find_by_version: bool,
+) -> None:
+    results = runner(
+        filename="ftp128.txt",
+        issue_number="FTP128",
+        imp=imp,
+        generic=generic,
+        args=("--ftp-python-version", version),
+    )
+    if find_by_imp and find_by_version:
+        assert results == [
+            FTP128(line=10, column=9),
+            FTP128(line=11, column=9),
+            FTP128(line=12, column=15),
+        ]
+    else:
+        assert not results
