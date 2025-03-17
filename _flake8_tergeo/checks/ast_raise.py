@@ -57,9 +57,9 @@ def _get_except(node: ast.AST) -> ast.ExceptHandler | None:
     parent: ast.AST | None = node
     while parent:
         if isinstance(parent, ast.ExceptHandler):
-            break
+            return parent
         parent = get_parent(parent)
-    return parent
+    return None
 
 
 def _get_129_issue(node: ast.Raise) -> Issue:
