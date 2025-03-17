@@ -5,7 +5,6 @@ from __future__ import annotations
 import ast
 
 from _flake8_tergeo.ast_util import (
-    get_subscript_value,
     has_future_annotations,
     in_annotation,
     in_type_checking_block,
@@ -27,8 +26,7 @@ def check_subscript(node: ast.Subscript) -> IssueGenerator:
 
 
 def _check_is_float(node: ast.Subscript) -> IssueGenerator:
-    slice_value = get_subscript_value(node)
-    if is_float(slice_value):
+    if is_float(node.slice):
         yield Issue(
             line=node.lineno,
             column=node.col_offset,
@@ -40,8 +38,7 @@ def _check_is_float(node: ast.Subscript) -> IssueGenerator:
 def _check_single_item_union(node: ast.Subscript) -> IssueGenerator:
     if not is_expected_node(node.value, "typing", "Union"):
         return
-    slice_value = get_subscript_value(node)
-    if not isinstance(slice_value, (ast.Name, ast.Attribute, ast.Constant)):
+    if not isinstance(node.slice, (ast.Name, ast.Attribute, ast.Constant)):
         return
     yield Issue(
         line=node.lineno,
@@ -63,7 +60,7 @@ def _check_generator_default(node: ast.Subscript) -> IssueGenerator:
         or is_expected_node(node.value, "collections.abc", "Generator")
     ):
         return
-    slice_value = get_subscript_value(node)
+    slice_value = node.slice
     if not isinstance(slice_value, ast.Tuple):
         return
     if len(slice_value.elts) == 1:

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import ast
-import sys
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from functools import cache, lru_cache
@@ -95,15 +94,6 @@ def get_line_range(node: ast.stmt | ast.expr) -> tuple[int, int]:
             end_line = max(child.lineno, end_line)
             start_line = min(child.lineno, start_line)
     return start_line, end_line
-
-
-def get_subscript_value(node: ast.Subscript) -> ast.expr | None:
-    """Return the value of a subscript."""
-    if sys.version_info >= (3, 9):
-        return node.slice
-    if isinstance(node.slice, ast.Index):  # type:ignore[unreachable]
-        return node.slice.value
-    return None
 
 
 def is_stub(node: AnyFunctionDef) -> bool:
