@@ -54,13 +54,12 @@ def _check_raise_from_itself(node: ast.Raise) -> IssueGenerator:
 
 
 def _get_except(node: ast.AST) -> ast.ExceptHandler | None:
-    current: ast.AST | None = node
-    while current:
-        parent = get_parent(current)
-        if isinstance(parent, ast.ExceptHandler):
-            return parent
-        current = parent
-    return None
+parent: ast.AST | None = node
+while parent:
+    if isinstance(parent, ast.ExceptHandler):
+        break
+    parent = get_parent(parrent)
+return parent
 
 
 def _get_129_issue(node: ast.Raise) -> Issue:
