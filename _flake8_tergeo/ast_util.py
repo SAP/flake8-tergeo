@@ -96,9 +96,6 @@ def get_line_range(node: ast.stmt | ast.expr) -> tuple[int, int]:
     return start_line, end_line
 
 
-
-
-
 def is_stub(node: AnyFunctionDef) -> bool:
     """Check if a function is a stub."""
     if isinstance(node.body[0], ast.Expr) and is_constant_node(node.body[0].value, str):

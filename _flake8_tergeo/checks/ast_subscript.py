@@ -61,7 +61,7 @@ def _check_generator_default(node: ast.Subscript) -> IssueGenerator:
     ):
         return
     slice_value = node.slice
-    if not isinstance(node.slice, ast.Tuple):
+    if not isinstance(slice_value, ast.Tuple):
         return
     if len(slice_value.elts) == 1:
         return
