@@ -1,0 +1,32 @@
+# code without issues
+def foo(): raise Error
+try:
+    do()
+except:
+    raise Error()
+try:
+    do()
+except Error:
+    raise Error()
+try:
+    do()
+except (E1, E2):
+    raise E1()
+try:
+    do()
+except (E1, E2) as err:
+    raise E3() from err
+
+# code with issues
+try:
+    do()
+except Error:
+    raise OtherError from Error
+try:
+    do()
+except Error as err:
+    raise OtherError from Error
+try:
+    do()
+except (E1, E2):
+    raise E3() from E2
