@@ -17,6 +17,11 @@ _FTP047 = partial(
         "Raising {exc} is too generic and should be replaced with a more concrete subclass."
     ),
 )
+FTP129 = partial(
+    Issue,
+    issue_number="FTP129",
+    message="The cause of the raised error is the same as the caught exception.",
+)
 
 
 def FTP047(*, line: int, column: int, exc: str) -> Issue:  # pylint:disable=invalid-name
@@ -37,3 +42,12 @@ def test_ftp047(runner: Flake8Runner) -> None:
 def test_ftp044(runner: Flake8Runner) -> None:
     results = runner(filename="ftp044.txt", issue_number="FTP044")
     assert results == [FTP044(line=11, column=1), FTP044(line=12, column=1)]
+
+
+def test_ftp129(runner: Flake8Runner) -> None:
+    results = runner(filename="ftp129.txt", issue_number="FTP129")
+    assert results == [
+        FTP129(line=24, column=5),
+        FTP129(line=28, column=5),
+        FTP129(line=32, column=5),
+    ]
