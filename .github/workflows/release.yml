@@ -28,9 +28,7 @@ jobs:
     -   name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
     -   name: Determine version
-        run: |
-          version="${GITHUB_REF_NAME:1}"
-          echo "RELEASE_VERSION=${version}" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
     -   name: Release on GitHub
         uses: softprops/action-gh-release@v2
         with:
