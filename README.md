@@ -23,9 +23,9 @@ formatting rules are included.
 
 ## Release Actions
 * Determine the new version using `python -m setuptools_scm --strip-dev`
-* Push a new tag like vX.X.X to trigger the release
 * Rename the section `Next Development` in the [CHANGELOG](CHANGELOG.md) to the version released
   and create a new empty one
+* Push a new tag like X.X.X to trigger the release
 
 ## Support, Feedback, Contributing
 
