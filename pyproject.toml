@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "flake8-tergeo"
 dynamic = ["version"]
 description = "flake8 plugin which keeps your code clean and tidy"
-authors = [{ name = "Kai Mueller", email = "kai.mueller01@sap.com"}]
+authors = [{ name = "Kai Harder", email = "kai.harder@sap.com"}]
 readme = "README.md"
 keywords = ["flake8", "plugin", "quality", "linter"]
 classifiers = [
