@@ -41,3 +41,8 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      - id: yesqa
+        name: yesqa
+        entry: yesqa
+        language: system
+        types: [python]
