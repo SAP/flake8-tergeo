@@ -16,10 +16,7 @@ formatting rules are included.
 
 ## Documentation
 
-* [Installation](docs/install.md)
-* [Plugins](docs/plugins.md)
-* [Configuration](docs/configuration.md)
-* [Checks](docs/checks.md)
+You can find the documentation [here](https://sap.github.io/flake8-tergeo/).
 
 ## Release Actions
 * Determine the new version using `python -m setuptools_scm --strip-dev`
