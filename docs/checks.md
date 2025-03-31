@@ -161,7 +161,7 @@ Check if a dunder is used in the middle of the name like `a__b`.
 Double underscores at the start and at the end are ignored.
 
 ## FTP040
-Checks if a file is in a folder without an __init__.py file.
+Checks if a file is in a folder without an \_\_init\_\_.py file.
 The error is reported on the first line of the file.
 If files are checked which should not be part of a namespace package (e.g. setup.py), a *noqa*
 comment or "per-file-ignores" can be used.

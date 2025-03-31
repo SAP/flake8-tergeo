@@ -59,11 +59,11 @@ For instance, `ftp-requirements-mapping` could be written as
 
 With the above the matching algorithm is as followed:
 
-#. Transform the import/import-from statement to a string (`from foo.bar import baz` -> `foo.bar.baz`)
-#. Check if the package starts any mapping key of `ftp-requirements-mapping`
-#. If yes, use the mapped distribution name
-#. If not extract the first part (`foo.bar` -> `foo`) and use it as the distribution name
-#. Check if the distribution name is part of the project requirements, a stdlib module or listed
+1. Transform the import/import-from statement to a string (`from foo.bar import baz` -> `foo.bar.baz`)
+1. Check if the package starts any mapping key of `ftp-requirements-mapping`
+1. If yes, use the mapped distribution name
+1. If not extract the first part (`foo.bar` -> `foo`) and use it as the distribution name
+1. Check if the distribution name is part of the project requirements, a stdlib module or listed
    in `ftp-requirements-packages`
 
 Please note, that these checks base on the current working directory to map the current analysed file
