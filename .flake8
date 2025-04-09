@@ -19,6 +19,7 @@ max-complexity = 10
 per-file-ignores =
     tests/*:FTU019
     _flake8_tergeo/*:FTB028
+    scripts/*:FTP040,FTP050
 
 # flake8-pytest-styles config
 ftp-pytest-parametrize-names-type = csv
@@ -30,7 +31,8 @@ ftp-requirements-ignore-type-checking-block = true
 ftp-requirements-mapping =
     bugbear:flake8-bugbear,
 ftp-requirements-module-extra-mapping =
-    tests | *,
+    tests | test,
+    scripts | dev,
 
 # general
 ftp-python-version = 3.9.0
