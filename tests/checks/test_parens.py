@@ -13,14 +13,14 @@ from tests.conftest import Flake8Runner
 FTP008 = partial(Issue, issue_number="FTP008", message="Found unnecessary parenthesis.")
 
 
-@pytest.mark.parametrize("enforce_single_tuple", [True, False])
-def test_ftp008(runner: Flake8Runner, enforce_single_tuple: bool) -> None:
+@pytest.mark.parametrize("disallow_single_tuple", [True, False])
+def test_ftp008(runner: Flake8Runner, disallow_single_tuple: bool) -> None:
     results = runner(
         filename="ftp008.txt",
         issue_number="FTP008",
         args=(
-            ("--ftp-enforce-parens-in-return-single-element-tuple",)
-            if enforce_single_tuple
+            ("--ftp-disallow-parens-in-return-single-element-tuple",)
+            if disallow_single_tuple
             else ()
         ),
     )
@@ -39,20 +39,20 @@ def test_ftp008(runner: Flake8Runner, enforce_single_tuple: bool) -> None:
     ]
 
 
-@pytest.mark.parametrize("enforce_single_tuple", [True, False])
+@pytest.mark.parametrize("disallow_single_tuple", [True, False])
 def test_ftp008_single_element_tuple(
-    runner: Flake8Runner, enforce_single_tuple: bool
+    runner: Flake8Runner, disallow_single_tuple: bool
 ) -> None:
     results = runner(
         filename="ftp008_single_element_tuple.txt",
         issue_number="FTP008",
         args=(
-            ("--ftp-enforce-parens-in-return-single-element-tuple",)
-            if enforce_single_tuple
+            ("--ftp-disallow-parens-in-return-single-element-tuple",)
+            if disallow_single_tuple
             else ()
         ),
     )
-    if enforce_single_tuple:
+    if disallow_single_tuple:
         assert results == [
             FTP008(line=2, column=12),
             FTP008(line=4, column=12),
@@ -68,7 +68,7 @@ def test_add_options(mocker: MockerFixture) -> None:
 
     assert option_manager.add_option.call_args_list == [
         mocker.call(
-            "--enforce-parens-in-return-single-element-tuple",
+            "--disallow-parens-in-return-single-element-tuple",
             parse_from_config=True,
             action="store_true",
         ),
