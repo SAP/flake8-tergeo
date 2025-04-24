@@ -48,7 +48,7 @@ The check is only active if `datetime.datetime.utcfromtimestamp` is somehow impo
 Checks for unnecessary parenthesis, like `print((1,2,3))` and also one line return statements
 like `return (a, b)`.
 By default, the parenthesis of a return of a single element tuple is kept.
-This can be disabled by using `enforce-parens-in-return-single-element-tuple`
+This can be disabled by using `disallow-parens-in-return-single-element-tuple`
 
 ## FTP009
 Checks for classes extending `BaseException`

@@ -113,11 +113,11 @@ def _find_in_return_statement(tokens: Tokens, index: int) -> IssueGenerator:
     if tokens[index + 1].type in CODING_TOKENS:
         return
 
-    enforce_single_tuple = (
-        get_plugin().get_options().enforce_parens_in_return_single_element_tuple
+    disallow_single_tuple = (
+        get_plugin().get_options().disallow_parens_in_return_single_element_tuple
     )
     if (
-        not enforce_single_tuple
+        not disallow_single_tuple
         and num_comma == 1
         and tokens[index - 1].type == tokenize.OP
         and tokens[index - 1].string == ","
@@ -140,7 +140,7 @@ def _create_issue(tokens: Tokens, index: int) -> Issue:
 def add_options(option_manager: OptionManager) -> None:
     """Add options for this checker."""
     option_manager.add_option(
-        "--enforce-parens-in-return-single-element-tuple",
+        "--disallow-parens-in-return-single-element-tuple",
         parse_from_config=True,
         action="store_true",
     )
