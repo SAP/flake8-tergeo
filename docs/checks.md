@@ -9,49 +9,52 @@
 * FTP220 - FTP239: `requests` checks
 
 ## FTP000
-Error while loading this plugin or any other internal error
+Error while loading this plugin or any other internal error.
 
 ## FTP001
-Checks if one of the debug modules `pdb`, `ipdb`, `pudb`, `wdb`, `pdbpp` and `debugger` is used
+Checks if one of the debug modules `pdb`, `ipdb`, `pudb`, `wdb`, `pdbpp` and `debugger` is used.
+Debug modules should not be left in the code.
 
 ## FTP002
-Checks if the debug builtin `breakpoint` is used
+Checks if the debug builtin `breakpoint` is used.
+A breakpoint should not be left in code as its halts the program leading to a stop.
 
 ## FTP003
-Checks for usage of `datetime.datetime.utcnow`. The value is current UTC time but
-without any timezone assigned. Preferred is `datetime.datetime.now` with a timezone
-parameter.
-The check is only active if `datetime.datetime.utcnow` is somehow imported.
+Checks for usage of `datetime.datetime.utcnow` without a `tz` parameter.
+The value returned by it is in current UTC time but without any timezone assigned.
+Instead call `datetime.datetime.now` with a timezone parameter (`tz`).
 
 ## FTP004
-Checks if a module/file name follows the PEP-8 convention
+Checks that the module/file name follows the PEP-8 convention.
 
 ## FTP005
-Find duplicate class fields (multiple assigns to the same name in the class body).
-No functions or blocks are checked.
+Finds duplicate class fields (multiple assigns to the same name in the class body).
+Most likely this is a bug or duplicated code line.
+Note, that nNo functions or blocks are checked.
 
 ## FTP006
-Find any usage of unicode directionality formatting characters. These characters are used to
-display left-to-right/right-to-left text in the same line and are interpreted by the bidi
-algorithm. However, having these characters in source code can lead to attacks like early
-returns because the code is executed in another way than written. A normal code review will not
-detect these issues. The easiest way is to ban these characters. For details see
-[this paper](https://trojansource.codes/trojan-source.pdf>).
+Finds any usage of unicode directionality formatting characters.
+These characters are used to display left-to-right/right-to-left text in the same line and are
+interpreted by the bidi algorithm.
+However, having these characters in source code can lead to attacks like early
+returns because the code is executed in another way than written.
+A normal code review will not detect these issues.
+The easiest way is to ban these characters.
+For details see [this paper](https://trojansource.codes/trojan-source.pdf>).
 
 ## FTP007
-Checks for usage of `datetime.datetime.utcfromtimestamp`.
-The value is current UTC time but without any timezone assigned.
-Preferred is `datetime.datetime.fromtimestamp` with a timezone parameter.
-The check is only active if `datetime.datetime.utcfromtimestamp` is somehow imported.
+Checks for usage of `datetime.datetime.utcfromtimestamp` without the `tz` parameter.
+The returned value is the current UTC time but without any timezone assigned.
+Instead call `datetime.datetime.fromtimestamp` with the timezone parameter (`tz`).
 
 ## FTP008
-Checks for unnecessary parenthesis, like `print((1,2,3))` and also one line return statements
-like `return (a, b)`.
-By default, the parenthesis of a return of a single element tuple is kept.
+Checks for unnecessary parenthesis, like `print((1,2,3))` or `return (a, b)`.
+By default, the parenthesis of a return of a single element tuple is not reported as with parenthesis
+the code is more clear.
 This can be disabled by using `disallow-parens-in-return-single-element-tuple`
 
 ## FTP009
-Checks for classes extending `BaseException`
+Checks for classes extending `BaseException`. Extend `Exception` instead.
 
 ## FTP010
 Checks if a disallowed developer comment identifier is used.
@@ -71,93 +74,104 @@ Please refer to the developer comment configuration.
 
 ## FTP014
 Checks for calls of `urllib.parse.urlparse`.
-This function can parse a special `;parameters` part inside the path which is not recommended.
+This function can parse a special `;parameters` part inside the url path which is not recommended.
 The function `urllib.parse.urlsplit` does basically the same but ignores the
 `parameters` part and is therefore faster.
-The check is only active if `urllib.parse.urlparse` is somehow imported.
 
 ## FTP015
-Checks for imports of `pkg_resources`. This module should not be used anymore as
-better and faster alternatives are available in `importlib` and its backports
+Checks for imports of `pkg_resources`.
+This module should not be used anymore as better and faster alternatives are available in
+`importlib` and its backports.
 
 ## FTP016
-Find usage of python2 metaclass declaration with `__metaclass__` inside the class body.
-Instead use `metaclass=` in the class signature.
+Finds usage of python2 metaclass declaration with `__metaclass__` inside the class body.
+Use `metaclass=` in the class signature instead.
 
 ## FTP017
-Find legacy calls of `typing.NamedTuple`. Instead, extend `typing.NamedTuple`
-by creating a new class
+Finds legacy calls of `typing.NamedTuple`.
+Instead, extend `typing.NamedTuple` by creating a new class.
 
 ## FTP018
-Find legacy calls of `typing.TypedDict`. Instead, extend `typing.TypedDict`
-by creating a new class
+Finds legacy calls of `typing.TypedDict`.
+Instead, extend `typing.TypedDict` by creating a new class.
 
 ## FTP019
 *reserved for a future check*
 
 ## FTP020
 Checks if an encoding comment (`# -*- coding: utf-8 -*-`) is used.
-These comments are not needed in python 3 anymore
+These comments are not needed in python 3 anymore.
 
 ## FTP021
-Checks if a string value (or a part of it) can be replaced with `string.ascii_letters`
+Checks if a string value (or a part of it) can be replaced with `string.ascii_letters`.
 
 ## FTP022
-Checks if a string value (or a part of it) can be replaced with `string.ascii_lowercase`
+Checks if a string value (or a part of it) can be replaced with `string.ascii_lowercase`.
 
 ## FTP023
-Checks if a string value (or a part of it) can be replaced with `string.ascii_uppercase`
+Checks if a string value (or a part of it) can be replaced with `string.ascii_uppercase`.
 
 ## FTP024
-Checks if a string value (or a part of it) can be replaced with `string.digits`
+Checks if a string value (or a part of it) can be replaced with `string.digits`.
 
 ## FTP025
-Checks for `isinstance` calls with an one-element tuple
+Checks for `isinstance` calls with an one-element tuple.
+Replace with tuple with the exact value instead and save the time which is needed to construct
+and iterate over the tuple.
 
 ## FTP026
-Checks for imports the easteregg modules `this`, `antigravity`, `__hello__`
-and `__phello__`,
+Checks for imports of the following easteregg modules
+- `this`
+- `antigravity`
+- `__hello__`
+- `__phello__`
 
 ## FTP027
-Checks for easteregg imports of the `__future__` module: `braces` and `barry_as_FLUFL`.
+Checks for if any of the following easteregg are imported over the `__future__` module
+- `braces`
+- `barry_as_FLUFL`.
 
 ## FTP028
-Find empty doc comments (`#:`)
+Finds empty doc comments (`#:`).
 
 ## FTP029
-Find `enumeration` loops where the index variable is named `_`.
-Use a classical for loop instead
+Finds `enumeration` loops where the index variable is named `_`.
+Use a classical `for` loop instead.
 
 ## FTP030
-Checks if any unnecessary future import is used
+Checks if any unnecessary future import is used.
 
 ## FTP031
-Checks if percentage formatting is used in logging calls
+Checks if percentage formatting is used in logging calls.
 
 ## FTP032
-Checks if a f-string is used in logging calls
+Checks if a f-string is used in logging calls.
 
 ## FTP033
 Checks if str.format is used in logging calls.
 
 ## FTP034
-Checks if `exc_info=True` is used in exception logging calls. This argument is redundant.
+Checks if `exc_info=True` is used in `.exception()` logging calls.
+This argument is redundant.
 
 ## FTP035
-Checks if the deprecated logging method `warn` is used.
+Checks if the deprecated logging method `.warn()` is used.
 
 ## FTP036
-Checks if `exc_info=True` is used in error logging calls. Use exception instead.
+Checks if `exc_info=True` is used in error logging calls.
+Use `.exception()` instead.
 
 ## FTP037
 Checks if keys used in the `extra` dict of logging calls clashes with existing
-`logging.LogRecord` fields. This can lead to errors during runtime
+`logging.LogRecord` fields.
+This can lead to errors during runtime.
 
 ## FTP038
-Checks if `float('NaN')` is used, because `math.nan` should be preferred
+Checks if `float('NaN')` is used.
+Use `math.nan` instead.
 
 ## FTP039
-Check if a dunder is used in the middle of the name like `a__b`.
+Checks if a dunder is used in the middle of the name like `a__b`.
 Double underscores at the start and at the end are ignored.
 
 ## FTP040
@@ -172,63 +186,66 @@ Please refer to the requirement check configuration.
 
 ## FTP042
 Checks if a class defines a magic method like `__hex__` which is legacy from python2 and is no
-longer needed
+longer needed.
 
 ## FTP043
-Checks if a function starting with `get_` has at least one return or yield statement. The function
-will be ignored, if it's a stub (e.g. just has a pass statement or only throws an exception)
+Checks if a function starting with `get_` has no return or yield statement.
+Consider to rename the function as the name implies a return value.
+A function will be ignored, if it's a stub (e.g. just has a pass statement or only throws an exception)
 
 ## FTP044
-Checks if an exception is raised from itself, e.g. `raise exc from exc`
+Checks if an exception is raised from itself, e.g. `raise exc from exc`.
 
 ## FTP045
-Checks if a bad function like `help` or `exit` is called
+Checks if a interactive python function is called
+- `help`
+- `exit`
 
 ## FTP046
-Checks if an except block only contains a reraise of the caught exception
+Checks if an except block only contains a reraise of the caught exception.
+Remove the try-except as it does not anything.
 
 ## FTP047
-Checks if a too generic exception (`Exception` and `BaseException`) is raised
+Checks if a too generic exception (`Exception` and `BaseException`) is raised.
+Consider to raise a more concrete exception instead.
 
 ## FTP048
-Checks if a float is used as a dict key. Floats have precision errors, so using them as keys is
-unreliable and can lead to errors
+Checks if a float is used as a dict key.
+Floats have precision errors, so using them as keys is unreliable and can lead to errors.
 
 ## FTP049
 Checks if a single element unpacking is used (e.g. `(a,) = my_list`).
 It can be simplified to `a = mylist[0]`
 
 ## FTP050
-Checks if a `print` statement is used
+Checks if a `print` statement is used.
 
 ## FTP051
-Checks if a `pprint.pprint` statement is used
+Checks if a `pprint.pprint` statement is used.
 
 ## FTP052
-Checks if a `pprint.pp` statement is used
+Checks if a `pprint.pp` statement is used.
 
 ## FTP053
-Checks if a `pprint.PrettyPrinter` statement is used
+Checks if a `pprint.PrettyPrinter` statement is used.
 
 ## FTP054
-Checks if a union type annotation can utilize the new syntax of PEP 604. For example,
-`a: Union[Foo, Bar]` can be rewritten to `a: Foo|bar`.
+Checks if a union type annotation can utilize the new syntax of PEP 604.
+For example, `a: Union[Foo, Bar]` can be rewritten to `a: Foo|bar`.
 This check is only active when at least one of the following conditions is true:
-
 * running python 3.10+
 * a `from __future__ import annotations` import is present in the module
 * the current code is inside a `typing.TYPE_CHECKING` block
 
 Also, the check will only consider type annotations (to prevent invalid syntax) if
 at least one of the following conditions is true:
-
 * python 3.9 or below is used
 * the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP055
-Checks if an optional type annotations can utilize the new syntax of PEP 604. For example,
-`a: Optional[Foo]` can be rewritten to `a: Foo|None`.
-For more details see `FTP054`
+Checks if an optional type annotations can utilize the new syntax of PEP 604.
+For example, `a: Optional[Foo]` can be rewritten to `a: Foo|None`.
+For more details see `FTP054`.
 
 ## FTP056
 Checks if a builtin alias in the `typing` module can be rewritten as the builtin itself
@@ -236,21 +253,19 @@ as of PEP 585.
 E.g. `typing.List[str]` can be changed to `list[str]`.
 
 This check is only active when at least one of the following conditions is true:
-
 * running python 3.9+
 * a `from __future__ import annotations` import is present in the module
 * the current code is inside a `typing.TYPE_CHECKING` block
 
 Also, the check will only consider type annotations (to prevent invalid syntax) if
 at least one of the following conditions is true:
-
 * the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP057
-Checks if relative imports are used
+Checks if relative imports are used.
 
 ## FTP058
-Checks if an unnecessary import alias is used, e.g. `import foo as foo`
+Checks if an unnecessary import alias is used, e.g. `import foo as foo`.
 
 ## FTP059
 Checks if an argument in a function call has a pointless starred expression.
