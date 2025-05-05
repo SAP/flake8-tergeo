@@ -89,6 +89,6 @@ class TestFTP104:
     @pytest.mark.skipif(
         sys.version_info < (3, 12), reason="type statement was added in 3.12"
     )
-    def test_type_statement(self, runner: Flake8Runner) -> None:
+    def test_type_statement(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp104_type.txt", issue_number="FTP104")
         assert results == [FTP104(line=7, column=10)]
