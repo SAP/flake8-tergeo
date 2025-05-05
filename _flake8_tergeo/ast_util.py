@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import sys
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from functools import cache, lru_cache
@@ -267,3 +268,20 @@ def in_type_checking_block(node: ast.AST) -> bool:
         and is_expected_node(parent.test, "typing", "TYPE_CHECKING")
         for parent in get_parents(node)
     )
+
+
+def is_in_type_statement(node: ast.AST) -> bool:
+    """Check if a node is in a type alias."""
+    if sys.version_info < (3, 12):
+        return False  # type statement is not available in 3.11
+    return any(isinstance(parent, ast.TypeAlias) for parent in get_parents(node))
+
+
+def is_in_type_alias(node: ast.AST) -> bool:
+    """Check if a node is in a type alias."""
+    result = [
+        parent for parent in get_parents(node) if isinstance(parent, ast.AnnAssign)
+    ]
+    if not result:
+        return False
+    return is_expected_node(result[0].annotation, "typing", "TypeAlias")

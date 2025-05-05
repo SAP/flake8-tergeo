@@ -1,9 +1,13 @@
 {imp}
+from typing_extensions import TypeAlias
 
 # code without issues
 x : Foo | None
 x: {class_}
+X = {class_} | Some
+X: TypeAlias = {class_}
 
 # code with issues
 x: {class_} | None
 x : A | {class_} | B
+X: TypeAlias = {class_} | Some
