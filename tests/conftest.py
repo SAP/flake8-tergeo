@@ -12,8 +12,9 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from pytest_fixture_classes import fixture_class
 from pytest_mock import MockerFixture
-from typing_extensions import Protocol, override
+from typing_extensions import override
 
 from _flake8_tergeo import BaseWrapperChecker, Flake8TergeoPlugin, base, registry
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
@@ -172,32 +173,27 @@ def checker_with_disable(mocker: MockerFixture) -> None:
     mocker.patch.object(base, "_get_concrete_classes", return_value=[_Checker])
 
 
-class Flake8Runner(Protocol):
+@fixture_class(name="runner")
+class Flake8RunnerFixture:
+    datadir: Path
+    tmp_path: Path
+
     def __call__(
         self,
         filename: str,
         issue_number: str,
-        args: tuple[str, ...] = ...,
+        args: tuple[str, ...] = (),
         **kwargs: str,
-    ) -> list[Issue]: ...
-
-
-@pytest.fixture
-def runner(datadir: Path, tmp_path: Path) -> Flake8Runner:
-    def _inner(
-        filename: str, issue_number: str, args: tuple[str, ...] = (), **kwargs: str
     ) -> list[Issue]:
-        content = (datadir / filename).read_text(encoding="utf-8")
+        content = (self.datadir / filename).read_text(encoding="utf-8")
         if kwargs:
             content = content.format(**kwargs)
 
-        file = tmp_path / filename
+        file = self.tmp_path / filename
         file = file.with_suffix(".py")
         file.parent.mkdir(parents=True, exist_ok=True)
         file.write_text(content, encoding="utf-8")
         return run_tests(path=file, issue_number=issue_number, args=args)
-
-    return _inner
 
 
 def run_tests(path: Path, issue_number: str, args: tuple[str, ...]) -> list[Issue]:

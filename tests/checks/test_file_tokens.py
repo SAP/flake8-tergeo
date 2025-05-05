@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP028 = partial(Issue, issue_number="FTP028", message="Found empty doc comment.")
 FTP072 = partial(
@@ -26,12 +26,12 @@ FTP091 = partial(
 )
 
 
-def test_ftp028(runner: Flake8Runner) -> None:
+def test_ftp028(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp028.txt", issue_number="FTP028")
     assert results == [FTP028(line=4, column=9), FTP028(line=5, column=1)]
 
 
-def test_ftp072(runner: Flake8Runner) -> None:
+def test_ftp072(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp072.txt", issue_number="FTP072")
     assert results == [
         FTP072(line=7, column=1),
@@ -45,7 +45,7 @@ def test_ftp072(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp078(runner: Flake8Runner) -> None:
+def test_ftp078(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp078.txt", issue_number="FTP078")
     assert results == [
         FTP078(line=9, column=8),
@@ -54,7 +54,7 @@ def test_ftp078(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp080(runner: Flake8Runner) -> None:
+def test_ftp080(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp080.txt", issue_number="FTP080")
     assert results == [
         FTP080(line=12, column=9),
@@ -62,7 +62,7 @@ def test_ftp080(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp091(runner: Flake8Runner) -> None:
+def test_ftp091(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp091.txt", issue_number="FTP091")
     assert results == [
         FTP091(line=41, column=1),

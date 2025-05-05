@@ -7,7 +7,7 @@ from functools import partial
 import pytest
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP048 = partial(Issue, issue_number="FTP048", message="Found float used as key.")
 FTP106 = partial(
@@ -20,7 +20,7 @@ FTP123 = partial(
 )
 
 
-def test_ftp048(runner: Flake8Runner) -> None:
+def test_ftp048(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp048.txt", issue_number="FTP048")
     assert results == [
         FTP048(line=9, column=1),
@@ -39,7 +39,7 @@ class TestFTP106:
             ("from foo import typing", "typing.Union"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, union: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, union: str) -> None:
         assert not runner(
             filename="ftp106.txt", issue_number="FTP106", imp=imp, union=union
         )
@@ -51,7 +51,7 @@ class TestFTP106:
             ("import typing", "typing.Union"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, union: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, union: str) -> None:
         results = runner(
             filename="ftp106.txt", issue_number="FTP106", imp=imp, union=union
         )
@@ -82,7 +82,7 @@ class TestFTP106:
     "version,find_by_version", [("3.7.0", False), ("3.13.0", True)]
 )
 def test_ftp123(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     future: str,
     find_by_future: bool,
     imp: str,

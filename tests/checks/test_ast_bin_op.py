@@ -8,7 +8,7 @@ from functools import partial
 import pytest
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP060 = partial(
     Issue,
@@ -27,7 +27,7 @@ FTP104 = partial(
 )
 
 
-def test_ftp060(runner: Flake8Runner) -> None:
+def test_ftp060(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp060.txt", issue_number="FTP060")
     assert results == [
         FTP060(line=6, column=1),
@@ -37,7 +37,7 @@ def test_ftp060(runner: Flake8Runner) -> None:
 
 
 class TestFTP077:
-    def test(self, runner: Flake8Runner) -> None:
+    def test(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp077.txt", issue_number="FTP077")
         assert results == [
             FTP077(line=20, column=10),
@@ -53,7 +53,7 @@ class TestFTP077:
     @pytest.mark.skipif(
         sys.version_info < (3, 12), reason="type statement was added in 3.12"
     )
-    def test_type_statement(self, runner: Flake8Runner) -> None:
+    def test_type_statement(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp077_type.txt", issue_number="FTP077")
         assert results == [FTP077(line=5, column=10)]
 
@@ -64,7 +64,7 @@ class TestFTP104:
         "imp,class_",
         [("from foo import Never", "Never"), ("import typ", "typ.NoReturn")],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, class_: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, class_: str) -> None:
         assert not runner(filename="ftp104.txt", issue_number="FTP104")
 
     @pytest.mark.parametrize(
@@ -76,7 +76,7 @@ class TestFTP104:
             ("import typing", "typing.NoReturn"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, class_: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, class_: str) -> None:
         results = runner(
             filename="ftp104.txt", issue_number="FTP104", imp=imp, class_=class_
         )
@@ -89,6 +89,6 @@ class TestFTP104:
     @pytest.mark.skipif(
         sys.version_info < (3, 12), reason="type statement was added in 3.12"
     )
-    def test_type_statement(self, runner: Flake8Runner) -> None:
+    def test_type_statement(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp104_type.txt", issue_number="FTP104")
         assert results == [FTP104(line=7, column=10)]

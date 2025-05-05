@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from functools import partial
 from pathlib import Path
 
 import pytest
-from typing_extensions import TypeAlias
+from pytest_fixture_classes import fixture_class
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 from tests.path_util import mkdir, mkfile
 
-TestFolder: TypeAlias = Callable[[str], Path]
 _FTP004 = partial(
     Issue, issue_number="FTP004", message="Name of {type_} '{name}' is invalid."
 )
@@ -32,22 +30,22 @@ def FTP004(  # pylint:disable=invalid-name
     return issue._replace(message=issue.message.format(type_=type_, name=name))
 
 
-@pytest.fixture
-def testfolder(tmp_path: Path) -> TestFolder:
-    def _inner(foldername: str) -> Path:
-        testdir = mkdir(tmp_path, foldername)
+@fixture_class(name="testfolder")
+class TestFolderFixture:
+    tmp_path: Path
+
+    def __call__(self, foldername: str) -> Path:
+        testdir = mkdir(self.tmp_path, foldername)
         mkfile(testdir, "__init__.py")
         mkfile(testdir, "foo.py")
         return testdir
 
-    return _inner
-
 
 class TestFTP020:
-    def test_ftp020_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp020_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp020_ignore.txt", issue_number="FTP020")
 
-    def test_ftp020(self, runner: Flake8Runner) -> None:
+    def test_ftp020(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp020.txt", issue_number="FTP020")
         assert results == [
             FTP020(line=1, column=1),
@@ -62,14 +60,14 @@ class TestFTP004:
         "filename", ["abc.py", "foo1.py", "foo_1.py", "abc_foo.py", "1_foo.py"]
     )
     def test_filename_ok(
-        self, testfolder: TestFolder, filename: str, runner: Flake8Runner
+        self, testfolder: TestFolderFixture, filename: str, runner: Flake8RunnerFixture
     ) -> None:
         path = mkfile(testfolder("foo"), filename)
         assert not runner(filename=str(path), issue_number="FTP004")
 
     @pytest.mark.parametrize("filename", ["Abc.py", ".foo.py", "foo-bar.py", "fooü.py"])
     def test_filename_not_ok(
-        self, testfolder: TestFolder, filename: str, runner: Flake8Runner
+        self, testfolder: TestFolderFixture, filename: str, runner: Flake8RunnerFixture
     ) -> None:
         path = mkfile(testfolder("foo"), filename)
         results = runner(filename=str(path), issue_number="FTP004")
@@ -77,14 +75,20 @@ class TestFTP004:
 
     @pytest.mark.parametrize("foldername", ["abc", "samples1", "foo_bar"])
     def test_foldername_ok(
-        self, testfolder: TestFolder, foldername: str, runner: Flake8Runner
+        self,
+        testfolder: TestFolderFixture,
+        foldername: str,
+        runner: Flake8RunnerFixture,
     ) -> None:
         path = testfolder(foldername) / "__init__.py"
         assert not runner(filename=str(path), issue_number="FTP004")
 
     @pytest.mark.parametrize("foldername", ["Abc", "föö", "foo-bar"])
     def test_foldername_not_ok(
-        self, testfolder: TestFolder, foldername: str, runner: Flake8Runner
+        self,
+        testfolder: TestFolderFixture,
+        foldername: str,
+        runner: Flake8RunnerFixture,
     ) -> None:
         path = testfolder(foldername) / "__init__.py"
         results = runner(filename=str(path), issue_number="FTP004")
@@ -93,13 +97,13 @@ class TestFTP004:
 
 class TestFTP040:
     def test_with_init_present(
-        self, testfolder: TestFolder, runner: Flake8Runner
+        self, testfolder: TestFolderFixture, runner: Flake8RunnerFixture
     ) -> None:
         path = testfolder("foo") / "foo.py"
         assert not runner(filename=str(path), issue_number="FTP040")
 
     def test_fails_if_no_init(
-        self, testfolder: TestFolder, runner: Flake8Runner
+        self, testfolder: TestFolderFixture, runner: Flake8RunnerFixture
     ) -> None:
         folder = mkdir(testfolder("foo"), "bar")
         file = mkfile(folder, "foo.py")

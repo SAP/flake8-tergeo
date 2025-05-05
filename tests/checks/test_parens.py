@@ -8,13 +8,13 @@ import pytest
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, parens
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP008 = partial(Issue, issue_number="FTP008", message="Found unnecessary parenthesis.")
 
 
 @pytest.mark.parametrize("disallow_single_tuple", [True, False])
-def test_ftp008(runner: Flake8Runner, disallow_single_tuple: bool) -> None:
+def test_ftp008(runner: Flake8RunnerFixture, disallow_single_tuple: bool) -> None:
     results = runner(
         filename="ftp008.txt",
         issue_number="FTP008",
@@ -41,7 +41,7 @@ def test_ftp008(runner: Flake8Runner, disallow_single_tuple: bool) -> None:
 
 @pytest.mark.parametrize("disallow_single_tuple", [True, False])
 def test_ftp008_single_element_tuple(
-    runner: Flake8Runner, disallow_single_tuple: bool
+    runner: Flake8RunnerFixture, disallow_single_tuple: bool
 ) -> None:
     results = runner(
         filename="ftp008_single_element_tuple.txt",

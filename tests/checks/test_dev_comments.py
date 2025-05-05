@@ -7,7 +7,7 @@ from functools import partial
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, dev_comments
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 _FTP010 = partial(
     Issue,
@@ -46,10 +46,10 @@ def FTP012(  # pylint:disable=invalid-name
 
 
 class TestFTP010:
-    def test_ftp010_no_config(self, runner: Flake8Runner) -> None:
+    def test_ftp010_no_config(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp010.txt", issue_number="FTP010")
 
-    def test_ftp010(self, runner: Flake8Runner) -> None:
+    def test_ftp010(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp010.txt",
             issue_number="FTP010",
@@ -62,10 +62,10 @@ class TestFTP010:
 
 
 class TestFTP011:
-    def test_ftp011_no_config(self, runner: Flake8Runner) -> None:
+    def test_ftp011_no_config(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp011.txt", issue_number="FTP011")
 
-    def test_ftp011(self, runner: Flake8Runner) -> None:
+    def test_ftp011(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp011.txt",
             issue_number="FTP011",
@@ -75,10 +75,10 @@ class TestFTP011:
 
 
 class TestFTP012:
-    def test_ftp012_no_config(self, runner: Flake8Runner) -> None:
+    def test_ftp012_no_config(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp012.txt", issue_number="FTP012")
 
-    def test_ftp012(self, runner: Flake8Runner) -> None:
+    def test_ftp012(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp012.txt",
             issue_number="FTP012",
@@ -92,10 +92,10 @@ class TestFTP012:
 
 
 class TestFTP013:
-    def test_ftp013_no_config(self, runner: Flake8Runner) -> None:
+    def test_ftp013_no_config(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp013.txt", issue_number="FTP013")
 
-    def test_ftp013(self, runner: Flake8Runner) -> None:
+    def test_ftp013(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp013.txt",
             issue_number="FTP013",
