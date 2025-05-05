@@ -9,6 +9,8 @@ from _flake8_tergeo.ast_util import (
     in_annotation,
     is_constant_node,
     is_expected_node,
+    is_in_type_alias,
+    is_in_type_statement,
 )
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
 from _flake8_tergeo.registry import register
@@ -48,8 +50,12 @@ def _flatten(node: ast.BinOp) -> list[ast.AST]:
 
 
 def _check_annotation_order(node: ast.BinOp) -> IssueGenerator:
-    # if we are not in an annotation, we can skip the check
-    if not in_annotation(node):
+    # if we don't check something for typing, we can skip the check
+    if (
+        not in_annotation(node)
+        and not is_in_type_alias(node)
+        and not is_in_type_statement(node)
+    ):
         return
     # if the parent is already an BinOp, the parent was checked, so we can return here
     if isinstance(get_parent(node), ast.BinOp):
@@ -72,8 +78,12 @@ def _check_annotation_order(node: ast.BinOp) -> IssueGenerator:
 
 
 def _check_bottom_type_in_union(node: ast.BinOp) -> IssueGenerator:
-    # if we are not in an annotation, we can skip the check
-    if not in_annotation(node):
+    # if we don't check something for typing, we can skip the check
+    if (
+        not in_annotation(node)
+        and not is_in_type_alias(node)
+        and not is_in_type_statement(node)
+    ):
         return
 
     if any(

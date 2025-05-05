@@ -17,6 +17,8 @@ from _flake8_tergeo.ast_util import (
     get_parent_info,
     in_annotation,
     is_constant_node,
+    is_in_type_alias,
+    is_in_type_statement,
     is_stub,
     set_info_in_tree,
     stringify,
@@ -260,3 +262,32 @@ def test_in_annotation_assign() -> None:
     assert in_annotation(assign.annotation)
     assert in_annotation(assign.annotation.left)
     assert in_annotation(assign.annotation.right)
+
+
+def test_is_in_type_statement() -> None:
+    tree = ast.parse("type X = int|None")
+    set_info_in_tree(tree)
+    alias = cast(ast.TypeAlias, tree.body[0])
+
+    assert is_in_type_statement(alias.value)
+    assert not is_in_type_statement(alias)
+    assert not is_in_type_statement(tree)
+
+
+def test_is_in_type_statement_unsupported_python_version(mocker: MockerFixture) -> None:
+    mocker.patch("sys.version_info", (3, 11))
+    tree = ast.parse("type X = int|None")
+    set_info_in_tree(tree)
+    alias = cast(ast.TypeAlias, tree.body[0])
+
+    assert not is_in_type_statement(alias.value)
+
+
+def test_is_in_type_alias() -> None:
+    tree = ast.parse("from typing import TypeAlias; a: TypeAlias = None")
+    set_info_in_tree(tree)
+    assign = cast(ast.AnnAssign, tree.body[1])
+
+    assert not is_in_type_alias(tree)
+    assert not is_in_type_alias(assign)
+    assert is_in_type_alias(cast(ast.AST, assign.value))

@@ -1,3 +1,5 @@
+from typing_extensions import TypeAlias
+
 # code to ignore
 ## assign
 a = 123
@@ -10,6 +12,8 @@ a: int | None = 123
 def foo(): pass
 def foo(a: int, b: None, c: int|None): pass
 def foo(*, a: int|None = None) -> int|None: pass
+X = None | Some
+X: TypeAlias = Some | None
 
 # code to find
 # assign
@@ -19,3 +23,4 @@ b: Callable[[None|int], None|str]
 # func def
 def foo(a: int, b: None|int|float|str, *, c: None|str = "foo"): pass
 def foo() -> None|int: pass
+X: TypeAlias = None | Some

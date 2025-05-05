@@ -1,0 +1,7 @@
+from typing import Never
+
+# code without issues
+type X = Never
+
+# code with issues
+type X = Some | Never

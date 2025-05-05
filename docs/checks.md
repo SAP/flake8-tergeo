@@ -354,8 +354,8 @@ Checks for import of `from re import DEBUG` or usage of `re.DEBUG`
 Checks for type comments which should be replaced by annotations. `type:ignore` is ignored
 
 ## FTP077
-Check if in a type annotation containing a union, `None` always comes last. For instance
-`a: int|float|None` is okay, but `a: int|None|float` is not.
+Check if in a type annotation or type alias which contains a union, `None` always comes last.
+For instance `a: int|float|None` is okay, but `a: int|None|float` is not.
 This check does not work for unions using `typing.Union` and does also not consider
 `typing.Optional`
 
@@ -459,8 +459,8 @@ These classes can be replaced with `pathlib.Path` and `pathlib.PurePath`,
 because they are OS independent and create the correct OS dependent class behind the scenes
 
 ## FTP104
-Find `typing.Never` and `typing.NoReturn` in unions. These types are
-redundant in unions and can be removed
+Finds `typing.Never` and `typing.NoReturn` in unions in type annotations and type alias.
+These types are redundant in unions and can be removed.
 
 ## FTP105
 Find nested `typing.Union` types like `Union[Union[int, str], float]`.
