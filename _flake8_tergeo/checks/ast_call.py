@@ -547,11 +547,9 @@ def _check_pointless_double_starred(node: ast.Call) -> IssueGenerator:
         if not all(is_constant_node(key, str) for key in keyword.value.keys):
             continue
 
-        # line and column information were added to keyword with python3.9
-        # therefore we use the call node
         yield Issue(
-            line=node.lineno,
-            column=node.col_offset,
+            line=keyword.lineno,
+            column=keyword.col_offset,
             issue_number="059",
             message=(
                 "Using starred expression on a constant structure is pointless. "

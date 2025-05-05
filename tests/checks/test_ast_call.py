@@ -657,11 +657,11 @@ def test_ftp059(runner: Flake8Runner) -> None:
         FTP059(line=15, column=7),
         FTP059(line=16, column=7),
         FTP059(line=17, column=7),
-        FTP059(line=18, column=1),
+        FTP059(line=18, column=7),
         FTP059(line=19, column=7),
         FTP059(line=20, column=7),
-        FTP059(line=21, column=1),
         FTP059(line=21, column=11),
+        FTP059(line=21, column=24),
     ]
 
 
