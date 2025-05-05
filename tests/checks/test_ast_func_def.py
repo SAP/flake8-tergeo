@@ -5,11 +5,12 @@ from __future__ import annotations
 from functools import partial
 
 import pytest
-from anys import AnyIn
+from dirty_equals import IsOneOf
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, ast_func_def
 from tests.conftest import Flake8Runner
+from tests.util import LenientIssue
 
 ignore_parameters = pytest.mark.parametrize("ignore_ann_assign", [True, False])
 
@@ -38,7 +39,7 @@ _FTP093 = partial(
     ),
 )
 _FTP096 = partial(
-    Issue,
+    LenientIssue,
     issue_number="FTP096",
     message="Found descriptor {descriptor} on function outside a class.",
 )
@@ -83,8 +84,8 @@ def FTP093(  # pylint:disable=invalid-name
 
 
 def FTP096(  # pylint:disable=invalid-name
-    *, line: int, column: int, descriptor: str
-) -> Issue:
+    *, line: int | IsOneOf, column: int, descriptor: str
+) -> LenientIssue:
     issue = _FTP096(line=line, column=column)
     return issue._replace(message=issue.message.format(descriptor=descriptor))
 
@@ -161,8 +162,8 @@ def test_ftp096(runner: Flake8Runner, descriptor: str) -> None:
         filename="ftp096.txt", issue_number="FTP096", descriptor=descriptor
     )
     assert results == [
-        FTP096(line=AnyIn([18, 19]), column=1, descriptor=descriptor),
-        FTP096(line=AnyIn([23, 24]), column=9, descriptor=descriptor),
+        FTP096(line=IsOneOf(18, 19), column=1, descriptor=descriptor),
+        FTP096(line=IsOneOf(23, 24), column=9, descriptor=descriptor),
     ]
 
 
