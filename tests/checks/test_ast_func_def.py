@@ -10,7 +10,7 @@ from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, ast_func_def
 from tests.conftest import Flake8Runner
-from tests.util import TestIssue
+from tests.util import LenientIssue
 
 ignore_parameters = pytest.mark.parametrize("ignore_ann_assign", [True, False])
 
@@ -39,7 +39,7 @@ _FTP093 = partial(
     ),
 )
 _FTP096 = partial(
-    TestIssue,
+    LenientIssue,
     issue_number="FTP096",
     message="Found descriptor {descriptor} on function outside a class.",
 )
@@ -85,7 +85,7 @@ def FTP093(  # pylint:disable=invalid-name
 
 def FTP096(  # pylint:disable=invalid-name
     *, line: int | IsOneOf, column: int, descriptor: str
-) -> TestIssue:
+) -> LenientIssue:
     issue = _FTP096(line=line, column=column)
     return issue._replace(message=issue.message.format(descriptor=descriptor))
 

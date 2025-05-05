@@ -12,12 +12,12 @@ from _flake8_tergeo.checks.wrappers import BugBearChecker, TypingImportChecker
 from _flake8_tergeo.flake8_types import Issue
 from _flake8_tergeo.interfaces import AbstractNamespace
 from tests.conftest import Flake8Runner
-from tests.util import TestIssue
+from tests.util import LenientIssue
 
 
 def test_ComprehensionsChecker(runner: Flake8Runner) -> None:
     assert runner(filename="ftc.txt", issue_number="FTC") == [
-        TestIssue(
+        LenientIssue(
             line=1,
             column=IsOneOf(5, 6),
             issue_number="FTC416",

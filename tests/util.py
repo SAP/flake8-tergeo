@@ -7,7 +7,7 @@ from typing import NamedTuple
 from dirty_equals import IsOneOf
 
 
-class TestIssue(NamedTuple):
+class LenientIssue(NamedTuple):
     line: int | IsOneOf
     column: int | IsOneOf
     issue_number: str
