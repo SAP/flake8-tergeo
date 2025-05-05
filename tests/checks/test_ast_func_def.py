@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 import pytest
-from anys import AnyIn
+from dirty_equals import IsOneOf
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, ast_func_def
@@ -161,8 +161,8 @@ def test_ftp096(runner: Flake8Runner, descriptor: str) -> None:
         filename="ftp096.txt", issue_number="FTP096", descriptor=descriptor
     )
     assert results == [
-        FTP096(line=AnyIn([18, 19]), column=1, descriptor=descriptor),
-        FTP096(line=AnyIn([23, 24]), column=9, descriptor=descriptor),
+        FTP096(line=IsOneOf(18, 19), column=1, descriptor=descriptor),
+        FTP096(line=IsOneOf(23, 24), column=9, descriptor=descriptor),
     ]
 
 

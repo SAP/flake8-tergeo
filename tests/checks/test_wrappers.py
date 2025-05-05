@@ -5,7 +5,7 @@
 from __future__ import annotations
 
 import pytest
-from anys import AnyIn
+from dirty_equals import IsOneOf
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo.checks.wrappers import BugBearChecker, TypingImportChecker
@@ -18,7 +18,7 @@ def test_ComprehensionsChecker(runner: Flake8Runner) -> None:
     assert runner(filename="ftc.txt", issue_number="FTC") == [
         Issue(
             line=1,
-            column=AnyIn([5, 6]),
+            column=IsOneOf(5, 6),
             issue_number="FTC416",
             message=(
                 "Unnecessary list comprehension - rewrite using list(). "
