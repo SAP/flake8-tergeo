@@ -9,6 +9,7 @@ from dirty_equals import IsOneOf
 
 from _flake8_tergeo import Issue
 from tests.conftest import Flake8Runner
+from tests.util import TestIssue
 
 FTP066 = partial(
     Issue,
@@ -36,7 +37,7 @@ _FTP097 = partial(
     message="Enum '{enum}' is missing the unique decorator.",
 )
 FTP074 = partial(
-    Issue,
+    TestIssue,
     issue_number="FTP074",
     message="Using a cache function on a method can lead to memory leaks.",
 )
