@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import sys
 from typing import Any, Union, cast
 
 import pytest
@@ -264,6 +265,9 @@ def test_in_annotation_assign() -> None:
     assert in_annotation(assign.annotation.right)
 
 
+@pytest.mark.skipif(
+    sys.version_info < (3, 12), reason="type statement was added in 3.12"
+)
 def test_is_in_type_statement() -> None:
     tree = ast.parse("type X = int|None")
     set_info_in_tree(tree)
@@ -275,12 +279,9 @@ def test_is_in_type_statement() -> None:
 
 
 def test_is_in_type_statement_unsupported_python_version(mocker: MockerFixture) -> None:
-    mocker.patch("sys.version_info", (3, 11))
-    tree = ast.parse("type X = int|None")
-    set_info_in_tree(tree)
-    alias = cast(ast.TypeAlias, tree.body[0])
-
-    assert not is_in_type_statement(alias.value)
+    mocker.patch.object(sys, "version_info", (3, 11))
+    tree = ast.parse("a = 1")
+    assert not is_in_type_statement(tree)
 
 
 def test_is_in_type_alias() -> None:
