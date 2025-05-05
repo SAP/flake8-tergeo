@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from functools import partial
 
 import pytest
@@ -35,17 +36,26 @@ def test_ftp060(runner: Flake8RunnerFixture) -> None:
     ]
 
 
-def test_ftp077(runner: Flake8RunnerFixture) -> None:
-    results = runner(filename="ftp077.txt", issue_number="FTP077")
-    assert results == [
-        FTP077(line=16, column=10),
-        FTP077(line=17, column=4),
-        FTP077(line=18, column=14),
-        FTP077(line=18, column=25),
-        FTP077(line=20, column=20),
-        FTP077(line=20, column=46),
-        FTP077(line=21, column=14),
-    ]
+class TestFTP077:
+    def test(self, runner: Flake8RunnerFixture) -> None:
+        results = runner(filename="ftp077.txt", issue_number="FTP077")
+        assert results == [
+            FTP077(line=20, column=10),
+            FTP077(line=21, column=4),
+            FTP077(line=22, column=14),
+            FTP077(line=22, column=25),
+            FTP077(line=24, column=20),
+            FTP077(line=24, column=46),
+            FTP077(line=25, column=14),
+            FTP077(line=26, column=16),
+        ]
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 12), reason="type statement was added in 3.12"
+    )
+    def test_type_statement(self, runner: Flake8RunnerFixture) -> None:
+        results = runner(filename="ftp077_type.txt", issue_number="FTP077")
+        assert results == [FTP077(line=5, column=10)]
 
 
 class TestFTP104:
@@ -71,6 +81,14 @@ class TestFTP104:
             filename="ftp104.txt", issue_number="FTP104", imp=imp, class_=class_
         )
         assert results == [
-            FTP104(line=8, column=4),
-            FTP104(line=9, column=5),
+            FTP104(line=11, column=4),
+            FTP104(line=12, column=5),
+            FTP104(line=13, column=16),
         ]
+
+    @pytest.mark.skipif(
+        sys.version_info < (3, 12), reason="type statement was added in 3.12"
+    )
+    def test_type_statement(self, runner: Flake8Runner) -> None:
+        results = runner(filename="ftp104_type.txt", issue_number="FTP104")
+        assert results == [FTP104(line=7, column=10)]

@@ -1,0 +1,5 @@
+# code without issues
+type X = Some | None
+
+# code with issues
+type X = None | Some

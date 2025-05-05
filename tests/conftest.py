@@ -53,11 +53,6 @@ def plugin(mocker: MockerFixture) -> Flake8TergeoPlugin:
     return create_plugin(mocker)
 
 
-@pytest.fixture
-def no_checker(mocker: MockerFixture) -> None:
-    mocker.patch.object(base, "_get_concrete_classes", return_value=[])
-
-
 class _BasicChecker(AbstractChecker):
     prefix = "X"
     args = None
