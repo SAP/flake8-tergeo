@@ -5,10 +5,11 @@ from __future__ import annotations
 from functools import partial
 
 import pytest
-from anys import AnyIn
+from dirty_equals import IsOneOf
 
 from _flake8_tergeo import Issue
 from tests.conftest import Flake8RunnerFixture
+from tests.util import LenientIssue
 
 FTP066 = partial(
     Issue,
@@ -36,7 +37,7 @@ _FTP097 = partial(
     message="Enum '{enum}' is missing the unique decorator.",
 )
 FTP074 = partial(
-    Issue,
+    LenientIssue,
     issue_number="FTP074",
     message="Using a cache function on a method can lead to memory leaks.",
 )
@@ -97,7 +98,7 @@ class TestFTP074:
         results = runner(
             filename="ftp074.txt", issue_number="FTP074", imp=imp, func=func
         )
-        assert results == [FTP074(line=15, column=AnyIn([5, 6]))]
+        assert results == [FTP074(line=15, column=IsOneOf(5, 6))]
 
 
 class TestFTP097:
