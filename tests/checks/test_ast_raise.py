@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP044 = partial(
     Issue, issue_number="FTP044", message="Found exception raised from itself."
@@ -29,7 +29,7 @@ def FTP047(*, line: int, column: int, exc: str) -> Issue:  # pylint:disable=inva
     return issue._replace(message=issue.message.format(exc=exc))
 
 
-def test_ftp047(runner: Flake8Runner) -> None:
+def test_ftp047(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp047.txt", issue_number="FTP047")
     assert results == [
         FTP047(line=5, column=1, exc="Exception"),
@@ -39,12 +39,12 @@ def test_ftp047(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp044(runner: Flake8Runner) -> None:
+def test_ftp044(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp044.txt", issue_number="FTP044")
     assert results == [FTP044(line=11, column=1), FTP044(line=12, column=1)]
 
 
-def test_ftp129(runner: Flake8Runner) -> None:
+def test_ftp129(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp129.txt", issue_number="FTP129")
     assert results == [
         FTP129(line=24, column=5),

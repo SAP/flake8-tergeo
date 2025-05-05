@@ -9,7 +9,7 @@ from anys import AnyIn
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, ast_func_def
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 ignore_parameters = pytest.mark.parametrize("ignore_ann_assign", [True, False])
 
@@ -90,7 +90,7 @@ def FTP096(  # pylint:disable=invalid-name
 
 
 @ignore_parameters
-def test_ftp071(runner: Flake8Runner, ignore_ann_assign: bool) -> None:
+def test_ftp071(runner: Flake8RunnerFixture, ignore_ann_assign: bool) -> None:
     results = runner(
         filename="ftp071.txt",
         issue_number="FTP071",
@@ -117,7 +117,7 @@ def test_ftp071(runner: Flake8Runner, ignore_ann_assign: bool) -> None:
         ("from typing_extensions import {cls_name}", "{cls_name}"),
     ],
 )
-def test_ftp093(runner: Flake8Runner, cls_name: str, imp: str, cls: str) -> None:
+def test_ftp093(runner: Flake8RunnerFixture, cls_name: str, imp: str, cls: str) -> None:
     results = runner(
         filename="ftp093.txt",
         issue_number="FTP093",
@@ -138,7 +138,7 @@ def test_ftp093(runner: Flake8Runner, cls_name: str, imp: str, cls: str) -> None
     ]
 
 
-def test_ftp043(runner: Flake8Runner) -> None:
+def test_ftp043(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp043.txt", issue_number="FTP043")
     assert results == [
         FTP043(line=40, column=1, func="get_foo"),
@@ -150,13 +150,13 @@ def test_ftp043(runner: Flake8Runner) -> None:
 
 
 @pytest.mark.parametrize("func", ast_func_def.PY2_REMOVED_METHODS)
-def test_ftp042(runner: Flake8Runner, func: str) -> None:
+def test_ftp042(runner: Flake8RunnerFixture, func: str) -> None:
     results = runner(filename="ftp042.txt", issue_number="FTP042", func=func)
     assert results == [FTP042(line=9, column=5, func=func)]
 
 
 @pytest.mark.parametrize("descriptor", ast_func_def.DESCRIPTORS)
-def test_ftp096(runner: Flake8Runner, descriptor: str) -> None:
+def test_ftp096(runner: Flake8RunnerFixture, descriptor: str) -> None:
     results = runner(
         filename="ftp096.txt", issue_number="FTP096", descriptor=descriptor
     )
@@ -179,7 +179,7 @@ def test_add_options(mocker: MockerFixture) -> None:
     ]
 
 
-def test_ftp122(runner: Flake8Runner) -> None:
+def test_ftp122(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp122.txt", issue_number="FTP122")
     assert results == [FTP122(line=15, column=5)]
 
@@ -193,7 +193,7 @@ class TestFTP107:
             ("from foo import typing", "typing.Never"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, never: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, never: str) -> None:
         assert not runner(
             filename="ftp107.txt", issue_number="FTP107", imp=imp, never=never
         )
@@ -205,7 +205,7 @@ class TestFTP107:
             ("import typing", "typing.Never"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, never: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, never: str) -> None:
         results = runner(
             filename="ftp107.txt", issue_number="FTP107", imp=imp, never=never
         )
@@ -221,7 +221,7 @@ class TestFTP125:
             ("from foo import override", "typing.override"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, override: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, override: str) -> None:
         assert not runner(
             filename="ftp125.txt", issue_number="FTP125", imp=imp, override=override
         )
@@ -233,7 +233,7 @@ class TestFTP125:
             ("import typing", "typing.override"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, override: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, override: str) -> None:
         results = runner(
             filename="ftp125.txt", issue_number="FTP125", imp=imp, override=override
         )

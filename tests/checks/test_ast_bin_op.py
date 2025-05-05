@@ -7,7 +7,7 @@ from functools import partial
 import pytest
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP060 = partial(
     Issue,
@@ -26,7 +26,7 @@ FTP104 = partial(
 )
 
 
-def test_ftp060(runner: Flake8Runner) -> None:
+def test_ftp060(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp060.txt", issue_number="FTP060")
     assert results == [
         FTP060(line=6, column=1),
@@ -35,7 +35,7 @@ def test_ftp060(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp077(runner: Flake8Runner) -> None:
+def test_ftp077(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp077.txt", issue_number="FTP077")
     assert results == [
         FTP077(line=16, column=10),
@@ -54,7 +54,7 @@ class TestFTP104:
         "imp,class_",
         [("from foo import Never", "Never"), ("import typ", "typ.NoReturn")],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, class_: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, class_: str) -> None:
         assert not runner(filename="ftp104.txt", issue_number="FTP104")
 
     @pytest.mark.parametrize(
@@ -66,7 +66,7 @@ class TestFTP104:
             ("import typing", "typing.NoReturn"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, class_: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, class_: str) -> None:
         results = runner(
             filename="ftp104.txt", issue_number="FTP104", imp=imp, class_=class_
         )

@@ -8,7 +8,7 @@ import pytest
 from anys import AnyIn
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP066 = partial(
     Issue,
@@ -71,7 +71,7 @@ def FTP005(line: int, column: int, field: str) -> Issue:  # pylint:disable=inval
     return issue._replace(message=issue.message.format(field=field))
 
 
-def test_ftp009(runner: Flake8Runner) -> None:
+def test_ftp009(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp009.txt", issue_number="FTP009") == [
         FTP009(line=7, column=11),
         FTP009(line=8, column=21),
@@ -79,7 +79,7 @@ def test_ftp009(runner: Flake8Runner) -> None:
 
 
 class TestFTP074:
-    def test_ftp074_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp074_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp074_ignore.txt", issue_number="FTP074")
 
     @pytest.mark.parametrize(
@@ -93,7 +93,7 @@ class TestFTP074:
             ("from functools import lru_cache", "lru_cache(maxsize=None)"),
         ],
     )
-    def test_ftp074(self, runner: Flake8Runner, imp: str, func: str) -> None:
+    def test_ftp074(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
         results = runner(
             filename="ftp074.txt", issue_number="FTP074", imp=imp, func=func
         )
@@ -101,7 +101,7 @@ class TestFTP074:
 
 
 class TestFTP097:
-    def test_ftp097_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp097_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp097_ignore.txt", issue_number="FTP097")
 
     @pytest.mark.parametrize(
@@ -112,7 +112,7 @@ class TestFTP097:
         ],
     )
     def test_ftp097(
-        self, runner: Flake8Runner, imp: str, unique: str, enum: str
+        self, runner: Flake8RunnerFixture, imp: str, unique: str, enum: str
     ) -> None:
         results = runner(
             filename="ftp097.txt",
@@ -125,7 +125,7 @@ class TestFTP097:
 
 
 class TestFTP082:
-    def test_ftp082_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp082_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp082_ignore.txt", issue_number="FTP082")
 
     @pytest.mark.parametrize(
@@ -135,7 +135,9 @@ class TestFTP082:
             ("from abc import ABCMeta", "ABCMeta"),
         ],
     )
-    def test_ftp082(self, runner: Flake8Runner, imp: str, metaclass: str) -> None:
+    def test_ftp082(
+        self, runner: Flake8RunnerFixture, imp: str, metaclass: str
+    ) -> None:
         results = runner(
             filename="ftp082.txt", issue_number="FTP082", imp=imp, metaclass=metaclass
         )
@@ -143,14 +145,14 @@ class TestFTP082:
 
 
 class TestFTP066:
-    def test_ftp066_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp066_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp066_ignore.txt", issue_number="FTP066")
 
     @pytest.mark.parametrize(
         "imp,enum",
         [("import enum", "enum.Enum"), ("from enum import Enum", "Enum")],
     )
-    def test_ftp066(self, runner: Flake8Runner, imp: str, enum: str) -> None:
+    def test_ftp066(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
         results = runner(
             filename="ftp066.txt", issue_number="FTP066", imp=imp, enum=enum
         )
@@ -167,7 +169,7 @@ class TestFTP067:
         [("import enum", "enum.Enum"), ("from enum import Enum", "Enum")],
     )
 
-    def test_ftp067_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp067_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(
             filename="ftp067_ignore.txt",
             issue_number="FTP067",
@@ -175,7 +177,7 @@ class TestFTP067:
         )
 
     @params
-    def test_ftp067_310(self, runner: Flake8Runner, imp: str, enum: str) -> None:
+    def test_ftp067_310(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
         assert not runner(
             filename="ftp067.txt",
             issue_number="FTP067",
@@ -185,7 +187,7 @@ class TestFTP067:
         )
 
     @params
-    def test_ftp067_311(self, runner: Flake8Runner, imp: str, enum: str) -> None:
+    def test_ftp067_311(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
         results = runner(
             filename="ftp067.txt",
             issue_number="FTP067",
@@ -200,7 +202,7 @@ class TestFTP067:
         ]
 
 
-def test_ftp005(runner: Flake8Runner) -> None:
+def test_ftp005(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp005.txt", issue_number="FTP005") == [
         FTP005(line=28, column=5, field="a"),
         FTP005(line=29, column=5, field="c"),
@@ -223,7 +225,7 @@ def test_ftp005(runner: Flake8Runner) -> None:
     "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
 )
 def test_ftp128(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     imp: str,
     find_by_imp: bool,
     generic: str,

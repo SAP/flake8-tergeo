@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP048 = partial(Issue, issue_number="FTP048", message="Found float used as key.")
 FTP095 = partial(
@@ -22,7 +22,7 @@ FTP101 = partial(
 )
 
 
-def test_ftp048(runner: Flake8Runner) -> None:
+def test_ftp048(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp048.txt", issue_number="FTP048")
     assert results == [
         FTP048(line=7, column=6),
@@ -33,7 +33,7 @@ def test_ftp048(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp095(runner: Flake8Runner) -> None:
+def test_ftp095(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp095.txt", issue_number="FTP095")
     assert results == [
         FTP095(line=8, column=1),
@@ -46,14 +46,14 @@ def test_ftp095(runner: Flake8Runner) -> None:
 
 class TestFTP101:
 
-    def test_python38(self, runner: Flake8Runner) -> None:
+    def test_python38(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(
             filename="ftp101.txt",
             issue_number="FTP101",
             args=("--ftp-python-version", "3.8.0"),
         )
 
-    def test(self, runner: Flake8Runner) -> None:
+    def test(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp101.txt",
             issue_number="FTP101",

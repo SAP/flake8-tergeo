@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP031 = partial(
     Issue,
@@ -47,17 +47,17 @@ def FTP037(*, line: int, column: int, key: str) -> Issue:  # pylint:disable=inva
     return issue._replace(message=issue.message.format(key=key))
 
 
-def test_ftp031(runner: Flake8Runner) -> None:
+def test_ftp031(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp031.txt", issue_number="FTP031")
     assert results == [FTP031(line=13, column=1), FTP031(line=14, column=1)]
 
 
-def test_ftp032(runner: Flake8Runner) -> None:
+def test_ftp032(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp032.txt", issue_number="FTP032")
     assert results == [FTP032(line=10, column=1), FTP032(line=11, column=1)]
 
 
-def test_ftp033(runner: Flake8Runner) -> None:
+def test_ftp033(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp033.txt", issue_number="FTP033")
     assert results == [
         FTP033(line=12, column=1),
@@ -66,22 +66,22 @@ def test_ftp033(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp034(runner: Flake8Runner) -> None:
+def test_ftp034(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp034.txt", issue_number="FTP034")
     assert results == [FTP034(line=10, column=1)]
 
 
-def test_ftp035(runner: Flake8Runner) -> None:
+def test_ftp035(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp035.txt", issue_number="FTP035")
     assert results == [FTP035(line=10, column=1)]
 
 
-def test_ftp036(runner: Flake8Runner) -> None:
+def test_ftp036(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp036.txt", issue_number="FTP036")
     assert results == [FTP036(line=8, column=1)]
 
 
-def test_ftp037(runner: Flake8Runner) -> None:
+def test_ftp037(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp037.txt", issue_number="FTP037")
     assert results == [
         FTP037(line=10, column=43, key="msg"),

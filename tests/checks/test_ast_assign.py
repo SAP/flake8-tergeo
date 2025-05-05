@@ -8,7 +8,7 @@ import pytest
 
 from _flake8_tergeo import Issue
 from _flake8_tergeo.checks import ast_assign
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP090 = partial(Issue, issue_number="FTP090", message="Found unsorted __all__.")
 FTP049 = partial(
@@ -50,7 +50,7 @@ def FTP069(  # pylint: disable=invalid-name
     return issue._replace(message=issue.message.format(name=name))
 
 
-def test_ftp090(runner: Flake8Runner) -> None:
+def test_ftp090(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp090_119.txt", issue_number="FTP090", name="__all__")
     assert results == [
         FTP090(line=15, column=1),
@@ -61,7 +61,7 @@ def test_ftp090(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp119(runner: Flake8Runner) -> None:
+def test_ftp119(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp090_119.txt", issue_number="FTP119", name="__slots__")
     assert results == [
         FTP119(line=15, column=1),
@@ -72,7 +72,7 @@ def test_ftp119(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp049(runner: Flake8Runner) -> None:
+def test_ftp049(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp049.txt", issue_number="FTP049")
     assert results == [
         FTP049(line=9, column=1),
@@ -82,7 +82,7 @@ def test_ftp049(runner: Flake8Runner) -> None:
 
 
 @pytest.mark.parametrize("name", ast_assign.BAD_NAMES)
-def test_ftp069(runner: Flake8Runner, name: str) -> None:
+def test_ftp069(runner: Flake8RunnerFixture, name: str) -> None:
     results = runner(filename="ftp069.txt", issue_number="FTP069", name=name)
     assert results == [
         FTP069(line=7, column=1, name=name),
@@ -90,7 +90,7 @@ def test_ftp069(runner: Flake8Runner, name: str) -> None:
     ]
 
 
-def test_ftp094(runner: Flake8Runner) -> None:
+def test_ftp094(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp094.txt", issue_number="FTP094") == [
         FTP094(line=14, column=1),
         FTP094(line=15, column=1),
@@ -102,7 +102,7 @@ def test_ftp094(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp120(runner: Flake8Runner) -> None:
+def test_ftp120(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp120.txt", issue_number="FTP120") == [
         FTP120(line=9, column=1),
         FTP120(line=10, column=1),
@@ -110,7 +110,7 @@ def test_ftp120(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp124(runner: Flake8Runner) -> None:
+def test_ftp124(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp124.txt", issue_number="FTP124") == [
         FTP124(line=5, column=10),
         FTP124(line=6, column=12),
@@ -132,7 +132,7 @@ def test_ftp124(runner: Flake8Runner) -> None:
     "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
 )
 def test_ftp126(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     imp: str,
     find_by_imp: bool,
     type_alias: str,

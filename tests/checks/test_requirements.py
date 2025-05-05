@@ -19,7 +19,7 @@ from _flake8_tergeo import base
 from _flake8_tergeo.ast_util import set_info_in_tree
 from _flake8_tergeo.checks import requirements
 from _flake8_tergeo.flake8_types import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 from tests.path_util import mkdir, mkfile
 
 
@@ -365,12 +365,12 @@ def test_get_identifier(code: str, expected: str) -> None:
 
 
 @pytest.mark.usefixtures("create_dummy_packages")
-def test_ftp041_ignore(runner: Flake8Runner, args: tuple[str, ...]) -> None:
+def test_ftp041_ignore(runner: Flake8RunnerFixture, args: tuple[str, ...]) -> None:
     assert not runner(filename="ftp041_ignore.txt", issue_number="FTP041", args=args)
 
 
 @pytest.mark.usefixtures("create_dummy_packages")
-def test_ftp041_no_config(runner: Flake8Runner) -> None:
+def test_ftp041_no_config(runner: Flake8RunnerFixture) -> None:
     assert not runner(filename="ftp041_ignore.txt", issue_number="FTP041")
 
 
@@ -389,7 +389,7 @@ def test_ftp041_no_config(runner: Flake8Runner) -> None:
 )
 @pytest.mark.usefixtures("create_dummy_packages")
 def test_ftp041(
-    runner: Flake8Runner, imp: str, module: str, args: tuple[str, ...]
+    runner: Flake8RunnerFixture, imp: str, module: str, args: tuple[str, ...]
 ) -> None:
     results = runner(filename="ftp041.txt", issue_number="FTP041", imp=imp, args=args)
     assert results == [FTP041(line=1, column=1, module=module)]
@@ -406,7 +406,7 @@ def test_ftp041(
 )
 @pytest.mark.usefixtures("create_dummy_packages")
 def test_ftp041_extra_mapping_ignore(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     imp: str,
     filename: str,
     args_with_extra_mapping: tuple[str, ...],
@@ -440,7 +440,7 @@ def test_ftp041_extra_mapping_ignore(
 )
 @pytest.mark.usefixtures("create_dummy_packages")
 def test_ftp041_extra_mapping(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     imp: str,
     module: str,
     filename: str,

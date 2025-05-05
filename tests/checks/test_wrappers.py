@@ -11,10 +11,10 @@ from pytest_mock import MockerFixture
 from _flake8_tergeo.checks.wrappers import BugBearChecker, TypingImportChecker
 from _flake8_tergeo.flake8_types import Issue
 from _flake8_tergeo.interfaces import AbstractNamespace
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 
-def test_ComprehensionsChecker(runner: Flake8Runner) -> None:
+def test_ComprehensionsChecker(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftc.txt", issue_number="FTC") == [
         Issue(
             line=1,
@@ -28,7 +28,7 @@ def test_ComprehensionsChecker(runner: Flake8Runner) -> None:
     ]
 
 
-def test_BuiltinsChecker(runner: Flake8Runner) -> None:
+def test_BuiltinsChecker(runner: Flake8RunnerFixture) -> None:
     result = runner(filename="ftu.txt", issue_number="FTU")
     result = [issue._replace(message=issue.message.lower()) for issue in result]
     assert result == [
@@ -45,7 +45,7 @@ def test_BuiltinsChecker(runner: Flake8Runner) -> None:
 
 class TestBugBearChecker:
 
-    def test(self, runner: Flake8Runner) -> None:
+    def test(self, runner: Flake8RunnerFixture) -> None:
         assert runner(filename="ftb.txt", issue_number="FTB") == [
             Issue(
                 line=1,
@@ -58,14 +58,14 @@ class TestBugBearChecker:
             )
         ]
 
-    def test_905_disabled(self, runner: Flake8Runner) -> None:
+    def test_905_disabled(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(
             filename="ftb_905.txt",
             issue_number="FTB",
             args=("--ftp-python-version", "3.7.1"),
         )
 
-    def test_905_enabled(self, runner: Flake8Runner) -> None:
+    def test_905_enabled(self, runner: Flake8RunnerFixture) -> None:
         assert runner(
             filename="ftb_905.txt",
             issue_number="FTB",
@@ -90,7 +90,7 @@ class TestBugBearChecker:
         assert not hasattr(options, "extend_immutable_calls")
 
 
-def test_SimplifyChecker(runner: Flake8Runner) -> None:
+def test_SimplifyChecker(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftm.txt", issue_number="FTM") == [
         Issue(
             column=4,
@@ -101,7 +101,7 @@ def test_SimplifyChecker(runner: Flake8Runner) -> None:
     ]
 
 
-def test_PytestStyleChecker(runner: Flake8Runner) -> None:
+def test_PytestStyleChecker(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftt.txt", issue_number="FTT") == [
         Issue(
             column=2,
@@ -114,7 +114,7 @@ def test_PytestStyleChecker(runner: Flake8Runner) -> None:
 
 class TestTypingImportChecker:
 
-    def test(self, runner: Flake8Runner) -> None:
+    def test(self, runner: Flake8RunnerFixture) -> None:
         assert runner(filename="fty.txt", issue_number="FTY") == [
             Issue(
                 column=1,

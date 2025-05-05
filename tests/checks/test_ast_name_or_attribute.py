@@ -8,7 +8,7 @@ import pytest
 
 from _flake8_tergeo import Issue, ast_name_or_attribute
 from _flake8_tergeo.checks.ast_name_or_attribute import OS_DEPENDENT_PATH
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 FTP099 = partial(
     Issue,
@@ -89,7 +89,7 @@ def FTP089(  # pylint: disable=invalid-name
     return issue._replace(message=issue.message.format(alias=alias))
 
 
-def test_ftp089(runner: Flake8Runner) -> None:
+def test_ftp089(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp089.txt", issue_number="FTP089")
     assert results == [
         FTP089(line=6, column=1, alias="EnvironmentError"),
@@ -98,24 +98,24 @@ def test_ftp089(runner: Flake8Runner) -> None:
     ]
 
 
-def test_ftp064(runner: Flake8Runner) -> None:
+def test_ftp064(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp064.txt", issue_number="FTP064")
     assert results == [FTP064(line=8, column=1)]
 
 
-def test_ftp016(runner: Flake8Runner) -> None:
+def test_ftp016(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp016.txt", issue_number="FTP016")
     assert results == [FTP016(line=8, column=1)]
 
 
 class TestFTP076:
-    def test_ftp076_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp076_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp076.txt", issue_number="FTP076")
 
     @pytest.mark.parametrize(
         "imp,name", [("import re", "re.DEBUG"), ("from re import DEBUG", "DEBUG")]
     )
-    def test_ftp076(self, runner: Flake8Runner, imp: str, name: str) -> None:
+    def test_ftp076(self, runner: Flake8RunnerFixture, imp: str, name: str) -> None:
         results = runner(
             filename="ftp076.txt", issue_number="FTP076", imp=imp, name=name
         )
@@ -143,7 +143,7 @@ class TestFTP076:
     "version,find_by_version", [("3.7.0", False), ("3.10.0", True)]
 )
 def test_ftp054(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     future: str,
     find_by_future: bool,
     imp: str,
@@ -194,7 +194,7 @@ def test_ftp054(
     "version,find_by_version", [("3.7.0", False), ("3.10.0", True)]
 )
 def test_ftp055(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     future: str,
     find_by_future: bool,
     imp: str,
@@ -249,7 +249,7 @@ def test_ftp055(
 )
 @pytest.mark.parametrize("version,find_by_version", [("3.8.0", False), ("3.9.0", True)])
 def test_ftp056(
-    runner: Flake8Runner,
+    runner: Flake8RunnerFixture,
     future: str,
     find_by_future: bool,
     imp: str,
@@ -291,7 +291,7 @@ class TestFTP099:
         ],
     )
 
-    def test_ftp099_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp099_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(
             filename="ftp099_ignore.txt",
             issue_number="FTP099",
@@ -299,7 +299,7 @@ class TestFTP099:
         )
 
     @params
-    def test_ftp099_311(self, runner: Flake8Runner, imp: str, utc: str) -> None:
+    def test_ftp099_311(self, runner: Flake8RunnerFixture, imp: str, utc: str) -> None:
         results = runner(
             filename="ftp099.txt",
             issue_number="FTP099",
@@ -310,7 +310,7 @@ class TestFTP099:
         assert results == [FTP099(line=3, column=5), FTP099(line=4, column=5)]
 
     @params
-    def test_ftp099_310(self, runner: Flake8Runner, imp: str, utc: str) -> None:
+    def test_ftp099_310(self, runner: Flake8RunnerFixture, imp: str, utc: str) -> None:
         assert not runner(
             filename="ftp099.txt",
             issue_number="FTP099",
@@ -320,13 +320,13 @@ class TestFTP099:
         )
 
 
-def test_ftp039(runner: Flake8Runner) -> None:
+def test_ftp039(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp039.txt", issue_number="FTP039")
     assert results == [FTP039(line=7, column=1), FTP039(line=8, column=1)]
 
 
 class TestFTP220:
-    def test_ftp220_ignore(self, runner: Flake8Runner) -> None:
+    def test_ftp220_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(filename="ftp220_ignore.txt", issue_number="FTP220")
 
     @pytest.mark.parametrize(
@@ -339,7 +339,7 @@ class TestFTP220:
             ("from requests.status_codes import codes", "codes"),
         ],
     )
-    def test_ftp220(self, runner: Flake8Runner, imp: str, codes: str) -> None:
+    def test_ftp220(self, runner: Flake8RunnerFixture, imp: str, codes: str) -> None:
         results = runner(
             filename="ftp220.txt", issue_number="FTP220", imp=imp, codes=codes
         )
@@ -357,7 +357,7 @@ class TestFTP103:
             ("import bar", "bar.PosixPath"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, path: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, path: str) -> None:
         assert not runner(
             filename="ftp103.txt", issue_number="FTP103", imp=imp, path=path
         )
@@ -369,7 +369,7 @@ class TestFTP103:
             *[(f"from pathlib import {path}", path) for path in OS_DEPENDENT_PATH],
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, path: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, path: str) -> None:
         results = runner(
             filename="ftp103.txt", issue_number="FTP103", imp=imp, path=path
         )
@@ -385,7 +385,7 @@ class TestFTP105:
             ("from foo import typing", "typing.Union"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, union: str) -> None:
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, union: str) -> None:
         assert not runner(
             filename="ftp105.txt", issue_number="FTP105", imp=imp, union=union
         )
@@ -397,7 +397,9 @@ class TestFTP105:
             ("import typing", "typing.Union", 7),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, union: str, col_offset: int) -> None:
+    def test(
+        self, runner: Flake8RunnerFixture, imp: str, union: str, col_offset: int
+    ) -> None:
         results = runner(
             filename="ftp105.txt", issue_number="FTP105", imp=imp, union=union
         )
@@ -417,7 +419,9 @@ class TestFTP108:
             ("from foo import typing", "typing.NoReturn"),
         ],
     )
-    def test_ignore(self, runner: Flake8Runner, imp: str, no_return: str) -> None:
+    def test_ignore(
+        self, runner: Flake8RunnerFixture, imp: str, no_return: str
+    ) -> None:
         assert not runner(
             filename="ftp108.txt", issue_number="FTP108", imp=imp, no_return=no_return
         )
@@ -429,7 +433,7 @@ class TestFTP108:
             ("import typing", "typing.NoReturn"),
         ],
     )
-    def test(self, runner: Flake8Runner, imp: str, no_return: str) -> None:
+    def test(self, runner: Flake8RunnerFixture, imp: str, no_return: str) -> None:
         results = runner(
             filename="ftp108.txt", issue_number="FTP108", imp=imp, no_return=no_return
         )

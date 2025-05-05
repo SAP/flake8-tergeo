@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import partial
 
 from _flake8_tergeo import Issue
-from tests.conftest import Flake8Runner
+from tests.conftest import Flake8RunnerFixture
 
 _FTP079 = partial(
     Issue,
@@ -21,7 +21,7 @@ def FTP079(  # pylint:disable=invalid-name
     return issue._replace(message=issue.message.format(func=func))
 
 
-def test_ftp079(runner: Flake8Runner) -> None:
+def test_ftp079(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp079.txt", issue_number="FTP079")
     assert results == [
         FTP079(line=8, column=1, func="list"),
