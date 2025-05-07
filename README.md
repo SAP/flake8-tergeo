@@ -1,4 +1,5 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/flake8-tergeo)](https://api.reuse.software/info/github.com/SAP/flake8-tergeo)
+[![Coverage Status](https://coveralls.io/repos/github/SAP/flake8-tergeo/badge.svg)](https://coveralls.io/github/SAP/flake8-tergeo)
 
 # flake8-tergeo
 
