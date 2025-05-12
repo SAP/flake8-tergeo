@@ -1,5 +1,9 @@
+from typing import Union
+
 # code without issues
 type X = Some | None
+type X = Union[Some, None]
 
 # code with issues
 type X = None | Some
+type X = Union[None, Some]
