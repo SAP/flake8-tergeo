@@ -356,7 +356,7 @@ Checks for type comments which should be replaced by annotations. `type:ignore` 
 ## FTP077
 Check if in a type annotation or type alias which contains a union, `None` always comes last.
 For instance `a: int|float|None` is okay, but `a: int|None|float` is not.
-This check does also not consider `typing.Optional`
+This check does not consider `typing.Optional`
 
 ## FTP079
 Checks for unnecessary lambda statement which can be replaced with their built-in function
