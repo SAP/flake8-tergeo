@@ -1,7 +1,8 @@
-from typing import Never
+from typing import Never, Union
 
 # code without issues
 type X = Never
 
 # code with issues
 type X = Some | Never
+type X = Union[Some, Never]

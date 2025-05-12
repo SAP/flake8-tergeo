@@ -1,4 +1,5 @@
 from typing_extensions import TypeAlias
+from typing import Union
 
 # code to ignore
 ## assign
@@ -14,6 +15,7 @@ def foo(a: int, b: None, c: int|None): pass
 def foo(*, a: int|None = None) -> int|None: pass
 X = None | Some
 X: TypeAlias = Some | None
+a: Union[x, None]
 
 # code to find
 # assign
@@ -24,3 +26,4 @@ b: Callable[[None|int], None|str]
 def foo(a: int, b: None|int|float|str, *, c: None|str = "foo"): pass
 def foo() -> None|int: pass
 X: TypeAlias = None | Some
+a: Union[None, int]

@@ -1,13 +1,16 @@
 {imp}
 from typing_extensions import TypeAlias
+from typing import Union
 
 # code without issues
 x : Foo | None
 x: {class_}
 X = {class_} | Some
+X = Union[{class_}, Some]
 X: TypeAlias = {class_}
 
 # code with issues
 x: {class_} | None
 x : A | {class_} | B
 X: TypeAlias = {class_} | Some
+x: Union[{class_}, None]
