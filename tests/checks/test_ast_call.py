@@ -216,6 +216,15 @@ FTP127 = partial(
     issue_number="FTP127",
     message="Use the new generic syntax instead of TypeVar.",
 )
+FTP019 = partial(
+    Issue,
+    issue_number="FTP019",
+    message=(
+        "The constructor of OSError does not handle errno values specially but just "
+        "threads them as the error message. To set the errno attribute, set it on the OSError "
+        "instance after the call."
+    ),
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -850,3 +859,24 @@ def test_ftp127(
         assert results == [FTP127(line=9, column=5)]
     else:
         assert not results
+
+
+class TestFTP019:
+    @pytest.mark.parametrize(
+        "imp,module",
+        [("import someno", "someno"), ("from someno import errno", "errno")],
+    )
+    def test_ftp019_ignore(
+        self, runner: Flake8RunnerFixture, imp: str, module: str
+    ) -> None:
+        assert not runner(
+            filename="ftp019.txt", issue_number="FTP019", imp=imp, module=module
+        )
+
+    def test_ftp019(self, runner: Flake8RunnerFixture) -> None:
+        assert runner(
+            filename="ftp019.txt",
+            issue_number="FTP019",
+            imp="import errno",
+            module="errno",
+        ) == [FTP019(line=9, column=1), FTP019(line=10, column=1)]

@@ -11,8 +11,8 @@ from pytest_mock import MockerFixture
 
 from _flake8_tergeo.ast_util import (
     _get_import_map,
-    _get_imports,
     _iter_child_nodes,
+    get_imports,
     get_line_range,
     get_parent,
     get_parent_info,
@@ -166,7 +166,7 @@ def test_stringify(code: str, expected: str) -> None:
 
 def test_get_imports_no_imports() -> None:
     tree = ast.parse("a = 1")
-    assert not _get_imports(tree)
+    assert not get_imports(tree)
 
 
 def test_get_imports() -> None:
@@ -183,13 +183,13 @@ def more():
     from m3 import x as y
 """
     )
-    assert _get_imports(tree) == ["bar.foo", "foo", "for_checking", "m1", "m2", "m3.x"]
+    assert get_imports(tree) == ["bar.foo", "foo", "for_checking", "m1", "m2", "m3.x"]
 
 
 @pytest.mark.parametrize("code", ["from . import foo", "from .bar import foo"])
 def test_get_imports_local_import(code: str) -> None:
     tree = ast.parse(code)
-    assert not _get_imports(tree)
+    assert not get_imports(tree)
 
 
 def test_get_import_map() -> None:

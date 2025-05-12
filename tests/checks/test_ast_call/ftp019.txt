@@ -1,0 +1,10 @@
+{imp}
+
+# code without issues
+OSError()
+SomeError(errno.NOENT)
+OSError("Hello world", errno.NOENT)
+
+# code with issues
+OSError({module}.NOENT)
+OSError({module}.NOENT, "dummy")
