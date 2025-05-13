@@ -76,6 +76,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_deprecated_decorator(node)
     yield from _check_bad_subprocess_aliases(node)
     yield from _check_typevar_usage(node)
+    yield from _check_string_template(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -659,4 +660,17 @@ def _check_typevar_usage(node: ast.Call) -> IssueGenerator:
         column=node.col_offset,
         issue_number="127",
         message="Use the new generic syntax instead of TypeVar.",
+    )
+
+
+def _check_string_template(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 14):
+        return
+    if not is_expected_node(node.func, "string", "Template"):
+        return
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="130",
+        message="Use t-strings instead of string.Template.",
     )

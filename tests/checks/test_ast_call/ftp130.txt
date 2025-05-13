@@ -1,0 +1,11 @@
+{imp}
+
+# code without issues
+SomeTemplate()
+x = 123
+{template}
+"string"
+"".format()
+
+# code with issues
+{template}("T")

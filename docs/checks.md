@@ -581,6 +581,10 @@ except ValueError as err:
     raise MyError("some message") from err
 ```
 
+## FTP130
+Checks if `string.Template` is used with python 3.14 onwards.
+Use t-strings (PEP 750) instead.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
