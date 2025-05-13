@@ -21,7 +21,7 @@ You can find the documentation [here](https://sap.github.io/flake8-tergeo/).
 
 ## Release Actions
 * Determine the new version using `python -m setuptools_scm --strip-dev`
-* Rename the section `Next Development` in the [CHANGELOG](CHANGELOG.md) to the version released
+* Rename the section `Next version` in the [CHANGELOG](CHANGELOG.md) to the version released
   and create a new empty one
 * Push a new tag like X.X.X to trigger the release
 
