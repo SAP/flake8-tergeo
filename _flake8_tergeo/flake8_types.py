@@ -20,7 +20,7 @@ class Issue(NamedTuple):
 IssueGenerator = Generator[Issue]
 
 
-class OptionManager(Protocol):  # pragma: no cover
+class OptionManager(Protocol):
     """Protocol for flake8 OptionManager."""
 
     def extend_default_ignore(self, disables: list[str]) -> None:
