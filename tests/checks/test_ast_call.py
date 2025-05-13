@@ -216,6 +216,11 @@ FTP127 = partial(
     issue_number="FTP127",
     message="Use the new generic syntax instead of TypeVar.",
 )
+FTP130 = partial(
+    Issue,
+    issue_number="FTP130",
+    message="Use t-strings instead of string.Template.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -848,5 +853,39 @@ def test_ftp127(
     )
     if find_by_imp and find_by_version:
         assert results == [FTP127(line=9, column=5)]
+    else:
+        assert not results
+
+
+@pytest.mark.parametrize(
+    "imp,find_by_imp,template",
+    [
+        ("from string import Template", True, "Template"),
+        ("import string", True, "string.Template"),
+        ("import foo", False, "foo.Template"),
+        ("from foo import Template", False, "Template"),
+        ("from foo import string", False, "string.Template"),
+    ],
+)
+@pytest.mark.parametrize(
+    "version,find_by_version", [("3.12.0", False), ("3.14.0", True)]
+)
+def test_ftp130(
+    runner: Flake8RunnerFixture,
+    imp: str,
+    find_by_imp: bool,
+    template: str,
+    version: str,
+    find_by_version: bool,
+) -> None:
+    results = runner(
+        filename="ftp130.txt",
+        issue_number="FTP130",
+        imp=imp,
+        template=template,
+        args=("--ftp-python-version", version),
+    )
+    if find_by_imp and find_by_version:
+        assert results == [FTP130(line=11, column=1)]
     else:
         assert not results
