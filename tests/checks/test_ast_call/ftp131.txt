@@ -1,0 +1,12 @@
+{imp}
+
+# code without issues
+{compile}("foo")
+def foo(): some.compile(".*")
+def foo(): {compile}(pattern)
+def foo(): {compile}(f"xxx")
+
+# code with issues
+def foo(): {compile}("foo")
+def foo(): {compile}("foo", re.I)
+def foo(): {compile}(r"foo")

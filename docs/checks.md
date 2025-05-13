@@ -585,6 +585,11 @@ except ValueError as err:
 Checks if `string.Template` is used with python 3.14 onwards.
 Use t-strings (PEP 750) instead.
 
+## FTP131
+Checks if `re.compile` is called within a function with a string constant.
+As the regex is recompiled each time the function is called but won't change, it can be moved
+to a constant on module level.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

@@ -221,6 +221,12 @@ FTP130 = partial(
     issue_number="FTP130",
     message="Use t-strings instead of string.Template.",
 )
+FTP131 = partial(
+    Issue,
+    issue_number="FTP131",
+    message="Instead of compiling the regex each time the function is called, "
+    "compile it once on module level and use the compiled version.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -887,5 +893,34 @@ def test_ftp130(
     )
     if find_by_imp and find_by_version:
         assert results == [FTP130(line=11, column=1)]
+    else:
+        assert not results
+
+
+@pytest.mark.parametrize(
+    "imp,find_by_imp,compile_",
+    [
+        ("from re import compile", True, "compile"),
+        ("import re", True, "re.compile"),
+        ("import foo", False, "foo.compile"),
+        ("from foo import compile", False, "compile"),
+        ("from foo import re", False, "re.compile"),
+    ],
+)
+def test_ftp131(
+    runner: Flake8RunnerFixture,
+    imp: str,
+    find_by_imp: bool,
+    compile_: str,
+) -> None:
+    results = runner(
+        filename="ftp131.txt", issue_number="FTP131", imp=imp, compile=compile_
+    )
+    if find_by_imp:
+        assert results == [
+            FTP131(line=10, column=12),
+            FTP131(line=11, column=12),
+            FTP131(line=12, column=12),
+        ]
     else:
         assert not results

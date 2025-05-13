@@ -6,6 +6,7 @@
 - Support type aliases in FTP077 and FTP104
 - Support `typing.Union` in FTP077 and FTP104
 - FTP130 which finds usage of `string.Template`
+- FTP131 which finds `re.compile` calls in functions
 
 ## 25.3.25.1
 
