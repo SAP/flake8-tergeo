@@ -47,7 +47,7 @@ def _requires(distribution_name: str) -> list[str]:
     """Wrapper around requires."""
     value = _base_requires(distribution_name)
     if value is None:
-        raise PackageNotFoundError(f"Cannot find distribution {distribution_name}")
+        raise PackageNotFoundError(distribution_name)
     return value
 
 

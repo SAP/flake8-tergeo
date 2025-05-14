@@ -918,9 +918,9 @@ def test_ftp131(
     )
     if find_by_imp:
         assert results == [
-            FTP131(line=10, column=12),
             FTP131(line=11, column=12),
             FTP131(line=12, column=12),
+            FTP131(line=13, column=12),
         ]
     else:
         assert not results

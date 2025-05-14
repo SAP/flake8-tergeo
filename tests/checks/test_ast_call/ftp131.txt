@@ -2,6 +2,7 @@
 
 # code without issues
 {compile}("foo")
+def foo(): some.compile()
 def foo(): some.compile(".*")
 def foo(): {compile}(pattern)
 def foo(): {compile}(f"xxx")

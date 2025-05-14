@@ -9,6 +9,7 @@ import subprocess
 from argparse import Namespace
 from collections.abc import Iterator
 from functools import partial
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 from typing import Any
 
@@ -61,6 +62,17 @@ def args_with_extra_mapping(tmp_path: Path, args: tuple[str, ...]) -> tuple[str,
         *args,
         "--ftp-requirements-module-extra-mapping",
         f"{base_path}.project.dev | dev, {base_path}.project.main::doit | doc",
+    )
+
+
+@pytest.fixture
+def options() -> Namespace:
+    return Namespace(
+        requirements_mapping=None,
+        requirements_packages=[],
+        distribution_name="foo",
+        requirements_module_extra_mapping={},
+        requirements_ignore_type_checking_block=False,
     )
 
 
@@ -198,19 +210,31 @@ def test_add_options(mocker: MockerFixture) -> None:
     ],
 )
 def test_parse_options_requirements_mapping(
-    mocker: MockerFixture, value: str | None, expected: dict[str, str]
+    mocker: MockerFixture,
+    value: str | None,
+    expected: dict[str, str],
+    options: Namespace,
 ) -> None:
     mocker.patch.object(requirements, "_requires", return_value=["bar", "baz"])
 
-    options = Namespace()
     options.requirements_mapping = value
-    options.requirements_packages = []
-    options.distribution_name = "foo"
-    options.requirements_module_extra_mapping = {}
-    options.requirements_ignore_type_checking_block = False
 
     requirements.parse_options(options)
     assert options.requirements_mapping == expected  # type:ignore[comparison-overlap]
+
+
+def test_parse_options_unknown_package(options: Namespace) -> None:
+    with pytest.raises(PackageNotFoundError):
+        requirements.parse_options(options)
+
+
+def test_parse_options_no_requires_list(
+    mocker: MockerFixture, options: Namespace
+) -> None:
+    mocker.patch.object(requirements, "_base_requires", return_value=None)
+
+    with pytest.raises(PackageNotFoundError):
+        requirements.parse_options(options)
 
 
 @pytest.mark.parametrize(
@@ -229,25 +253,22 @@ def test_parse_options_requirements_mapping(
     ],
 )
 def test_parse_module_extra_mapping(
-    mocker: MockerFixture, value: str | None, expected: dict[tuple[str, str], str]
+    mocker: MockerFixture,
+    value: str | None,
+    expected: dict[tuple[str, str], str],
+    options: Namespace,
 ) -> None:
     mocker.patch.object(requirements, "_requires", return_value=["bar", "baz"])
-
-    options = Namespace()
-    options.requirements_mapping = None
-    options.requirements_packages = []
-    options.distribution_name = "foo"
     options.requirements_module_extra_mapping = value
-    options.requirements_ignore_type_checking_block = False
-
     requirements.parse_options(options)
+
     assert (
         options.requirements_module_extra_mapping  # type:ignore[comparison-overlap]
         == expected
     )
 
 
-def test_parse_options(mocker: MockerFixture) -> None:
+def test_parse_options(mocker: MockerFixture, options: Namespace) -> None:
     mocker.patch.object(
         requirements,
         "_requires",
@@ -260,12 +281,8 @@ def test_parse_options(mocker: MockerFixture) -> None:
     )
     mocker.patch.object(requirements, "stdlib_module_names", ["std1", "std2"])
 
-    options = Namespace()
     options.requirements_mapping = "foo:bar"
     options.requirements_packages = ["a", "b"]
-    options.distribution_name = "foo"
-    options.requirements_module_extra_mapping = {}
-    options.requirements_ignore_type_checking_block = False
 
     requirements.parse_options(options)
     assert options.requirements_mapping == {  # type:ignore[comparison-overlap]
@@ -282,8 +299,7 @@ def test_parse_options(mocker: MockerFixture) -> None:
     assert options.requirements_module_extra_mapping == {}
 
 
-def test_parse_options_without_distribution_name(mocker: MockerFixture) -> None:
-    options = Namespace()
+def test_parse_options_without_distribution_name(options: Namespace) -> None:
     options.distribution_name = None
 
     requirements.parse_options(options)
