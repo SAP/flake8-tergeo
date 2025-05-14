@@ -78,7 +78,7 @@ test = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["_flake8_tergeo"]
+include = ["_flake8_tergeo*"]
 
 [tool.setuptools.package-data]
 _flake8_tergeo = ["py.typed"]
