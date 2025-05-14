@@ -9,6 +9,7 @@ import subprocess
 from argparse import Namespace
 from collections.abc import Iterator
 from functools import partial
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 from typing import Any
 
@@ -211,6 +212,20 @@ def test_parse_options_requirements_mapping(
 
     requirements.parse_options(options)
     assert options.requirements_mapping == expected  # type:ignore[comparison-overlap]
+
+
+def test_parse_options_unknown_package() -> None:
+    options = Namespace()
+    options.requirements_mapping = None
+    options.requirements_packages = []
+    options.distribution_name = "foo"
+    options.requirements_module_extra_mapping = {}
+    options.requirements_ignore_type_checking_block = False
+
+    with pytest.raises(
+        PackageNotFoundError, match="No package metadata was found for foo"
+    ):
+        requirements.parse_options(options)
 
 
 @pytest.mark.parametrize(
