@@ -45,6 +45,21 @@ def test_register_function_def(mocker: MockerFixture) -> None:
     }
 
 
+def test_register_for(mocker: MockerFixture) -> None:
+    mocker.patch.dict(registry.AST_REGISTRY, clear=True)
+
+    func1 = mocker.Mock()
+    func2 = mocker.Mock()
+
+    registry.register_for(func1)
+    registry.register_for(func2)
+
+    assert registry.AST_REGISTRY == {
+        ast.For: [func1, func2],
+        ast.AsyncFor: [func1, func2],
+    }
+
+
 @pytest.mark.parametrize(
     "constant,func",
     [
