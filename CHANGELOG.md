@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- Support async for loops for all checks working on for loops
 
 ## 25.5.14.0
 - Renamed `ftp-enforce-parens-in-return-single-element-tuple` to `ftp-disallow-parens-in-return-single-element-tuple`
