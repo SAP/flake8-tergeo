@@ -6,6 +6,7 @@ import ast
 from typing import cast
 
 from _flake8_tergeo.ast_util import (
+    get_imports,
     get_parent,
     get_parents,
     is_constant_node,
@@ -77,6 +78,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_deprecated_decorator(node)
     yield from _check_bad_subprocess_aliases(node)
     yield from _check_typevar_usage(node)
+    yield from _os_error_with_errno(node)
     yield from _check_string_template(node)
     yield from _check_regex_compile_in_function(node)
 
@@ -662,6 +664,31 @@ def _check_typevar_usage(node: ast.Call) -> IssueGenerator:
         column=node.col_offset,
         issue_number="127",
         message="Use the new generic syntax instead of TypeVar.",
+    )
+
+
+def _os_error_with_errno(node: ast.Call) -> IssueGenerator:
+    if not isinstance(node.func, ast.Name):
+        return
+    if stringify(node.func) != "OSError":
+        return
+    if len(node.args) == 0:
+        return
+    if not isinstance(node.args[0], ast.Attribute):
+        return
+    if not stringify(node.args[0]).startswith("errno."):
+        return
+    if "errno" not in get_imports(node):
+        return
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="019",
+        message=(
+            "The constructor of OSError has no special handling for errno values, it just "
+            "treats them as error message. To set the errno attribute, set it on the OSError "
+            "instance after the call."
+        ),
     )
 
 

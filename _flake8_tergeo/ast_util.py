@@ -133,7 +133,7 @@ def stringify(node: ast.Name | ast.Attribute) -> str:
     return stringify(node.value) + "." + node.attr
 
 
-def _get_imports(node: ast.AST) -> list[str]:
+def get_imports(node: ast.AST) -> list[str]:
     """Return all absolute imports of the module of the given node."""
     parents = get_parents(node)
     tree = parents[-1] if parents else node
@@ -236,7 +236,7 @@ def is_expected_node(
 
     return any(
         name == possible_name
-        and any(imp in _get_imports(node) for imp in possible_imports)
+        and any(imp in get_imports(node) for imp in possible_imports)
         for possible_name, possible_imports in data.items()
     )
 
