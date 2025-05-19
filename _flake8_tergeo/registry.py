@@ -12,7 +12,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from _flake8_tergeo.flake8_types import IssueGenerator, OptionManager
-from _flake8_tergeo.type_definitions import PARAM, AnyFunctionDef
+from _flake8_tergeo.type_definitions import PARAM, AnyFor, AnyFunctionDef
 
 TokenFunc: TypeAlias = Callable[[Sequence[tokenize.TokenInfo]], IssueGenerator]
 AddOptionsFunc: TypeAlias = Callable[[OptionManager], None]
@@ -35,6 +35,18 @@ def register_function_def(
     """
     AST_REGISTRY[ast.FunctionDef].append(func)
     AST_REGISTRY[ast.AsyncFunctionDef].append(func)
+    return func
+
+
+def register_for(
+    func: Callable[[AnyFor], IssueGenerator],
+) -> Callable[[AnyFor], IssueGenerator]:
+    """Register a AST visit method for for loops.
+
+    This includes :py:class:`ast.For` and :py:class:`ast.AsyncFor`.
+    """
+    AST_REGISTRY[ast.For].append(func)
+    AST_REGISTRY[ast.AsyncFor].append(func)
     return func
 
 

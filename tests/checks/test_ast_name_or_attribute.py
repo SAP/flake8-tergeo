@@ -404,9 +404,9 @@ class TestFTP105:
             filename="ftp105.txt", issue_number="FTP105", imp=imp, union=union
         )
         assert results == [
-            FTP105(line=11, column=11 + col_offset),
-            FTP105(line=11, column=30 + col_offset * 2),
             FTP105(line=12, column=11 + col_offset),
+            FTP105(line=12, column=30 + col_offset * 2),
+            FTP105(line=13, column=11 + col_offset),
         ]
 
 

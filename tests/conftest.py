@@ -7,7 +7,6 @@ import ast
 import json
 import subprocess
 import tokenize
-from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -78,8 +77,6 @@ def basic_checker(mocker: MockerFixture) -> type[AbstractChecker]:
 @pytest.fixture
 def checker_with_options(mocker: MockerFixture) -> None:
     class _CheckerWithOptions(AbstractChecker):
-        def __init__(self) -> None:
-            pass
 
         @staticmethod
         def add_options(option_manager: OptionManager) -> None:
@@ -121,11 +118,11 @@ def checker_with_complex_parse(mocker: MockerFixture) -> type[AbstractChecker]:
 def invalid_checker(mocker: MockerFixture) -> None:
     class _Checker(AbstractChecker):
         def __init__(self, invalid: Any) -> None:
-            pass
+            pytest.fail("Should not be called")
 
         @override
         def check(self) -> IssueGenerator:
-            yield from []
+            pytest.fail("Should not be called")
 
     mocker.patch.object(base, "_get_concrete_classes", return_value=[_Checker])
 
@@ -133,9 +130,6 @@ def invalid_checker(mocker: MockerFixture) -> None:
 @pytest.fixture
 def checker_wrapper_with_options(mocker: MockerFixture) -> None:
     class _PluginWithOptions:
-        @staticmethod
-        def run() -> Iterator[None]:
-            yield None
 
         @staticmethod
         def add_options(option_manager: OptionManager) -> None:
@@ -146,13 +140,6 @@ def checker_wrapper_with_options(mocker: MockerFixture) -> None:
         old_prefix = "OLD"
         prefix = "N"
 
-        def __init__(self) -> None:
-            super().__init__(_PluginWithOptions())
-
-        @override
-        def check(self) -> IssueGenerator:
-            yield from super().check()
-
     mocker.patch.object(base, "_get_concrete_classes", return_value=[_WrapperChecker])
 
 
@@ -161,9 +148,6 @@ def checker_with_disable(mocker: MockerFixture) -> None:
     class _Checker(AbstractChecker):
         disabled = ["001"]
         prefix = "F"
-
-        def __init__(self) -> None:
-            pass
 
         @override
         def check(self) -> IssueGenerator:

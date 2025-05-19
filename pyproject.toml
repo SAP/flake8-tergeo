@@ -78,7 +78,7 @@ test = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["_flake8_tergeo"]
+include = ["_flake8_tergeo*"]
 
 [tool.setuptools.package-data]
 _flake8_tergeo = ["py.typed"]
@@ -149,6 +149,14 @@ ignore-imports = true
 fail_under = 90
 show_missing = true
 skip_covered = true
+exclude_also = [
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "class .*\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "pytest\\.fail",
+]
 
 [tool.coverage.run]
 branch = true

@@ -8,6 +8,7 @@ from typing import cast
 from _flake8_tergeo.ast_util import (
     get_imports,
     get_parent,
+    get_parents,
     is_constant_node,
     is_expected_node,
     stringify,
@@ -78,6 +79,8 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_bad_subprocess_aliases(node)
     yield from _check_typevar_usage(node)
     yield from _os_error_with_errno(node)
+    yield from _check_string_template(node)
+    yield from _check_regex_compile_in_function(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -677,7 +680,6 @@ def _os_error_with_errno(node: ast.Call) -> IssueGenerator:
         return
     if "errno" not in get_imports(node):
         return
-
     yield Issue(
         line=node.lineno,
         column=node.col_offset,
@@ -687,4 +689,39 @@ def _os_error_with_errno(node: ast.Call) -> IssueGenerator:
             "treats them as error message. To set the errno attribute, set it on the OSError "
             "instance after the call."
         ),
+    )
+
+
+def _check_string_template(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 14):
+        return
+    if not is_expected_node(node.func, "string", "Template"):
+        return
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="130",
+        message="Use t-strings instead of string.Template.",
+    )
+
+
+def _check_regex_compile_in_function(node: ast.Call) -> IssueGenerator:
+    if not is_expected_node(node.func, "re", "compile"):
+        return
+    if len(node.args) == 0:
+        return
+    if not is_constant_node(node.args[0], str):
+        return
+    if not any(
+        isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef))
+        for parent in get_parents(node)
+    ):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="131",
+        message="Instead of compiling the regex each time the function is called, "
+        "compile it once on module level and use the compiled version.",
     )
