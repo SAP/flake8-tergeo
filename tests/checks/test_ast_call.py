@@ -220,8 +220,8 @@ FTP019 = partial(
     Issue,
     issue_number="FTP019",
     message=(
-        "The constructor of OSError does not handle errno values specially but just "
-        "threads them as the error message. To set the errno attribute, set it on the OSError "
+        "The constructor of OSError has no special handling for errno values, it just "
+        "treats them as error message. To set the errno attribute, set it on the OSError "
         "instance after the call."
     ),
 )
