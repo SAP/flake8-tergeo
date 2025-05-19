@@ -7,6 +7,7 @@ from functools import partial
 import pytest
 
 from _flake8_tergeo import Issue, ast_call
+from _flake8_tergeo.checks.ast_call import RE_FUNCTIONS
 from tests.conftest import Flake8RunnerFixture
 
 FTP081 = partial(
@@ -235,6 +236,15 @@ FTP131 = partial(
     issue_number="FTP131",
     message="Instead of compiling the regex each time the function is called, "
     "compile it once on module level and use the compiled version.",
+)
+FTP132 = partial(
+    Issue,
+    issue_number="FTP132",
+    message=(
+        "Instead of calling the regex function with a constant string, which is compiled each "
+        "time the outer function is called, store the compiled version of the regex in a "
+        "constant variable and use that instead."
+    ),
 )
 
 
@@ -951,6 +961,39 @@ def test_ftp131(
             FTP131(line=11, column=12),
             FTP131(line=12, column=12),
             FTP131(line=13, column=12),
+        ]
+    else:
+        assert not results
+
+
+@pytest.mark.parametrize("func_name", RE_FUNCTIONS)
+@pytest.mark.parametrize(
+    "imp,find_by_imp,func",
+    [
+        ("from re import {name}", True, "{name}"),
+        ("import re", True, "re.{name}"),
+        ("import foo", False, "foo.{name}"),
+        ("from foo import {name}", False, "{name}"),
+        ("from foo import re", False, "re.{name}"),
+    ],
+)
+def test_ftp132(
+    runner: Flake8RunnerFixture,
+    func_name: str,
+    imp: str,
+    find_by_imp: bool,
+    func: str,
+) -> None:
+    results = runner(
+        filename="ftp132.txt",
+        issue_number="FTP132",
+        imp=imp.format(name=func_name),
+        func=func.format(name=func_name),
+    )
+    if find_by_imp:
+        assert results == [
+            FTP132(line=11, column=12),
+            FTP132(line=12, column=12),
         ]
     else:
         assert not results

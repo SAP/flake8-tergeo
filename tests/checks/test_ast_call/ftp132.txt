@@ -1,0 +1,12 @@
+{imp}
+
+# code without issues
+{func}()
+{func}("foo")
+re()
+def foo(): {func}()
+def foo(): {func}(pattern)
+
+# code with issues
+def foo(): {func}("foo")
+def foo(): {func}("foo", re.I)
