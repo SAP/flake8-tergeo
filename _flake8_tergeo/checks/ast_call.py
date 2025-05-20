@@ -39,6 +39,16 @@ BAD_SUBPROCESS_ALIASES = (
     "spawnvp",
     "spawnvpe",
 )
+RE_FUNCTIONS = (
+    "search",
+    "match",
+    "fullmatch",
+    "split",
+    "findall",
+    "finditer",
+    "sub",
+    "subn",
+)
 
 
 @register(ast.Call)
@@ -81,6 +91,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _os_error_with_errno(node)
     yield from _check_string_template(node)
     yield from _check_regex_compile_in_function(node)
+    yield from _check_regex_module_function_with_constant(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -724,4 +735,31 @@ def _check_regex_compile_in_function(node: ast.Call) -> IssueGenerator:
         issue_number="131",
         message="Instead of compiling the regex each time the function is called, "
         "compile it once on module level and use the compiled version.",
+    )
+
+
+def _check_regex_module_function_with_constant(node: ast.Call) -> IssueGenerator:
+    if not any(
+        is_expected_node(node.func, "re", func_name) for func_name in RE_FUNCTIONS
+    ):
+        return
+    if len(node.args) == 0:
+        return
+    if not is_constant_node(node.args[0], str):
+        return
+    if not any(
+        isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef))
+        for parent in get_parents(node)
+    ):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="132",
+        message=(
+            "Instead of calling the regex function with a constant string, which is compiled each "
+            "time the outer function is called, store the compiled version of the regex in a "
+            "constant variable and use that instead."
+        ),
     )
