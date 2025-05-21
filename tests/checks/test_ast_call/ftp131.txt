@@ -6,8 +6,12 @@ def foo(): some.compile()
 def foo(): some.compile(".*")
 def foo(): {compile}(pattern)
 def foo(): {compile}(f"xxx")
+x = lambda: 1
+for x in y: do()
 
 # code with issues
 def foo(): {compile}("foo")
 def foo(): {compile}("foo", re.I)
 def foo(): {compile}(r"foo")
+x = lambda: {compile}("foo")
+for x in y: {compile}("foo")
