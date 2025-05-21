@@ -6,7 +6,11 @@
 re()
 def foo(): {func}()
 def foo(): {func}(pattern)
+x = lambda: 1
+for x in y: do()
 
 # code with issues
 def foo(): {func}("foo")
 def foo(): {func}("foo", re.I)
+x = lambda: {func}("foo")
+for x in y: {func}("foo")

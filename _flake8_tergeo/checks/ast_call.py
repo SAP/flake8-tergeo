@@ -49,6 +49,7 @@ RE_FUNCTIONS = (
     "sub",
     "subn",
 )
+RE_PARENTS = (ast.FunctionDef, ast.AsyncFunctionDef, ast.For, ast.While, ast.Lambda)
 
 
 @register(ast.Call)
@@ -723,10 +724,7 @@ def _check_regex_compile_in_function(node: ast.Call) -> IssueGenerator:
         return
     if not is_constant_node(node.args[0], str):
         return
-    if not any(
-        isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef))
-        for parent in get_parents(node)
-    ):
+    if not any(isinstance(parent, RE_PARENTS) for parent in get_parents(node)):
         return
 
     yield Issue(
@@ -747,10 +745,7 @@ def _check_regex_module_function_with_constant(node: ast.Call) -> IssueGenerator
         return
     if not is_constant_node(node.args[0], str):
         return
-    if not any(
-        isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef))
-        for parent in get_parents(node)
-    ):
+    if not any(isinstance(parent, RE_PARENTS) for parent in get_parents(node)):
         return
 
     yield Issue(
