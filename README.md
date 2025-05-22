@@ -20,7 +20,9 @@ formatting rules are included.
 You can find the documentation [here](https://sap.github.io/flake8-tergeo/).
 
 ## Release Actions
-* Determine the new version using `python -m setuptools_scm --strip-dev`
+* Determine the new version by using the format `YY.M.D.C` with `YY` are the two last digits of the
+  year, `M` is the current month (maybe two digits if needed), `D` is the current day (maybe two digits if needed)
+  and `C` is a counter of the releases per day starting at 0
 * Rename the section `Next version` in the [CHANGELOG](CHANGELOG.md) to the version released
   and create a new empty one
 * Push a new tag like X.X.X to trigger the release
