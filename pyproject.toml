@@ -33,7 +33,7 @@ dependencies = [
     "flake8-comprehensions==3.16.0",
     "flake8-bugbear==24.12.12",
     "flake8-builtins==2.5.0",
-    "flake8-simplify==0.21.0",
+    "flake8-simplify==0.22.0",
     "flake8-pytest-style==2.1.0",
     "flake8-typing-imports==1.16.0",
     "stdlib-list==0.11.0;python_version<'3.10'",
