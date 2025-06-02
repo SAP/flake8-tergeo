@@ -8,7 +8,7 @@ import json
 import subprocess
 import tokenize
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import pytest
 from pytest_fixture_classes import fixture_class
@@ -18,6 +18,7 @@ from typing_extensions import override
 from _flake8_tergeo import BaseWrapperChecker, Flake8TergeoPlugin, base, registry
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
 from _flake8_tergeo.interfaces import AbstractChecker
+from tests.util import LenientIssue
 
 
 @pytest.fixture(autouse=True)
@@ -168,7 +169,7 @@ class Flake8RunnerFixture:
         issue_number: str,
         args: tuple[str, ...] = (),
         **kwargs: str,
-    ) -> list[Issue]:
+    ) -> Iterable[Issue | LenientIssue]:
         content = (self.datadir / filename).read_text(encoding="utf-8")
         if kwargs:
             content = content.format(**kwargs)
