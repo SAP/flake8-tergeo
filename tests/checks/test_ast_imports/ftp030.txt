@@ -8,9 +8,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import generator_stop
 
-# code without issues
+# depends on version
 from __future__ import annotations
+
+# code without issues
 from foo import __future__
 from future import nested_scopes
-import __future__.annotations
 import __future__.unknown_future
