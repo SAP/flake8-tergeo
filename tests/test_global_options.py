@@ -5,6 +5,7 @@ from __future__ import annotations
 import platform
 
 import pytest
+from packaging.version import InvalidVersion
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import global_options
@@ -28,7 +29,7 @@ def test_register_global_options(mocker: MockerFixture) -> None:
 
 @pytest.mark.parametrize(
     "version,parsed_version",
-    [("3.8.0", (3, 8, 0)), ("3.10.6", (3, 10, 6))],
+    [("3.8.0", (3, 8, 0)), ("3.10.6", (3, 10, 6)), ("3.14.0b1", (3, 14, 0))],
 )
 def test_parse_global_options(
     mocker: MockerFixture, version: str, parsed_version: tuple[int, int, int]
@@ -40,27 +41,14 @@ def test_parse_global_options(
     assert options.python_version == parsed_version  # type:ignore[comparison-overlap]
 
 
-@pytest.mark.parametrize("version", ["3", "3.1", "4.3.1.3"])
-def test_parse_global_options_invalid_arg_number(
-    mocker: MockerFixture, version: str
-) -> None:
-    options = mocker.Mock()
-    options.python_version = version
-
-    with pytest.raises(
-        ValueError, match="--python-version needs to specified as X.X.X"
-    ):
-        global_options.parse_global_options(options)
-
-
-@pytest.mark.parametrize("version", ["a.b.c", "3.5.a"])
+@pytest.mark.parametrize("version", ["a.b.c", "3.x.a"])
 def test_parse_global_options_invalid_not_int(
     mocker: MockerFixture, version: str
 ) -> None:
     options = mocker.Mock()
     options.python_version = version
 
-    with pytest.raises(ValueError, match="--python-version must only contain numbers"):
+    with pytest.raises(InvalidVersion):
         global_options.parse_global_options(options)
 
 
