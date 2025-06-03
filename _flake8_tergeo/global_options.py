@@ -5,6 +5,8 @@ from __future__ import annotations
 import platform
 from argparse import Namespace
 
+from packaging.version import Version
+
 from _flake8_tergeo.base import get_plugin
 from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.registry import register_add_options, register_parse_options
@@ -24,13 +26,8 @@ def register_global_options(option_manager: OptionManager) -> None:
 @register_parse_options
 def parse_global_options(options: Namespace) -> None:
     """Parse the global options."""
-    parts = options.python_version.split(".")
-    if len(parts) != 3:
-        raise ValueError("--python-version needs to specified as X.X.X")
-    try:
-        options.python_version = (int(parts[0]), int(parts[1]), int(parts[2]))
-    except ValueError as err:
-        raise ValueError("--python-version must only contain numbers") from err
+    version = Version(options.python_version)
+    options.python_version = (version.major, version.minor, version.micro)
 
 
 def get_python_version() -> tuple[int, int, int]:
