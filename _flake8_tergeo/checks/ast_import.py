@@ -9,20 +9,22 @@ from typing_extensions import TypeAlias
 
 from _flake8_tergeo.ast_util import get_imported_modules
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.registry import register
 
 EASTEREGG_IMPORTS = ["this", "antigravity", "__hello__", "__phello__"]
 DEBUGGER_MODULES = ["pdb", "ipdb", "pudb", "debug", "pdbpp", "wdb"]
 OSERROR_ALIASES = ["socket.error", "select.error"]
 OBSOLETE_FUTURES = [
-    "__future__.nested_scopes",
-    "__future__.generators",
-    "__future__.division",
-    "__future__.absolute_import",
-    "__future__.with_statement",
-    "__future__.print_function",
-    "__future__.unicode_literals",
-    "__future__.generator_stop",
+    ((3, 0), "__future__.nested_scopes"),
+    ((3, 0), "__future__.generators"),
+    ((3, 0), "__future__.division"),
+    ((3, 0), "__future__.absolute_import"),
+    ((3, 0), "__future__.with_statement"),
+    ((3, 0), "__future__.print_function"),
+    ((3, 0), "__future__.unicode_literals"),
+    ((3, 0), "__future__.generator_stop"),
+    ((3, 14), "__future__.annotations"),
 ]
 EASTEREGG_FUTURES = ["__future__.braces", "__future__.barry_as_FLUFL"]
 
@@ -104,8 +106,8 @@ def _check_oserror_alias_import(node: AnyImport) -> IssueGenerator:
 
 def _check_unnecessary_futures(node: AnyImport) -> IssueGenerator:
     imports = get_imported_modules(node)
-    for module in OBSOLETE_FUTURES:
-        if module in imports:
+    for version, module in OBSOLETE_FUTURES:
+        if get_python_version() >= version and module in imports:
             future = module.split(".", maxsplit=1)[1]
             yield Issue(
                 line=node.lineno,
