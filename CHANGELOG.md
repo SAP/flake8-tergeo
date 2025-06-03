@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- Improve FTP097 to also consider `StrEnum` and `IntEnum`
 - FTP030 will report an import of `from __future__ import annotations` if python 3.14 onwards is used
 
 ## 25.5.22.0
