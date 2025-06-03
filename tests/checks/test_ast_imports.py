@@ -6,6 +6,9 @@ import ast
 from functools import partial
 from typing import cast
 
+import pytest
+from pytest_mock import MockerFixture
+
 from _flake8_tergeo import Issue
 from _flake8_tergeo.checks import ast_import
 from tests.conftest import Flake8RunnerFixture
@@ -102,8 +105,17 @@ def test_ftp015(runner: Flake8RunnerFixture) -> None:
     assert results == [FTP015(line=8, column=1), FTP015(line=9, column=1)]
 
 
-def test_ftp030(runner: Flake8RunnerFixture) -> None:
-    results = runner(filename="ftp030.txt", issue_number="FTP030")
+@pytest.mark.parametrize(
+    "version,find_annotations", [("3.7.0", False), ("3.14.1", True)]
+)
+def test_ftp030(
+    runner: Flake8RunnerFixture, version: str, find_annotations: bool
+) -> None:
+    results = runner(
+        filename="ftp030.txt",
+        issue_number="FTP030",
+        args=("--ftp-python-version", version),
+    )
     assert results == [
         FTP030(line=2, column=1, future="nested_scopes"),
         FTP030(line=3, column=1, future="generators"),
@@ -113,6 +125,11 @@ def test_ftp030(runner: Flake8RunnerFixture) -> None:
         FTP030(line=7, column=1, future="print_function"),
         FTP030(line=8, column=1, future="unicode_literals"),
         FTP030(line=9, column=1, future="generator_stop"),
+        *(
+            [FTP030(line=12, column=1, future="annotations")]
+            if find_annotations
+            else []
+        ),
     ]
 
 
@@ -129,7 +146,9 @@ class TestFTP027:
         results = runner(filename="ftp027.txt", issue_number="FTP027")
         assert results == [FTP027(line=2, column=1, future="barry_as_FLUFL")]
 
-    def test_ftp027_braces(self) -> None:
+    def test_ftp027_braces(self, mocker: MockerFixture) -> None:
+        mocker.patch.object(ast_import, "get_python_version", return_value=(3, 11, 0))
+
         # since braces leads to a syntax error and we have pydocstring running
         # the test would fail if we would use the Flake8RunnerFixture
         tree = ast.parse("from __future__ import braces")
