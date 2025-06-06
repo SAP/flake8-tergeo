@@ -47,6 +47,8 @@ def check_name_or_attribute(node: NameOrAttribute) -> IssueGenerator:
     yield from _check_os_dependent_path(node)
     yield from _check_nested_union(node)
     yield from _check_valid_arg_assign_annotation(node)
+    yield from _check_datetime_utcnow(node)
+    yield from _check_datetime_utcfromtimestamp(node)
 
 
 def _check_builtin_os_alias(node: ast.Name) -> IssueGenerator:
@@ -244,4 +246,34 @@ def _check_valid_arg_assign_annotation(node: NameOrAttribute) -> IssueGenerator:
         column=node.col_offset,
         issue_number="108",
         message="Instead of using typing.NoReturn for annotations, use typing.Never.",
+    )
+
+
+def _check_datetime_utcnow(node: NameOrAttribute) -> IssueGenerator:
+    if not is_expected_node(node, "datetime.datetime", "utcnow"):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="003",
+        message=(
+            "Found usage/import of datetime.utcnow. "
+            "Consider to use datetime.now(tz=)."
+        ),
+    )
+
+
+def _check_datetime_utcfromtimestamp(node: NameOrAttribute) -> IssueGenerator:
+    if not is_expected_node(node, "datetime.datetime", "utcfromtimestamp"):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="007",
+        message=(
+            "Found usage/import of datetime.utcfromtimestamp. "
+            "Consider to use datetime.fromtimestamp(tz=)."
+        ),
     )

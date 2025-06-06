@@ -70,6 +70,21 @@ FTP108 = partial(
     issue_number="FTP108",
     message="Instead of using typing.NoReturn for annotations, use typing.Never.",
 )
+FTP003 = partial(
+    Issue,
+    issue_number="FTP003",
+    message=(
+        "Found usage/import of datetime.utcnow. Consider to use datetime.now(tz=)."
+    ),
+)
+FTP007 = partial(
+    Issue,
+    issue_number="FTP007",
+    message=(
+        "Found usage/import of datetime.utcfromtimestamp. "
+        "Consider to use datetime.fromtimestamp(tz=)."
+    ),
+)
 
 
 def FTP056(  # pylint: disable=invalid-name
@@ -441,3 +456,41 @@ class TestFTP108:
             FTP108(line=10, column=20),
             FTP108(line=11, column=4),
         ]
+
+
+class TestFTP003:
+    def test_ftp003_ignore(self, runner: Flake8RunnerFixture) -> None:
+        assert not runner(filename="ftp003_ignore.txt", issue_number="FTP003")
+
+    @pytest.mark.parametrize(
+        "imp,func",
+        [
+            ("from datetime import datetime", "datetime.utcnow"),
+            ("import datetime", "datetime.datetime.utcnow"),
+            ("from datetime.datetime import utcnow", "utcnow"),
+        ],
+    )
+    def test_ftp003(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
+        results = runner(
+            filename="ftp003.txt", issue_number="FTP003", imp=imp, func=func
+        )
+        assert results == [FTP003(line=3, column=1)]
+
+
+class TestFTP007:
+    def test_ftp007_ignore(self, runner: Flake8RunnerFixture) -> None:
+        assert not runner(filename="ftp007_ignore.txt", issue_number="FTP007")
+
+    @pytest.mark.parametrize(
+        "imp,func",
+        [
+            ("from datetime import datetime", "datetime.utcfromtimestamp"),
+            ("import datetime", "datetime.datetime.utcfromtimestamp"),
+            ("from datetime.datetime import utcfromtimestamp", "utcfromtimestamp"),
+        ],
+    )
+    def test_ftp007(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
+        results = runner(
+            filename="ftp007.txt", issue_number="FTP007", imp=imp, func=func
+        )
+        assert results == [FTP007(line=3, column=1)]

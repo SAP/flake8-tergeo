@@ -1,8 +1,0 @@
-from foo import utcfromtimestamp
-
-foo.utcfromtimestamp()
-datetime.foo.utcfromtimestamp()
-foo.datetime.utcfromtimestamp()
-foo()
-foo.foo()
-utcfromtimestamp()

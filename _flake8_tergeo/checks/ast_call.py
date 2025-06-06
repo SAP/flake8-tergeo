@@ -58,8 +58,6 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_os_walk(node)
     yield from _check_urlparse(node)
     yield from _check_multiprocessing_set_start_method(node)
-    yield from _check_datetime_utcnow(node)
-    yield from _check_datetime_utcfromtimestamp(node)
     yield from _check_lru_cache(node)
     yield from _check_contextlib_wraps(node)
     yield from _check_bad_call(node)
@@ -134,36 +132,6 @@ def _check_multiprocessing_set_start_method(node: ast.Call) -> IssueGenerator:
         issue_number="098",
         message="Found usage of multiprocessing.set_start_method. "
         "Use a multiprocessing Context instead.",
-    )
-
-
-def _check_datetime_utcnow(node: ast.Call) -> IssueGenerator:
-    if not is_expected_node(node.func, "datetime.datetime", "utcnow"):
-        return
-
-    yield Issue(
-        line=node.lineno,
-        column=node.col_offset,
-        issue_number="003",
-        message=(
-            "Found usage/import of datetime.utcnow. "
-            "Consider to use datetime.now(tz=)."
-        ),
-    )
-
-
-def _check_datetime_utcfromtimestamp(node: ast.Call) -> IssueGenerator:
-    if not is_expected_node(node.func, "datetime.datetime", "utcfromtimestamp"):
-        return
-
-    yield Issue(
-        line=node.lineno,
-        column=node.col_offset,
-        issue_number="007",
-        message=(
-            "Found usage/import of datetime.utcfromtimestamp. "
-            "Consider to use datetime.fromtimestamp(tz=)."
-        ),
     )
 
 
