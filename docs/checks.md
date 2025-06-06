@@ -608,6 +608,12 @@ within a
 As the regex is recompiled each time the construct is called but won't change, the pattern can be
 compiled and stored in a constant and be used instead.
 
+## FTP133
+Checks `bz2`, `gzip`, `lzma` or `zlib` are imported without using the `compression` namespace.
+With python3.14 these packages should be imported like `import compression.bz2` instead of
+`import bz2`.
+The check is only active for python 3.14 and onwards.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
