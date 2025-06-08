@@ -27,6 +27,7 @@ OBSOLETE_FUTURES = [
     ((3, 14), "__future__.annotations"),
 ]
 EASTEREGG_FUTURES = ["__future__.braces", "__future__.barry_as_FLUFL"]
+COMPRESSION_MODULES = ["bz2", "gzip", "lzma", "zlib"]
 
 AnyImport: TypeAlias = Union[ast.Import, ast.ImportFrom]
 
@@ -43,6 +44,7 @@ def check_imports(node: AnyImport) -> IssueGenerator:
     yield from _check_easteregg_futures(node)
     yield from _check_relative_imports(node)
     yield from _check_unnecessary_alias(node)
+    yield from _check_compression_module(node)
 
 
 def _check_c_element_tree(node: AnyImport) -> IssueGenerator:
@@ -148,4 +150,21 @@ def _check_unnecessary_alias(node: AnyImport) -> IssueGenerator:
                 column=node.col_offset,
                 issue_number="058",
                 message="Found unnecessary import alias.",
+            )
+
+
+def _check_compression_module(node: AnyImport) -> IssueGenerator:
+    if get_python_version() < (3, 14):
+        return
+    imports = get_imported_modules(node)
+    for module in COMPRESSION_MODULES:
+        if module in imports:
+            yield Issue(
+                line=node.lineno,
+                column=node.col_offset,
+                issue_number="133",
+                message=(
+                    "Using the compression namespace is recommended. "
+                    f"Replace the imported module with compression.{module}"
+                ),
             )
