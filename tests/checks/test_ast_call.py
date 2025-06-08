@@ -49,25 +49,10 @@ FTP018 = partial(
     issue_number="FTP018",
     message="Extend typing.TypedDict instead of calling it.",
 )
-FTP003 = partial(
-    Issue,
-    issue_number="FTP003",
-    message=(
-        "Found usage/import of datetime.utcnow. Consider to use datetime.now(tz=)."
-    ),
-)
 FTP092 = partial(
     Issue,
     issue_number="FTP092",
     message="Remove 0 as starting point in range(), as it starts at 0 by default.",
-)
-FTP007 = partial(
-    Issue,
-    issue_number="FTP007",
-    message=(
-        "Found usage/import of datetime.utcfromtimestamp. "
-        "Consider to use datetime.fromtimestamp(tz=)."
-    ),
 )
 _FTP073 = partial(Issue, issue_number="FTP073")
 FTP061 = partial(
@@ -361,44 +346,6 @@ class TestFTP068:
             filename="ftp068.txt", issue_number="FTP068", imp=imp, func=func, pipe=pipe
         )
         assert results == [FTP068(line=8, column=1)]
-
-
-class TestFTP003:
-    def test_ftp003_ignore(self, runner: Flake8RunnerFixture) -> None:
-        assert not runner(filename="ftp003_ignore.txt", issue_number="FTP003")
-
-    @pytest.mark.parametrize(
-        "imp,func",
-        [
-            ("from datetime import datetime", "datetime.utcnow()"),
-            ("import datetime", "datetime.datetime.utcnow()"),
-            ("from datetime.datetime import utcnow", "utcnow()"),
-        ],
-    )
-    def test_ftp003(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
-        results = runner(
-            filename="ftp003.txt", issue_number="FTP003", imp=imp, func=func
-        )
-        assert results == [FTP003(line=3, column=1)]
-
-
-class TestFTP007:
-    def test_ftp007_ignore(self, runner: Flake8RunnerFixture) -> None:
-        assert not runner(filename="ftp007_ignore.txt", issue_number="FTP007")
-
-    @pytest.mark.parametrize(
-        "imp,func",
-        [
-            ("from datetime import datetime", "datetime.utcfromtimestamp()"),
-            ("import datetime", "datetime.datetime.utcfromtimestamp()"),
-            ("from datetime.datetime import utcfromtimestamp", "utcfromtimestamp()"),
-        ],
-    )
-    def test_ftp007(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
-        results = runner(
-            filename="ftp007.txt", issue_number="FTP007", imp=imp, func=func
-        )
-        assert results == [FTP007(line=3, column=1)]
 
 
 class TestFTP073:
