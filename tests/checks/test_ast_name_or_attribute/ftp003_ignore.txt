@@ -3,9 +3,9 @@ from datetime.foo import utcnow
 from datetime.datetime import utcnow2
 
 foo.utcnow()
-datetime.foo.utcnow()
-foo.datetime.utcnow()
+datetime.foo.utcnow
+foo.datetime.utcnow
 foo()
 foo.foo()
 utcnow()
-datetime.foo.utcnow()
+datetime.foo.utcnow

@@ -109,7 +109,9 @@ class TestFTP097:
         "imp,unique,enum",
         [
             ("from enum import Enum, unique", "unique", "Enum"),
+            ("from enum import StrEnum, unique", "unique", "StrEnum"),
             ("import enum", "enum.unique", "enum.Enum"),
+            ("import enum", "enum.unique", "enum.IntEnum"),
         ],
     )
     def test_ftp097(

@@ -9,22 +9,25 @@ from typing_extensions import TypeAlias
 
 from _flake8_tergeo.ast_util import get_imported_modules
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.registry import register
 
 EASTEREGG_IMPORTS = ["this", "antigravity", "__hello__", "__phello__"]
 DEBUGGER_MODULES = ["pdb", "ipdb", "pudb", "debug", "pdbpp", "wdb"]
 OSERROR_ALIASES = ["socket.error", "select.error"]
 OBSOLETE_FUTURES = [
-    "__future__.nested_scopes",
-    "__future__.generators",
-    "__future__.division",
-    "__future__.absolute_import",
-    "__future__.with_statement",
-    "__future__.print_function",
-    "__future__.unicode_literals",
-    "__future__.generator_stop",
+    ((3, 0), "__future__.nested_scopes"),
+    ((3, 0), "__future__.generators"),
+    ((3, 0), "__future__.division"),
+    ((3, 0), "__future__.absolute_import"),
+    ((3, 0), "__future__.with_statement"),
+    ((3, 0), "__future__.print_function"),
+    ((3, 0), "__future__.unicode_literals"),
+    ((3, 0), "__future__.generator_stop"),
+    ((3, 14), "__future__.annotations"),
 ]
 EASTEREGG_FUTURES = ["__future__.braces", "__future__.barry_as_FLUFL"]
+COMPRESSION_MODULES = ["bz2", "gzip", "lzma", "zlib"]
 
 AnyImport: TypeAlias = Union[ast.Import, ast.ImportFrom]
 
@@ -41,6 +44,7 @@ def check_imports(node: AnyImport) -> IssueGenerator:
     yield from _check_easteregg_futures(node)
     yield from _check_relative_imports(node)
     yield from _check_unnecessary_alias(node)
+    yield from _check_compression_module(node)
 
 
 def _check_c_element_tree(node: AnyImport) -> IssueGenerator:
@@ -104,8 +108,8 @@ def _check_oserror_alias_import(node: AnyImport) -> IssueGenerator:
 
 def _check_unnecessary_futures(node: AnyImport) -> IssueGenerator:
     imports = get_imported_modules(node)
-    for module in OBSOLETE_FUTURES:
-        if module in imports:
+    for version, module in OBSOLETE_FUTURES:
+        if get_python_version() >= version and module in imports:
             future = module.split(".", maxsplit=1)[1]
             yield Issue(
                 line=node.lineno,
@@ -146,4 +150,21 @@ def _check_unnecessary_alias(node: AnyImport) -> IssueGenerator:
                 column=node.col_offset,
                 issue_number="058",
                 message="Found unnecessary import alias.",
+            )
+
+
+def _check_compression_module(node: AnyImport) -> IssueGenerator:
+    if get_python_version() < (3, 14):
+        return
+    imports = get_imported_modules(node)
+    for module in COMPRESSION_MODULES:
+        if module in imports:
+            yield Issue(
+                line=node.lineno,
+                column=node.col_offset,
+                issue_number="133",
+                message=(
+                    "Using the compression namespace is recommended. "
+                    f"Replace the imported module with compression.{module}"
+                ),
             )

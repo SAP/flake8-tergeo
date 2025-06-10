@@ -23,6 +23,7 @@ from _flake8_tergeo.wrapper_base import BaseWrapperChecker
 class BugBearPlugin(_BugBearPlugin):
     """BugBearPlugin with custom fixes."""
 
+    @override
     @lru_cache  # noqa: FTP074
     def should_warn(self, code: str) -> bool:
         """Adjust should_warn.

@@ -16,6 +16,7 @@ CACHE_DECORATOR_FACTORIES = [
 CACHE_DECORATORS = [
     ("functools", "cache"),
 ] + CACHE_DECORATOR_FACTORIES
+ENUM_CLASSES = ("Enum", "IntEnum", "StrEnum")
 
 
 @register(ast.ClassDef)
@@ -57,7 +58,10 @@ def _check_extend_base_exception(node: ast.ClassDef) -> IssueGenerator:
 
 def _check_enum_has_unique_decorator(node: ast.ClassDef) -> IssueGenerator:
     if not any(
-        base for base in node.bases if is_expected_node(base, "enum", "Enum")
+        base
+        for cls in ENUM_CLASSES
+        for base in node.bases
+        if is_expected_node(base, "enum", cls)
     ) or any(
         decorator
         for decorator in node.decorator_list
