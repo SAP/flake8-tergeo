@@ -163,7 +163,7 @@ class TestFTP027:
     )
     def test_ftp027_braces(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp027_braces.txt", issue_number="FTP027")
-        assert results == [FTP027(line=1, column=0, future="braces")]
+        assert results == [FTP027(line=1, column=1, future="braces")]
 
 
 def test_ftp026(runner: Flake8RunnerFixture) -> None:
