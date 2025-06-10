@@ -170,7 +170,7 @@ include = ["_flake8_tergeo/*", "tests/*"]
 include_untracked = true
 fail_under = 90
 exclude = [
-    "tests/*"
+    "*/tests/*"
 ]
 
 [project.entry-points."flake8.extension"]
