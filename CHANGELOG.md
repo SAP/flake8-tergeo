@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- Support python 3.14
 - Improve FTP097 to also consider `StrEnum` and `IntEnum`
 - FTP133 which finds imports of compression modules without using the `compression` namespace if python 3.14 onwards is used
 - FTP030 will report an import of `from __future__ import annotations` if python 3.14 onwards is used

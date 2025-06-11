@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Quality Assurance",
     "Typing :: Typed"
 ]
@@ -168,6 +169,9 @@ include = ["_flake8_tergeo/*", "tests/*"]
 [tool.diff_cover]
 include_untracked = true
 fail_under = 90
+exclude = [
+    "*/tests/*"
+]
 
 [project.entry-points."flake8.extension"]
 FT = "_flake8_tergeo:Flake8TergeoPlugin"

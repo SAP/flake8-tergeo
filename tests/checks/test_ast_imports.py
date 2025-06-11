@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import ast
+import sys
 from functools import partial
-from typing import cast
 
 import pytest
-from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue
-from _flake8_tergeo.checks import ast_import
 from tests.conftest import Flake8RunnerFixture
 
 FTP057 = partial(
@@ -161,17 +158,12 @@ class TestFTP027:
         results = runner(filename="ftp027.txt", issue_number="FTP027")
         assert results == [FTP027(line=2, column=1, future="barry_as_FLUFL")]
 
-    def test_ftp027_braces(self, mocker: MockerFixture) -> None:
-        mocker.patch.object(ast_import, "get_python_version", return_value=(3, 11, 0))
-
-        # since braces leads to a syntax error and we have pydocstring running
-        # the test would fail if we would use the Flake8RunnerFixture
-        tree = ast.parse("from __future__ import braces")
-        import_ = cast(ast.ImportFrom, tree.body[0])
-        results = list(ast_import.check_imports(import_))
-        assert results == [
-            FTP027(line=1, column=0, future="braces", issue_number="027")
-        ]
+    @pytest.mark.skipif(
+        sys.version_info >= (3, 14), reason="AST parsing now throws a SyntaxError"
+    )
+    def test_ftp027_braces(self, runner: Flake8RunnerFixture) -> None:
+        results = runner(filename="ftp027_braces.txt", issue_number="FTP027")
+        assert results == [FTP027(line=1, column=1, future="braces")]
 
 
 def test_ftp026(runner: Flake8RunnerFixture) -> None:
