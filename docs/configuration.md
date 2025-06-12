@@ -4,6 +4,7 @@
 
 * `ftp-python-version`: used for checks depending on a python version, e.g. if a certain feature
   is enabled or not. By default the current python interpreter version
+* `ftp-pyproject-toml-file`: path to the `pyproject.toml` file is any exists
 
 ## Auto-manage Configuration
 
@@ -81,8 +82,9 @@ projects root folder.
   blocks (`typing.TYPE_CHECKING`)
 * `ftp-requirements-module-extra-mapping`: comma separate list of mappings in the format
   `<module> | extra [extra]`. Each mapping defines, that the given modules and all submodules
-  are allowed to use the requirements specified in the extras.
+  are allowed to use the requirements specified in the extras or group.
   The module name can also limit itself to a function or class inside the module,
   e.g. for a class `A` with a method `foo` in the module `mod` the mapping would be `mod::A::foo`.
   If multiples module names match to the file under check, the extra lists are combined.
   If the option is not set, all modules can import all requirements from all extras
+  In order to also use group names, the option `ftp-pyproject-toml-file` needs to be set

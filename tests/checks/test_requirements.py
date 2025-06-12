@@ -35,8 +35,13 @@ def project_names() -> dict[str, str]:
     }
 
 
+@pytest.fixture(scope="session", autouse=True)
+def plugin(session_mocker: MockerFixture) -> None:
+    session_mocker.patch.object(base, "get_plugin")
+
+
 @pytest.fixture
-def args(project_names: dict[str, str]) -> tuple[str, ...]:
+def args(project_names: dict[str, str], package_tmp_path: Path) -> tuple[str, ...]:
     return (
         "--ftp-distribution-name",
         project_names["root"],
@@ -49,6 +54,8 @@ def args(project_names: dict[str, str]) -> tuple[str, ...]:
         "--ftp-requirements-packages",
         "root_additional",
         "--ftp-requirements-ignore-type-checking-block",
+        "--ftp-pyproject-toml-file",
+        str(package_tmp_path / project_names["root"] / "pyproject.toml"),
     )
 
 
@@ -88,7 +95,7 @@ _FTP041_EXTRAS = partial(
     message=(
         "Found illegal import of {module}. The imported module is part of the projects "
         "requirements but the current module/package cannot use anything "
-        "from the extra requirement(s) {extras}"
+        "from the extra requirement(s)/group(s) {extras}"
     ),
 )
 
@@ -148,10 +155,15 @@ def _find_import_node_recursive(node: ast.AST) -> ast.Import | ast.ImportFrom | 
 
 
 @pytest.fixture(scope="session")
+def package_tmp_path(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    return tmp_path_factory.mktemp("package")
+
+
+@pytest.fixture(scope="session")
 def create_dummy_packages(
-    tmp_path_factory: pytest.TempPathFactory, project_names: dict[str, str]
+    project_names: dict[str, str], package_tmp_path: Path
 ) -> Iterator[None]:
-    tmp_path = tmp_path_factory.mktemp("packages")
+    tmp_path = package_tmp_path
     datadir = Path(__file__).parent / Path(__file__).stem
 
     _create_project(project_names["project1"], "base_pyproject.txt", tmp_path, datadir)

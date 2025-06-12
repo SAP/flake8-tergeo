@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- Support dependency groups in FTP041
 
 ## 25.6.11.0
 - Support python 3.14
