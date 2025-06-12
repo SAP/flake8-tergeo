@@ -28,7 +28,7 @@ from _flake8_tergeo.util import stdlib_module_names
 
 try:
     import tomllib
-except ImportError:
+except ImportError:  # pragma: no cover
     import tomli as tomllib  # type:ignore[import-not-found,no-redef]
 
 EXTRA_PATTERN = re.compile(r'.*extra == "(?P<extra>[a-zA-Z0-9\-]+)".*')
