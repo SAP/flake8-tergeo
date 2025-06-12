@@ -19,10 +19,10 @@ def register_global_options(option_manager: OptionManager) -> None:
         "--python-version", parse_from_config=True, default=platform.python_version()
     )
     option_manager.add_option(
-        "--pyproject-toml-file", parse_from_config=True, default=None
+        "--auto-manage-options", parse_from_config=True, action="store_true"
     )
     option_manager.add_option(
-        "--auto-manage-options", parse_from_config=True, action="store_true"
+        "--pyproject-toml-file", parse_from_config=True, default=None
     )
 
 
