@@ -141,3 +141,25 @@ class TestTypingImportChecker:
 
         assert options.python_version == "3.8.0"
         assert options.min_python_version == expected
+
+    def test_pre_parse_options_not_supported(self, mocker: MockerFixture) -> None:
+        options = mocker.Mock(spec=AbstractNamespace)
+        options.ftp_is_default.return_value = True
+        options.min_python_version = "3.5.0"
+        options.python_version = "3.9.50"
+
+        TypingImportChecker.pre_parse_options(options)
+
+        assert options.python_version == "3.9.50"
+        assert options.min_python_version == "3.9.20"
+
+    def test_pre_parse_options_unknown(self, mocker: MockerFixture) -> None:
+        options = mocker.Mock(spec=AbstractNamespace)
+        options.ftp_is_default.return_value = True
+        options.min_python_version = "3.5.0"
+        options.python_version = "0.0.0"
+
+        TypingImportChecker.pre_parse_options(options)
+
+        assert options.python_version == "0.0.0"
+        assert options.min_python_version == "0.0.0"
