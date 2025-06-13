@@ -35,11 +35,6 @@ def project_names() -> dict[str, str]:
     }
 
 
-@pytest.fixture(scope="session", autouse=True)
-def plugin(session_mocker: MockerFixture) -> None:
-    session_mocker.patch.object(base, "get_plugin")
-
-
 @pytest.fixture
 def args(project_names: dict[str, str], package_tmp_path: Path) -> tuple[str, ...]:
     return (
@@ -228,6 +223,7 @@ def test_parse_options_requirements_mapping(
     options: Namespace,
 ) -> None:
     mocker.patch.object(requirements, "_requires", return_value=["bar", "baz"])
+    mocker.patch.object(base, "get_plugin")
 
     options.requirements_mapping = value
 
@@ -271,6 +267,8 @@ def test_parse_module_extra_mapping(
     options: Namespace,
 ) -> None:
     mocker.patch.object(requirements, "_requires", return_value=["bar", "baz"])
+    mocker.patch.object(base, "get_plugin")
+
     options.requirements_module_extra_mapping = value
     requirements.parse_options(options)
 
@@ -292,6 +290,7 @@ def test_parse_options(mocker: MockerFixture, options: Namespace) -> None:
         ],
     )
     mocker.patch.object(requirements, "stdlib_module_names", ["std1", "std2"])
+    mocker.patch.object(base, "get_plugin")
 
     options.requirements_mapping = "foo:bar"
     options.requirements_packages = ["a", "b"]
