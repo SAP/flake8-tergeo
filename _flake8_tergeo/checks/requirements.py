@@ -10,8 +10,9 @@ from collections import defaultdict
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import requires as _base_requires
 from pathlib import Path
-from typing import NamedTuple, cast
+from typing import Iterator, NamedTuple, cast
 
+import dependency_groups
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
@@ -24,6 +25,11 @@ from _flake8_tergeo.registry import (
     register_parse_options,
 )
 from _flake8_tergeo.util import stdlib_module_names
+
+try:
+    import tomllib
+except ImportError:  # pragma: no cover
+    import tomli as tomllib  # type:ignore[import-not-found,no-redef]
 
 EXTRA_PATTERN = re.compile(r'.*extra == "(?P<extra>[a-zA-Z0-9\-]+)".*')
 INSTALL_REQUIRE_EXTRA = ""  # install requires have no real name, so use an empty string
@@ -113,7 +119,7 @@ def _check_module(module: str, node: ast.Import | ast.ImportFrom) -> IssueGenera
             f"Found illegal import of {module}. "
             + (
                 "The imported module is part of the projects requirements but the current "
-                "module/package cannot use anything from the extra requirement(s) "
+                "module/package cannot use anything from the extra requirement(s)/group(s) "
                 + ",".join(extras_with_dist)
                 if extras_with_dist
                 else "It is not part of the projects requirements"
@@ -206,6 +212,22 @@ def _get_module_name_cached(filename: Path) -> str:
     return module
 
 
+def _get_from_dependency_groups() -> Iterator[tuple[str, Requirement]]:
+    toml_file = base.get_plugin().get_options().pyproject_toml_file
+    if not toml_file:
+        return
+    with open(toml_file, "rb") as fp:
+        pyproject = tomllib.load(fp)
+    groups_raw = pyproject.get("dependency-groups", {})
+    if not groups_raw:
+        return
+
+    for group in groups_raw.keys():
+        requirements = dependency_groups.resolve(groups_raw, group)
+        for requirement in requirements:
+            yield group, Requirement(requirement)
+
+
 def _ignore_import(options: _Options, node: ast.Import | ast.ImportFrom) -> bool:
     if not options.requirements_ignore_type_checking_block:
         return False
@@ -234,6 +256,9 @@ def parse_options(options: Namespace) -> None:
         match = EXTRA_PATTERN.fullmatch(str(requirement.marker))
         extra = match.group("extra") if match else ""
         requirements_allow_list[extra].append(_normalize(requirement.name))
+
+    for group, requirement in _get_from_dependency_groups():
+        requirements_allow_list[group].append(_normalize(requirement.name))
 
     requirements_allow_list[INSTALL_REQUIRE_EXTRA].extend(stdlib_module_names)
     requirements_allow_list[INSTALL_REQUIRE_EXTRA].extend(options.requirements_packages)

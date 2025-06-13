@@ -37,3 +37,4 @@ ftp-requirements-module-extra-mapping =
 # general
 ftp-python-version = 3.9.0
 ftp-auto-manage-options = true
+ftp-pyproject-toml-file = pyproject.toml

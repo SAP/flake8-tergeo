@@ -24,6 +24,7 @@ def test_register_global_options(mocker: MockerFixture) -> None:
         mocker.call(
             "--auto-manage-options", parse_from_config=True, action="store_true"
         ),
+        mocker.call("--pyproject-toml-file", parse_from_config=True, default=None),
     ]
 
 

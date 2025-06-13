@@ -12,4 +12,6 @@ where  = ["."]
 
 [project.optional-dependencies]
 dev = ["{p2}"]
+
+[dependency-groups]
 doc = ["{p3}"]
