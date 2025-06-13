@@ -16,7 +16,10 @@ The default setting is false.
 If enabled, the following options are automatically managed:
 
 * `ftp-min-python-version` (by `flake8-typing-imports`): this options specified the minimum python
-  version supported or used by the project. It is set to the same value as `ftp-python-version`
+  version supported or used by the project. It is set to the same value as `ftp-python-version`.
+  As not all patch versions of python are recognized by this plugin
+  (it then throws an `unknown version` error), the version is adjusted to the next supported patch
+  version while staying in the same major/minor version.
 
 ## Developer Comments
 Developer comments are comments such as *TODO xxx* or *FIXME later*.

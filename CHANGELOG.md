@@ -2,6 +2,8 @@
 
 ## Next version
 - Support dependency groups in FTP041
+- if ``ftp-auto-manage-options`` is true, the version given to flake8-typing-imports is adjusted if
+  needed to a supported version
 
 ## 25.6.11.0
 - Support python 3.14

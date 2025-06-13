@@ -11,7 +11,9 @@ from flake8_builtins import BuiltinsChecker as BuiltinsPlugin
 from flake8_comprehensions import ComprehensionChecker as ComprehensionPlugin
 from flake8_pytest_style.plugin import PytestStylePlugin
 from flake8_simplify import Plugin as SimplifyPlugin
+from flake8_typing_imports import VERSIONS
 from flake8_typing_imports import Plugin as TypingImportPlugin
+from flake8_typing_imports import Version
 from typing_extensions import override
 
 from _flake8_tergeo.flake8_types import IssueGenerator
@@ -149,5 +151,28 @@ class TypingImportChecker(BaseWrapperChecker):
     @override
     def pre_parse_options(cls, options: AbstractNamespace) -> None:
         """Pre-processing of plugin options."""
-        if options.ftp_is_default("min_python_version"):
-            options.min_python_version = options.python_version
+        if not options.ftp_is_default("min_python_version"):
+            return
+
+        min_python_version = options.python_version
+        options.min_python_version = min_python_version
+
+        # check if the version is supported by flake8-typing-imports
+        parsed = Version.parse(min_python_version)
+        if parsed in VERSIONS:
+            return
+
+        # if the version is not supported by flake8-typing-imports, try to find the closest
+        # version within the same major and minor version
+        all_patches = [
+            version
+            for version in VERSIONS
+            if version.major == parsed.major
+            and version.minor == parsed.minor
+            and version.patch <= parsed.patch
+        ]
+        if not all_patches:
+            return
+
+        best_guess = max(all_patches, key=lambda x: x.patch)
+        options.min_python_version = str(best_guess)
