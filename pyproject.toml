@@ -67,7 +67,7 @@ dev = [
     "astpretty==3.0.0",
 ]
 test = [
-    "pytest==8.4.0",
+    "pytest==8.4.1",
     "pytest-mock==3.14.1",
     "pytest-cov==6.2.1",
     "pytest-xdist==3.7.0",
