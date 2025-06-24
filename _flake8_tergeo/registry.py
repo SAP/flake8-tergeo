@@ -55,14 +55,14 @@ def register(
 ) -> Callable[[Callable[PARAM, IssueGenerator]], Callable[PARAM, IssueGenerator]]:
     """Decorator to register a AST visit method."""
 
-    def register_decorator(
+    def _register_decorator(
         func: Callable[PARAM, IssueGenerator],
     ) -> Callable[PARAM, IssueGenerator]:
         for ast_type in type_:
             AST_REGISTRY[ast_type].append(func)
         return func
 
-    return register_decorator
+    return _register_decorator
 
 
 def register_token_checker(func: TokenFunc) -> TokenFunc:

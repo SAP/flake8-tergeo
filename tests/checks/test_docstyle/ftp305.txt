@@ -1,0 +1,18 @@
+# code without issues
+def __init__():
+    pass
+
+class Foo:
+    def foo():
+        pass
+
+    def __init__():
+        """foo"""
+
+    def init():
+        """Some hex"""
+
+# code with issues
+class Foo:
+    def __init__():
+        pass

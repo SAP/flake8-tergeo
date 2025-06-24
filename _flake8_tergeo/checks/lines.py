@@ -32,7 +32,6 @@ class LineChecker(OwnChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Check the provided lines."""
         for lineno, line in enumerate(self._lines, start=1):
             yield from self._check_bidi(line, lineno)
             yield from self._check_invisible_unicode(line, lineno)

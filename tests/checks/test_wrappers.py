@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 
-"""Tests for _flake8_tergeo.wrappers"""
+"""Tests for _flake8_tergeo.wrappers."""
 
 from __future__ import annotations
 

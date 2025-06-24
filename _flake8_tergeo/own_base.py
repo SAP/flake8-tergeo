@@ -29,7 +29,6 @@ class OwnOptionManager(AbstractOptionManager):
 
     @override
     def add_option(self, *args: Any, **kwargs: Any) -> None:
-        """Add an option."""
         self._option_manager.add_option(*args, **kwargs)
 
 

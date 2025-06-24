@@ -58,7 +58,6 @@ class BugBearChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         for issue in super().check():
             # B905 runs on < 3.10: https://github.com/PyCQA/flake8-bugbear/issues/320
             if issue.issue_number == "905" and get_python_version() < (3, 10):
@@ -78,7 +77,6 @@ class ComprehensionsChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         yield from super().check()
 
 
@@ -94,7 +92,6 @@ class BuiltinsChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         yield from super().check()
 
 
@@ -111,7 +108,6 @@ class SimplifyChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         yield from super().check()
 
 
@@ -128,7 +124,6 @@ class PytestStyleChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         yield from super().check()
 
 
@@ -144,7 +139,6 @@ class TypingImportChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Execute the check."""
         yield from super().check()
 
     @classmethod

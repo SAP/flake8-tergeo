@@ -1,4 +1,4 @@
-"""Tests for _flake8_tergeo.checks.ast_dict"""
+"""Tests for _flake8_tergeo.checks.ast_dict."""
 
 from __future__ import annotations
 
