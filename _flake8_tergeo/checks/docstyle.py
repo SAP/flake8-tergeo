@@ -22,11 +22,6 @@ DocstringNodes: TypeAlias = Union[
     ast.Module, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef
 ]
 
-# TODO docstring should use """ not '''
-# TODO no empty line before and after the docstring
-# TODO Multi-line docstring closing quotes should be on a separate line
-# TODO First line should be in imperative mood
-
 
 class DocstyleChecker(OwnChecker):
     """Checker for docstring style according to PEP 257 conventions."""
