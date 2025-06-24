@@ -34,6 +34,7 @@ try:
         parens,
         requirements,
     )
+    from _flake8_tergeo.checks.docstyle import DocstyleChecker
     from _flake8_tergeo.checks.filename import FileNameChecker
     from _flake8_tergeo.checks.lines import LineChecker
     from _flake8_tergeo.checks.wrappers import (
@@ -53,6 +54,7 @@ __all__ = (
     "BugBearChecker",
     "BuiltinsChecker",
     "ComprehensionsChecker",
+    "DocstyleChecker",
     "FileNameChecker",
     "Flake8TergeoPlugin",
     "Issue",

@@ -1,0 +1,13 @@
+{imp}
+
+# code without issues
+@some
+def x():
+    """Test."""
+@{decorator}
+def foo(): pass
+
+# code with issues
+@{decorator}
+def foo():
+    """This has a docstring."""

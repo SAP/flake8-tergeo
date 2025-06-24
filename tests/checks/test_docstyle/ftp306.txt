@@ -1,0 +1,20 @@
+{imp}
+
+# code without issues
+@{decorator}
+def foo():
+    pass
+
+def foo():
+    pass
+
+class Foo:
+    @{decorator}
+    def some():
+        """Some."""
+
+# code with issues
+class Foo:
+    @{decorator}
+    def some():
+        pass

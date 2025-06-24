@@ -1,0 +1,12 @@
+# code without issues
+def foo():
+    """x"""
+
+x = """"""
+
+# code with issues
+def foo():
+    """"""
+
+def foo():
+    """   """

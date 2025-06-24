@@ -1,0 +1,24 @@
+
+# code without issues
+class Foo:
+    """I have a docstring"""
+
+class _Foo:
+    pass
+
+class Foo:
+    """I have a docstring"""
+    class Foo:
+        """I have a docstring"""
+
+# code with issues
+class Foo:
+    pass
+
+class Foo:
+    class Foo:
+        pass
+
+class _Foo:
+    class Foo:
+        pass

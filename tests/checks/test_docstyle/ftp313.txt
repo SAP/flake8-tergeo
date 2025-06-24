@@ -1,0 +1,8 @@
+# code without issues
+def foo(): pass
+def _foo(): pass
+def __getattr__():
+    """doctstring."""
+
+# code with issues
+def __getattr__(): pass

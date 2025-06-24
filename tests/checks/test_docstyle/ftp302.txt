@@ -1,0 +1,22 @@
+# code without issues
+def foo():
+    pass
+
+class Foo:
+    def foo():
+        """Hello"""
+
+    def __init__():
+        pass
+
+    def __hex__():
+        pass
+
+    def _foo():
+        pass
+
+# code with issues
+
+class Foo:
+    def foo():
+        pass

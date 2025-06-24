@@ -79,7 +79,6 @@ class BaseWrapperChecker(AbstractChecker):
     @override
     @abc.abstractmethod
     def check(self) -> flake8_types.IssueGenerator:
-        """Execute the check."""
         generator = self._checker.run()
 
         for finding in generator:

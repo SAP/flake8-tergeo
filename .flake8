@@ -15,9 +15,11 @@ ignore=
     FTB902,FTB904
     # leads to confusing code/conflicts
     FTB907,FTB908
+    # __init__/overridden/magic methods might have a docstring or not
+    FTP305,FTP306,FTP304,FTP313
 max-complexity = 10
 per-file-ignores =
-    tests/*:FTU019
+    tests/*:FTU019,FTP301,FTP302,FTP303
     _flake8_tergeo/*:FTB028
     scripts/*:FTP040,FTP050
 

@@ -27,7 +27,6 @@ class FileNameChecker(OwnChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        """Check the provided file."""
         yield from self._check_filename()
         yield from self._check_encoding_comment()
         yield from self._check_implicit_namespace()

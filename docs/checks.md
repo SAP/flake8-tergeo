@@ -7,6 +7,7 @@
 * FTP001 - FTP199: general purpose checks
 * FTP200 - FTP219: `flask` and `werkzeug` checks
 * FTP220 - FTP239: `requests` checks
+* FTP300 - FTP399: docstring checks
 
 ## FTP000
 Error while loading this plugin or any other internal error.
@@ -620,3 +621,51 @@ Instead of calling this helper function raise the appropriate exception directly
 
 ## FTP220
 Find usage of `requests.codes` which should be replaced with `http.HTTPStatus`
+
+## Docstyle
+Rules to make docstrings PEP 257 compliant inspired by [pydocstyle](https://github.com/PyCQA/pydocstyle).
+These rules are meant for projects which cannot or don't want to use ruff,, e.g. because flake8 is still used in parallel.
+
+### FTP300
+Checks if a public package has a docstring in it's `__init__` file.
+
+### FTP301
+Checks if a public class has a docstring.
+
+### FTP302
+Checks if a public method has a docstring.
+
+### FTP303
+Checks if a public function has a docstring.
+
+### FTP304
+Checks if a magic method (e.g. `__eq__`) has a docstring.
+`__init__` methods are ignored
+
+### FTP305
+Checks if a `__init__` method has a docstring.
+
+### FTP306
+Checks if an overridden method (decorated with `typing.override`) has a docstring.
+
+### FTP307
+Checks if a public module has a docstring.
+
+### FTP308
+Checks if a docstring is completely empty.
+
+### FTP309
+Checks if the first line of a docstring is empty.
+The first line is considered the summary.
+
+### FTP310
+Checks that in a multiline docstring the first line is followed by an empty line.
+
+### FTP311
+Checks if the first line ends with a period.
+
+### FTP312
+Checks that a function/method decorated with `typing.overload` has no docstring.
+
+### FTP307
+Checks if a magic function (e.g. module level `__getattr__`) has a docstring.

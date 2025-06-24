@@ -1,0 +1,21 @@
+# code without issues
+def foo():
+    """Foo."""
+
+def foo():
+    """Foo.
+
+    Bar
+    """
+
+# code with issues
+def foo():
+    """
+    Some docstring.
+    """
+
+def foo():
+    """
+
+    Some docstring.
+    """

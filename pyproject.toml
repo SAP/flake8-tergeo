@@ -114,6 +114,12 @@ follow_untyped_imports = true
 
 [tool.pylint.basic]
 no-docstring-rgx = "^_"
+good-names = [
+    "visit_Module",
+    "visit_ClassDef",
+    "visit_FunctionDef",
+    "visit_AsyncFunctionDef",
+]
 
 [tool.pylint.design]
 min-public-methods = 0
