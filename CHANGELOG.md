@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+
+## 25.6.25.0
 - Support dependency groups in FTP041
 - if ``ftp-auto-manage-options`` is true, the version given to flake8-typing-imports is adjusted if
   needed to a supported version
