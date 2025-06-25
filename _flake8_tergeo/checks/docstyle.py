@@ -68,7 +68,7 @@ class _Visitor(ast.NodeVisitor):
         self._check_function(node)
         self.generic_visit(node)
 
-    def _check_function(self, node: AnyFunctionDef) -> None:
+    def _check_function(self, node: AnyFunctionDef) -> None:  # noqa: C901
         if self._is_private(node.name):
             return
 
@@ -82,7 +82,9 @@ class _Visitor(ast.NodeVisitor):
                             line=docstring_node.lineno,
                             column=docstring_node.col_offset,
                             issue_number="312",
-                            message="Functions decorated with @overload should not have a docstring.",
+                            message=(
+                                "Functions decorated with @overload should not have a docstring."
+                            ),
                         )
                     )
                 # overloaded functions should not have a docstring and are not further checked
