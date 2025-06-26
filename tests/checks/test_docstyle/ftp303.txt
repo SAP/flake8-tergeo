@@ -1,3 +1,5 @@
+from typing import overload
+
 # code without issues
 def foo():
     """Hello world"""
@@ -11,6 +13,9 @@ def _foo():
 
 def __getattr__():
     pass
+
+@overload
+def foo(): pass
 
 # code with issues
 def foo():

@@ -112,7 +112,7 @@ def test_ftp302(runner: Flake8RunnerFixture) -> None:
 
 def test_ftp303(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp303.txt", issue_number="FTP303")
-    assert results == [FTP303(line=16, column=1), FTP303(line=20, column=5)]
+    assert results == [FTP303(line=21, column=1), FTP303(line=25, column=5)]
 
 
 def test_ftp304(runner: Flake8RunnerFixture) -> None:
