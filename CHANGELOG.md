@@ -2,7 +2,7 @@
 
 ## Next version
 
-## 25.6.25.1
+## 25.6.26.0
 Fixed an issue causing FTP303 to be reported on overloaded functions
 
 ## 25.6.25.0
