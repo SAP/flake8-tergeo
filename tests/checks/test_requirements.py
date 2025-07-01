@@ -228,7 +228,7 @@ def test_parse_options_requirements_mapping(
     options.requirements_mapping = value
 
     requirements.parse_options(options)
-    assert options.requirements_mapping == expected  # type:ignore[comparison-overlap]
+    assert options.requirements_mapping == expected
 
 
 def test_parse_options_unknown_package(options: Namespace) -> None:
@@ -272,10 +272,7 @@ def test_parse_module_extra_mapping(
     options.requirements_module_extra_mapping = value
     requirements.parse_options(options)
 
-    assert (
-        options.requirements_module_extra_mapping  # type:ignore[comparison-overlap]
-        == expected
-    )
+    assert options.requirements_module_extra_mapping == expected
 
 
 def test_parse_options(mocker: MockerFixture, options: Namespace) -> None:
@@ -296,9 +293,7 @@ def test_parse_options(mocker: MockerFixture, options: Namespace) -> None:
     options.requirements_packages = ["a", "b"]
 
     requirements.parse_options(options)
-    assert options.requirements_mapping == {  # type:ignore[comparison-overlap]
-        "foo": "bar"
-    }
+    assert options.requirements_mapping == {"foo": "bar"}
     assert options.distribution_name == "foo"
     assert options.requirements_packages == ["a", "b"]
     assert options.requirements_allow_list == {
