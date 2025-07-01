@@ -39,7 +39,7 @@ def test_parse_global_options(
     options.python_version = version
 
     global_options.parse_global_options(options)
-    assert options.python_version == parsed_version  # type:ignore[comparison-overlap]
+    assert options.python_version == parsed_version
 
 
 @pytest.mark.parametrize("version", ["a.b.c", "3.x.a"])
