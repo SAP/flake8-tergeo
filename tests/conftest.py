@@ -7,8 +7,9 @@ import ast
 import json
 import subprocess
 import tokenize
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 import pytest
 from pytest_fixture_classes import fixture_class

@@ -7,10 +7,11 @@ import functools
 import re
 from argparse import Namespace
 from collections import defaultdict
+from collections.abc import Iterator
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import requires as _base_requires
 from pathlib import Path
-from typing import Iterator, NamedTuple, cast
+from typing import NamedTuple, cast
 
 import dependency_groups
 from packaging.requirements import Requirement
