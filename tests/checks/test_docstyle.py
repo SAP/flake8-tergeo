@@ -55,6 +55,16 @@ FTP312 = partial(
 FTP313 = partial(
     Issue, issue_number="FTP313", message="Missing docstring in magic function."
 )
+FTP314 = partial(
+    Issue,
+    issue_number="FTP314",
+    message="A function/method docstring should not be followed by a newline.",
+)
+FTP315 = partial(
+    Issue,
+    issue_number="FTP315",
+    message="A multiline docstring should end with a line break.",
+)
 
 
 class TestFTP300:
@@ -177,7 +187,11 @@ def test_ftp310(runner: Flake8RunnerFixture) -> None:
 
 def test_ftp311(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp311.txt", issue_number="FTP311")
-    assert results == [FTP311(line=9, column=5), FTP311(line=12, column=5)]
+    assert results == [
+        FTP311(line=9, column=5),
+        FTP311(line=12, column=5),
+        FTP311(line=15, column=5),
+    ]
 
 
 @pytest.mark.parametrize(
@@ -204,3 +218,17 @@ def test_ftp312(
 def test_ftp313(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp313.txt", issue_number="FTP313")
     assert results == [FTP313(line=8, column=1)]
+
+
+def test_ftp314(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp314.txt", issue_number="FTP314")
+    assert results == [
+        FTP314(line=45, column=1),
+        FTP314(line=50, column=1),
+        FTP314(line=59, column=1),
+    ]
+
+
+def test_ftp315(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp315.txt", issue_number="FTP315")
+    assert results == [FTP315(line=21, column=21)]

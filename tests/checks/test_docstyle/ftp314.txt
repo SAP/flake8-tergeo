@@ -1,0 +1,60 @@
+# code without issues
+def foo(): pass
+
+def foo():
+    def foo():
+        """This is a docstring."""
+
+    def foo():
+        """This is a docstring."""
+        x = 1
+
+def foo():
+    """Some function."""
+
+    def foo():
+        """This is a docstring."""
+
+    return foo
+
+def foo():
+    """This is a docstring."""
+    x = 1
+
+def foo():
+    """This is a docstring."""
+    # hello
+    x = 1
+
+def foo():
+    """This is a docstring."""
+x = 1
+
+def foo():
+    """This is a docstring.
+
+    This is a second line.
+    """
+    x = 1
+
+# code with issues
+
+def foo():
+    def foo():
+        """This is a docstring."""
+
+        x = 1
+
+def foo():
+    """This is a docstring."""
+
+    x = 1
+
+
+def foo():
+    """This is a docstring.
+
+    This is a second line.
+    """
+
+    x = 1

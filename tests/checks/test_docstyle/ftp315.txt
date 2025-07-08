@@ -1,0 +1,21 @@
+# code without issues
+def foo(): pass
+
+def foo():
+    """Hello"""
+
+x = """aaa
+bbb"""
+
+def foo():
+    """Hello
+
+    more content
+    """
+
+# code with issues
+
+def foo():
+    """Hello
+
+    more content."""

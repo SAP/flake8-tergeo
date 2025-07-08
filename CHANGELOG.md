@@ -1,9 +1,13 @@
 # Changelog
 
 ## Next version
+- FTP314 which finds functions where docstrings and the function body are separated by an empty line
+- FTP315 which finds multi-line docstrings where the closing `"""` is not on a separate line
+- FTP3* checks will now also consider docstrings of private functions, packages, modules and classes
+  but only if the docstring exists, meaning that missing docstrings are not reported
 
 ## 25.6.26.0
-Fixed an issue causing FTP303 to be reported on overloaded functions
+- Fixed an issue causing FTP303 to be reported on overloaded functions
 
 ## 25.6.25.0
 - Support dependency groups in FTP041

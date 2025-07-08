@@ -667,5 +667,11 @@ Checks if the first line ends with a period.
 ### FTP312
 Checks that a function/method decorated with `typing.overload` has no docstring.
 
-### FTP307
+### FTP313
 Checks if a magic function (e.g. module level `__getattr__`) has a docstring.
+
+### FTP314
+Checks that no empty line is present between a function/method docstring and the function body
+
+### FTP315
+Checks that the closing `"""` is on a separate line in a multiline docstring
