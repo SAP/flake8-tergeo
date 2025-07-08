@@ -8,6 +8,9 @@ x = """Dada"""
 def foo():
     """Test"""
 
+def _foo():
+    """Test"""
+
 def foo():
     """Test
 

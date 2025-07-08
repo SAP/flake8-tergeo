@@ -3,11 +3,19 @@
 
 The rules are following the PEP 257 conventions, with some adjustments.
 The logic and rules are inspired by ``pydocstyle``.
+
+We won't implement the following rules as they are covered by black:
+
+* empty string before docstring
+* docstring starts or ends with spaces
+* usage of '''
 """
 
 from __future__ import annotations
 
 import ast
+import tokenize
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Union, cast
 
@@ -26,10 +34,12 @@ DocstringNodes: TypeAlias = Union[
 class DocstyleChecker(OwnChecker):
     """Checker for docstring style according to PEP 257 conventions."""
 
-    def __init__(self, tree: ast.AST, filename: str) -> None:
+    def __init__(
+        self, tree: ast.AST, filename: str, file_tokens: Sequence[tokenize.TokenInfo]
+    ) -> None:
         super().__init__()
         self._tree = tree
-        self._visitor = _Visitor(Path(filename))
+        self._visitor = _Visitor(Path(filename), file_tokens)
 
     @override
     def check(self) -> IssueGenerator:
@@ -39,23 +49,27 @@ class DocstyleChecker(OwnChecker):
 
 class _Visitor(ast.NodeVisitor):
 
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, file_tokens: Sequence[tokenize.TokenInfo]) -> None:
         self._path = path
+        self._file_tokens = file_tokens
         self.issues: list[Issue] = []
 
     @override
     def visit_Module(self, node: ast.Module) -> None:
         is_package = self._path.stem == "__init__"
-        if is_package and not self._path.parent.stem.startswith("_"):
-            self._check_docstring(node, "300", "public package")
-        elif not is_package and not self._path.stem.startswith("_"):
-            self._check_docstring(node, "307", "public module")
+        if is_package:
+            is_private = self._path.parent.stem.startswith("_")
+            self._check_docstring(node, "300", "public package", is_private=is_private)
+        elif not is_package:
+            is_private = self._path.stem.startswith("_")
+            self._check_docstring(node, "307", "public module", is_private=is_private)
         self.generic_visit(node)
 
     @override
     def visit_ClassDef(self, node: ast.ClassDef) -> None:
-        if not self._is_private(node.name):
-            self._check_docstring(node, "301", "public class")
+        self._check_docstring(
+            node, "301", "public class", is_private=self._is_private(node.name)
+        )
         self.generic_visit(node)
 
     @override
@@ -69,11 +83,10 @@ class _Visitor(ast.NodeVisitor):
         self.generic_visit(node)
 
     def _check_function(self, node: AnyFunctionDef) -> None:  # noqa: C901
-        if self._is_private(node.name):
-            return
-
         is_override = False
+        is_private = self._is_private(node.name)
         docstring_node = self._get_docstring(node)
+
         for decorator in node.decorator_list:
             if is_expected_node(decorator, "typing", "overload"):
                 if docstring_node:
@@ -94,18 +107,61 @@ class _Visitor(ast.NodeVisitor):
 
         is_within_class = isinstance(get_parent(node), ast.ClassDef)
         if is_within_class and is_override:
-            self._check_docstring(node, "306", "overridden method")
+            self._check_docstring(
+                node, "306", "overridden method", is_private=is_private
+            )
             return
         if is_within_class and node.name == "__init__":
-            self._check_docstring(node, "305", "__init__")
+            self._check_docstring(node, "305", "__init__", is_private=is_private)
         elif is_within_class and self._is_magic(node.name):
-            self._check_docstring(node, "304", "magic method")
+            self._check_docstring(node, "304", "magic method", is_private=is_private)
         elif is_within_class:
-            self._check_docstring(node, "302", "public method")
+            self._check_docstring(node, "302", "public method", is_private=is_private)
         elif self._is_magic(node.name):
-            self._check_docstring(node, "313", "magic function")
+            self._check_docstring(node, "313", "magic function", is_private=is_private)
         else:
-            self._check_docstring(node, "303", "public function")
+            self._check_docstring(node, "303", "public function", is_private=is_private)
+
+        if docstring_node:
+            self._check_no_empty_line_after_docstring(node, docstring_node)
+
+    def _check_no_empty_line_after_docstring(
+        self, node: AnyFunctionDef, docstring_node: ast.Constant
+    ) -> None:
+        if len(node.body) == 1:
+            # the function only has a docstring, so nothing more to check
+            return
+        if isinstance(
+            node.body[1], (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+        ):
+            # if the next node is a function or class, there should be a newline, but its up
+            # to the user or formatter to decide that
+            return
+        if docstring_node.end_lineno is None:
+            # this can happen for non cpython based parsers
+            return
+
+        token_after_docstring = next(
+            (
+                token
+                for token in self._file_tokens
+                if token.start[0] == docstring_node.end_lineno + 1
+            ),
+            None,
+        )
+        if not token_after_docstring:
+            return
+        if token_after_docstring.type != tokenize.NL:
+            return
+
+        self.issues.append(
+            Issue(
+                line=token_after_docstring.start[0],
+                column=token_after_docstring.start[1],
+                issue_number="314",
+                message="A function/method docstring should not be followed by a newline.",
+            )
+        )
 
     def _is_private(self, name: str) -> bool:
         return name.startswith("_") and not self._is_magic(name)
@@ -126,14 +182,17 @@ class _Visitor(ast.NodeVisitor):
         node: DocstringNodes,
         missing_issue_number: str,
         type_str: str,
+        *,
+        is_private: bool,
     ) -> None:
         docstring_node = self._get_docstring(node)
-        self._check_missing_docstring(
-            docstring_node=docstring_node,
-            node=node,
-            missing_issue_number=missing_issue_number,
-            type_str=type_str,
-        )
+        if not is_private:
+            self._check_missing_docstring(
+                docstring_node=docstring_node,
+                node=node,
+                missing_issue_number=missing_issue_number,
+                type_str=type_str,
+            )
 
         if not docstring_node:
             return
@@ -153,13 +212,15 @@ class _Visitor(ast.NodeVisitor):
             )
 
     def _check_docstring_format(self, docstring_node: ast.Constant) -> None:
-        lines = cast(str, docstring_node.value).splitlines()
+        # we don't use splitlines as we want the terminal line to be present
+        lines = cast(str, docstring_node.value).split("\n")
         if not lines:
             return
         for check in (
             self._check_summary_in_first_line,
             self._check_summary_endswith_period,
             self._check_empty_line_after_summary,
+            self._check_linebreak_at_end,
         ):
             check(docstring_node, lines)
 
@@ -206,6 +267,22 @@ class _Visitor(ast.NodeVisitor):
                 column=0,
                 issue_number="310",
                 message="There should be an empty line after the summary.",
+            )
+        )
+
+    def _check_linebreak_at_end(
+        self, docstring_node: ast.Constant, lines: list[str]
+    ) -> None:
+        if len(lines) == 1:
+            return
+        if lines[-1].strip() == "":
+            return
+        self.issues.append(
+            Issue(
+                line=docstring_node.end_lineno or docstring_node.lineno,
+                column=docstring_node.end_col_offset or docstring_node.col_offset,
+                issue_number="315",
+                message="A multiline docstring should end with a line break.",
             )
         )
 
