@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+
+## 25.7.9.0
 - FTP314 which finds functions where docstrings and the function body are separated by an empty line
 - FTP315 which finds multi-line docstrings where the closing `"""` is not on a separate line
 - FTP3* checks will now also consider docstrings of private functions, packages, modules and classes
