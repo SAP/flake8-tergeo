@@ -15,20 +15,27 @@ from __future__ import annotations
 
 import ast
 import tokenize
+from argparse import Namespace
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Union, cast
+from typing import Protocol, Union, cast
 
 from typing_extensions import TypeAlias, override
 
+from _flake8_tergeo import base
 from _flake8_tergeo.ast_util import get_parent, is_expected_node
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
 from _flake8_tergeo.own_base import OwnChecker
+from _flake8_tergeo.registry import register_add_options, register_parse_options
 from _flake8_tergeo.type_definitions import AnyFunctionDef
 
 DocstringNodes: TypeAlias = Union[
     ast.Module, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef
 ]
+
+
+class _ParseOptions(Protocol):
+    docstyle_lowercase_words: list[str]
 
 
 class DocstyleChecker(OwnChecker):
@@ -53,6 +60,7 @@ class _Visitor(ast.NodeVisitor):
         self._path = path
         self._file_tokens = file_tokens
         self.issues: list[Issue] = []
+        self._options: _ParseOptions = base.get_plugin().get_options()
 
     @override
     def visit_Module(self, node: ast.Module) -> None:
@@ -221,6 +229,7 @@ class _Visitor(ast.NodeVisitor):
             self._check_summary_endswith_period,
             self._check_empty_line_after_summary,
             self._check_linebreak_at_end,
+            self._check_docstring_start,
         ):
             check(docstring_node, lines)
 
@@ -235,6 +244,37 @@ class _Visitor(ast.NodeVisitor):
                 column=docstring_node.col_offset,
                 issue_number="309",
                 message="The summary should be placed in the first line.",
+            )
+        )
+
+    def _check_docstring_start(
+        self, docstring_node: ast.Constant, lines: list[str]
+    ) -> None:
+        if not lines[0]:
+            return
+        first_word = lines[0].split(" ")[0]
+        if (
+            # there is a first word which is not empty
+            first_word
+            # the first char is alphanumeric
+            and first_word[0].isalnum()
+            # the first char is either a digit or a letter which is either uppercase or
+            # in the lowercase words
+            and (
+                first_word[0].isdigit()
+                or (
+                    first_word[0].isupper()
+                    or first_word.lower() in self._options.docstyle_lowercase_words
+                )
+            )
+        ):
+            return
+        self.issues.append(
+            Issue(
+                line=docstring_node.lineno,
+                column=docstring_node.col_offset,
+                issue_number="316",
+                message="The summary should start with an uppercase letter or number.",
             )
         )
 
@@ -303,3 +343,22 @@ class _Visitor(ast.NodeVisitor):
                 message=f"Missing docstring in {type_str}.",
             )
         )
+
+
+@register_add_options
+def add_options(option_manager: OptionManager) -> None:
+    """Add options for this checker."""
+    option_manager.add_option(
+        "--docstyle-lowercase-words",
+        parse_from_config=True,
+        comma_separated_list=True,
+        default=[],
+    )
+
+
+@register_parse_options
+def parse_options(options: Namespace) -> None:
+    """Parse options for this checker."""
+    options.docstyle_lowercase_words = [
+        option.lower() for option in options.docstyle_lowercase_words
+    ]

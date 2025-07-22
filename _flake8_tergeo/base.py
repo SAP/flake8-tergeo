@@ -91,7 +91,7 @@ class BaseOptionManager(AbstractOptionManager):
 
 
 class BaseNamespace(AbstractNamespace):
-    """argparse.BaseNamespace wrapper."""
+    """Wrapper of flake8 Namespace on plugin level."""
 
     @override
     def __getattr__(self, name: str) -> Any:

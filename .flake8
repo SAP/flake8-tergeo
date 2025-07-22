@@ -40,3 +40,6 @@ ftp-requirements-module-extra-mapping =
 ftp-python-version = 3.9.0
 ftp-auto-manage-options = true
 ftp-pyproject-toml-file = pyproject.toml
+
+# docstyle
+ftp-docstyle-lowercase-words = flake8, flake8-tergeo

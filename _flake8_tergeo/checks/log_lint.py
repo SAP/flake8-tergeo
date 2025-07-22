@@ -1,4 +1,4 @@
-"""logging checks."""
+"""Logging checks."""
 
 from __future__ import annotations
 
