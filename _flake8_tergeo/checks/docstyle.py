@@ -258,7 +258,7 @@ class _Visitor(ast.NodeVisitor):
             first_word
             # the first char is alphanumeric
             and first_word[0].isalnum()
-            # the first chat is either a digit or a letter which is either uppercase or
+            # the first char is either a digit or a letter which is either uppercase or
             # in the lowercase words
             and (
                 first_word[0].isdigit()
