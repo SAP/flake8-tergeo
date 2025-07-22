@@ -1,0 +1,26 @@
+# code without issues
+def foo():
+    """Good summary."""
+
+def foo():
+    """123 not checked."""
+
+def foo():
+    pass
+
+def foo():
+    """
+    Some text
+    """
+
+# code with issues
+def foo():
+    """ summary."""
+    pass
+
+def foo():
+    """some."""
+    pass
+
+def foo():
+    """e.g. example."""

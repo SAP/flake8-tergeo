@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- FTP316 which checks that a docstring starts with an uppercase letter or number
 
 ## 25.7.9.0
 - FTP314 which finds functions where docstrings and the function body are separated by an empty line

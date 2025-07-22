@@ -91,3 +91,8 @@ projects root folder.
   If multiples module names match to the file under check, the extra lists are combined.
   If the option is not set, all modules can import all requirements from all extras
   In order to also use group names, the option `ftp-pyproject-toml-file` needs to be set
+
+## Docstyle
+
+* `ftp-docstyle-lowercase-words`: a list of words which are allowed to be lowercase even if they
+  start a docstring

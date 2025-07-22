@@ -65,6 +65,11 @@ FTP315 = partial(
     issue_number="FTP315",
     message="A multiline docstring should end with a line break.",
 )
+FTP316 = partial(
+    Issue,
+    issue_number="FTP316",
+    message="The summary should start with an uppercase letter or number.",
+)
 
 
 class TestFTP300:
@@ -232,3 +237,21 @@ def test_ftp314(runner: Flake8RunnerFixture) -> None:
 def test_ftp315(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp315.txt", issue_number="FTP315")
     assert results == [FTP315(line=21, column=21)]
+
+
+@pytest.mark.parametrize(
+    "ignores,expected",
+    [
+        (["e.g."], []),
+        ([], [FTP316(line=26, column=5)]),
+    ],
+)
+def test_ftp316(
+    runner: Flake8RunnerFixture, ignores: list[str], expected: list[Issue]
+) -> None:
+    results = runner(
+        filename="ftp316.txt",
+        issue_number="FTP316",
+        args=(f"--ftp-docstyle-lowercase-words={','.join(ignores)}",),
+    )
+    assert results == [FTP316(line=18, column=5), FTP316(line=22, column=5), *expected]

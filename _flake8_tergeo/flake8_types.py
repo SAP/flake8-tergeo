@@ -24,7 +24,7 @@ class OptionManager(Protocol):
     """Protocol for flake8 OptionManager."""
 
     def extend_default_ignore(self, disables: list[str]) -> None:
-        """extend_default_ignore method of flake8."""
+        """The extend_default_ignore method of flake8."""
 
     def add_option(self, *args: Any, **kwargs: Any) -> None:
-        """add_option method of flake8."""
+        """The add_option method of flake8."""
