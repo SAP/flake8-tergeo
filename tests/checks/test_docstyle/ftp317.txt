@@ -1,0 +1,19 @@
+# code without issues
+x = "foo"
+x = """xxx"""
+def foo():
+    pass
+def foo():
+    """xxx"""
+def foo():
+    '''xxx'''
+def foo():
+    """"""
+
+# code with issues
+def foo():
+    "aba"
+def foo():
+    ""
+def foo():
+    'abc'

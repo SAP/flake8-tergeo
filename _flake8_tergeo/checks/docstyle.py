@@ -132,6 +132,7 @@ class _Visitor(ast.NodeVisitor):
 
         if docstring_node:
             self._check_no_empty_line_after_docstring(node, docstring_node)
+            self._check_right_quotes(docstring_node)
 
     def _check_no_empty_line_after_docstring(
         self, node: AnyFunctionDef, docstring_node: ast.Constant
@@ -168,6 +169,29 @@ class _Visitor(ast.NodeVisitor):
                 column=token_after_docstring.start[1],
                 issue_number="314",
                 message="A function/method docstring should not be followed by a newline.",
+            )
+        )
+
+    def _check_right_quotes(self, docstring_node: ast.Constant) -> None:
+        docstring_token = next(
+            (
+                token
+                for token in self._file_tokens
+                if token.start[0] == docstring_node.lineno
+                and token.type == tokenize.STRING
+            ),
+        )
+
+        if docstring_token.string.startswith(('"""', "'''")):
+            # we don't check for the type of quotes, as this is up to the user or formatter
+            return
+
+        self.issues.append(
+            Issue(
+                line=docstring_node.lineno,
+                column=docstring_node.col_offset,
+                issue_number="317",
+                message="A docstring should use triple quotes.",
             )
         )
 

@@ -679,3 +679,6 @@ Checks that the closing `"""` is on a separate line in a multiline docstring
 ### FTP316
 Checks that a docstring starts with an uppercase letter or number unless the word is part of
 `ftp-docstyle-lowercase-words`
+
+### FTP317
+Checks if triple quotes (`"""` or `'''`) are used for docstrings
