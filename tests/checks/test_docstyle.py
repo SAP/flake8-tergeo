@@ -70,6 +70,11 @@ FTP316 = partial(
     issue_number="FTP316",
     message="The summary should start with an uppercase letter or number.",
 )
+FTP317 = partial(
+    Issue,
+    issue_number="FTP317",
+    message="A docstring should use triple quotes.",
+)
 
 
 class TestFTP300:
@@ -255,3 +260,12 @@ def test_ftp316(
         args=(f"--ftp-docstyle-lowercase-words={','.join(ignores)}",),
     )
     assert results == [FTP316(line=18, column=5), FTP316(line=22, column=5), *expected]
+
+
+def test_ftp317(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp317.txt", issue_number="FTP317")
+    assert results == [
+        FTP317(line=15, column=5),
+        FTP317(line=17, column=5),
+        FTP317(line=19, column=5),
+    ]
