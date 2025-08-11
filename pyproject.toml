@@ -52,7 +52,7 @@ license-files = ["LICENSE"]
 [project.optional-dependencies]
 dev = [
     "pre-commit==4.3.0",
-    "pylint==3.3.7",
+    "pylint==3.3.8",
     "black==25.1.0",
     "isort==6.0.1",
     "mypy==1.16.1",
