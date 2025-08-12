@@ -1,0 +1,9 @@
+# code without issues
+foo(type(None))
+isinstance(x, (x, type(None)))
+isinstance(x, type(None))
+isinstance(x, Foo|None)
+isinstance(x)
+
+# code with issues
+isinstance(x, Foo|type(None))

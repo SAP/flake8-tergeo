@@ -3,6 +3,9 @@
 ## Next version
 - FTP316 which checks that a docstring starts with an uppercase letter or number
 - FTO317 which checks if triple quotes are used
+- FTP134 which finds `isinstance` calls with tuples
+- FTP135 which finds `issubclass` calls with tuples
+- FTP136 which finds `type(None)` in `isinstance` calls using union types
 
 ## 25.7.9.0
 - FTP314 which finds functions where docstrings and the function body are separated by an empty line
