@@ -615,6 +615,20 @@ With python3.14 these packages should be imported like `import compression.bz2` 
 `import bz2`.
 The check is only active for python 3.14 and onwards.
 
+## FTP134
+Checks if `isinstance` is called with a tuple which can be replaced with a union type.
+For example `isinstance(foo, (str, int))` can be rewritten to `isinstance(foo, str|int)`.
+The check is only active for python 3.10 and onwards.
+
+## FTP135
+Checks if `issubclass` is called with a tuple which can be replaced with a union type.
+For example `issubclass(Foo, (A, B))` can be rewritten to `issubclass(Foo, A|B)`.
+The check is only active for python 3.10 and onwards.
+
+## FTP136
+Checks if `type(None)` is used within `isinstance` when called with a union type.
+For example `isinstance(foo, (str, type(None)))` can be rewritten to `isinstance(foo, str|None)`.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

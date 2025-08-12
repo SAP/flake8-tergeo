@@ -1,0 +1,10 @@
+# code without issues
+{func}()
+{func}(x)
+{func}((x,y))
+{func}(x, y)
+{func}(x, (y,))
+foo(x, (x,y))
+
+# code with issues
+{func}(x, (y,z))

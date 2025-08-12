@@ -231,6 +231,21 @@ FTP132 = partial(
         "constant variable and use that instead."
     ),
 )
+FTP134 = partial(
+    Issue,
+    issue_number="FTP134",
+    message="Use a union type instead of a tuple in isinstance calls.",
+)
+FTP135 = partial(
+    Issue,
+    issue_number="FTP135",
+    message="Use a union type instead of a tuple in issubclass calls.",
+)
+FTP136 = partial(
+    Issue,
+    issue_number="FTP136",
+    message="Use None instead of type(None) in union types in isinstance calls.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -948,3 +963,36 @@ def test_ftp132(
         ]
     else:
         assert not results
+
+
+@pytest.mark.parametrize(
+    "func,issue,issue_number",
+    [("isinstance", FTP134, "FTP134"), ("issubclass", FTP135, "FTP135")],
+)
+@pytest.mark.parametrize(
+    "version,find_by_version", [("3.9.0", False), ("3.11.0", True)]
+)
+def test_ftp134_135(
+    runner: Flake8RunnerFixture,
+    func: str,
+    issue_number: str,
+    issue: partial[Issue],
+    version: str,
+    find_by_version: bool,
+) -> None:
+    results = runner(
+        filename="ftp134_135.txt",
+        issue_number=issue_number,
+        func=func,
+        args=("--ftp-python-version", version),
+    )
+    if find_by_version:
+        assert results == [issue(line=10, column=1)]
+    else:
+        assert not results
+
+
+def test_ftp136(runner: Flake8RunnerFixture) -> None:
+    assert runner(filename="ftp136.txt", issue_number="FTP136") == [
+        FTP136(line=9, column=1)
+    ]

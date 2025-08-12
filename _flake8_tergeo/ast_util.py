@@ -285,3 +285,14 @@ def is_in_type_alias(node: ast.AST) -> bool:
     if not result:
         return False
     return is_expected_node(result[0].annotation, "typing", "TypeAlias")
+
+
+def flatten_bin_op(node: ast.BinOp) -> list[ast.AST]:
+    """Flatten a binary operation node into a list of its operands."""
+    nodes = []
+    if isinstance(node.left, ast.BinOp):
+        nodes.extend(flatten_bin_op(node.left))
+    else:
+        nodes.append(node.left)
+    nodes.append(node.right)
+    return nodes

@@ -6,6 +6,7 @@ import ast
 from typing import cast
 
 from _flake8_tergeo.ast_util import (
+    flatten_bin_op,
     get_imports,
     get_parent,
     get_parents,
@@ -91,6 +92,9 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_string_template(node)
     yield from _check_regex_compile_in_function(node)
     yield from _check_regex_module_function_with_constant(node)
+    yield from _check_isinstance_tuple(node)
+    yield from _check_issubclass_tuple(node)
+    yield from _check_type_none_in_isinstance(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -726,3 +730,62 @@ def _check_regex_module_function_with_constant(node: ast.Call) -> IssueGenerator
             "constant variable and use that instead."
         ),
     )
+
+
+def _check_isinstance_tuple(node: ast.Call) -> IssueGenerator:
+    yield from _check_isx_tuple(node, "isinstance", "134")
+
+
+def _check_issubclass_tuple(node: ast.Call) -> IssueGenerator:
+    yield from _check_isx_tuple(node, "issubclass", "135")
+
+
+def _check_isx_tuple(
+    node: ast.Call, funcname: str, issue_number: str
+) -> IssueGenerator:
+    if get_python_version() < (3, 10):
+        return
+    if not isinstance(node.func, ast.Name):
+        return
+    if node.func.id != funcname:
+        return
+    if len(node.args) != 2:
+        return
+    if not isinstance(node.args[1], ast.Tuple):
+        return
+    if len(node.args[1].elts) <= 1:
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number=issue_number,
+        message=f"Use a union type instead of a tuple in {funcname} calls.",
+    )
+
+
+def _check_type_none_in_isinstance(node: ast.Call) -> IssueGenerator:
+    if not isinstance(node.func, ast.Name):
+        return
+    if node.func.id != "isinstance":
+        return
+    if len(node.args) != 2:
+        return
+    if not isinstance(node.args[1], ast.BinOp):
+        return
+
+    types = flatten_bin_op(node.args[1])
+    for type_ in types:
+        if (
+            isinstance(type_, ast.Call)
+            and isinstance(type_.func, ast.Name)
+            and type_.func.id == "type"
+            and len(type_.args) == 1
+            and is_constant_node(type_.args[0], type(None))
+        ):
+            yield Issue(
+                line=node.lineno,
+                column=node.col_offset,
+                issue_number="136",
+                message="Use None instead of type(None) in union types in isinstance calls.",
+            )
