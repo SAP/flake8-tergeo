@@ -357,8 +357,9 @@ Checks for import of `from re import DEBUG` or usage of `re.DEBUG`
 Checks for type comments which should be replaced by annotations. `type:ignore` is ignored
 
 ## FTP077
-Check if in a type annotation or type alias which contains a union, `None` always comes last.
+Check if in a union, `None` always comes last.
 For instance `a: int|float|None` is okay, but `a: int|None|float` is not.
+It is active for type annotations, type aliases and `isinstance` calls.
 This check does not consider `typing.Optional`
 
 ## FTP079

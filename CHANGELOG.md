@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- FTP077 now verifies also `isinstance` calls
 
 ## 25.8.13.0
 - FTP316 which checks that a docstring starts with an uppercase letter or number
