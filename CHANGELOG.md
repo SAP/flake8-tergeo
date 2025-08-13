@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+
+## 25.8.13.0
 - FTP316 which checks that a docstring starts with an uppercase letter or number
 - FTO317 which checks if triple quotes are used
 - FTP134 which finds `isinstance` calls with tuples
