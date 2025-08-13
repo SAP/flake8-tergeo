@@ -26,15 +26,16 @@ class TestFTP077:
     def test(self, runner: Flake8RunnerFixture) -> None:
         results = runner(filename="ftp077.txt", issue_number="FTP077")
         assert results == [
-            FTP077(line=22, column=10),
-            FTP077(line=23, column=4),
-            FTP077(line=24, column=14),
-            FTP077(line=24, column=25),
-            FTP077(line=26, column=20),
-            FTP077(line=26, column=46),
-            FTP077(line=27, column=14),
-            FTP077(line=28, column=16),
-            FTP077(line=29, column=10),
+            FTP077(line=27, column=10),
+            FTP077(line=28, column=4),
+            FTP077(line=29, column=14),
+            FTP077(line=29, column=25),
+            FTP077(line=31, column=20),
+            FTP077(line=31, column=46),
+            FTP077(line=32, column=14),
+            FTP077(line=33, column=16),
+            FTP077(line=34, column=10),
+            FTP077(line=35, column=22),
         ]
 
     @pytest.mark.skipif(

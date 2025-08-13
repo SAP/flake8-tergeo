@@ -6,6 +6,7 @@ import ast
 from collections.abc import Collection
 
 from _flake8_tergeo.ast_util import (
+    get_parent,
     in_annotation,
     is_constant_node,
     is_expected_node,
@@ -21,11 +22,18 @@ def check_annotation_order(
     node: ast.expr, nodes: Collection[ast.AST]
 ) -> IssueGenerator:
     """Check the order of annotations."""
-    # if we don't check something for typing, we can skip the check
     if (
+        # check if the have something with typing
         not in_annotation(node)
         and not is_in_type_alias(node)
         and not is_in_type_statement(node)
+        # or a union in a isinstance call
+        and not (
+            (parent := get_parent(node))
+            and isinstance(parent, ast.Call)
+            and isinstance(parent.func, ast.Name)
+            and parent.func.id == "isinstance"
+        )
     ):
         return
 

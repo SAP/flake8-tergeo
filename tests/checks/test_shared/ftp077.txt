@@ -16,6 +16,11 @@ def foo(*, a: int|None = None) -> int|None: pass
 X = None | Some
 X: TypeAlias = Some | None
 a: Union[x, None]
+## calls
+foo()
+isinstance(x, Foo)
+A = X | None
+isinstance(x, str | None)
 
 # code to find
 # assign
@@ -27,3 +32,4 @@ def foo(a: int, b: None|int|float|str, *, c: None|str = "foo"): pass
 def foo() -> None|int: pass
 X: TypeAlias = None | Some
 a: Union[None, int]
+isinstance(x, bool | None | str)
