@@ -146,6 +146,7 @@ disable = [
     "too-many-arguments",
     "too-many-locals",
     "too-many-lines",
+    "too-many-boolean-expressions",
     # other checks
     "use-implicit-booleaness-not-comparison-to-zero",
     "use-implicit-booleaness-not-comparison-to-string",
