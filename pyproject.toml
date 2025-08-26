@@ -55,7 +55,7 @@ dev = [
     "pylint==3.3.8",
     "black==25.1.0",
     "isort==6.0.1",
-    "mypy==1.16.1",
+    "mypy==1.17.1",
     "flake8==7.3.0",
     "types-flake8-simplify==0.22.0.20250708",
     "types-flake8-builtins==3.0.0.20250819",
@@ -146,6 +146,7 @@ disable = [
     "too-many-arguments",
     "too-many-locals",
     "too-many-lines",
+    "too-many-boolean-expressions",
     # other checks
     "use-implicit-booleaness-not-comparison-to-zero",
     "use-implicit-booleaness-not-comparison-to-string",
