@@ -163,6 +163,8 @@ def _check_extra_arg(node: ast.Call) -> IssueGenerator:
         for key in keyword.value.keys:
             if not isinstance(key, ast.Constant):
                 continue
+            if not isinstance(key.value, str):
+                continue
             if key.value not in RESERVED_ATTRS:
                 continue
             yield Issue(

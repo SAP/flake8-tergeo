@@ -5,12 +5,7 @@ from __future__ import annotations
 import ast
 from dataclasses import dataclass
 
-from _flake8_tergeo.ast_util import (
-    get_parent,
-    get_parents,
-    is_constant_node,
-    is_expected_node,
-)
+from _flake8_tergeo.ast_util import get_parent, get_parents, is_expected_node
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
 from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.registry import register
@@ -111,7 +106,9 @@ def _check_sorted(
         return
 
     elements = [
-        element.value for element in value.elts if is_constant_node(element, str)
+        element.value
+        for element in value.elts
+        if isinstance(element, ast.Constant) and isinstance(element.value, str)
     ]
     if sorted(elements) != elements:
         yield Issue(

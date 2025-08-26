@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import string
+from typing import cast
 
 from _flake8_tergeo.ast_util import is_constant_node
 from _flake8_tergeo.flake8_types import Issue, IssueGenerator
@@ -34,7 +35,7 @@ def _check_alphabet(node: ast.Constant) -> IssueGenerator:
 def _compare(
     value: ast.Constant, compare: str, issue_number: str, compare_name: str
 ) -> IssueGenerator:
-    if compare in value.value:
+    if compare in cast(str, value.value):
         yield Issue(
             line=value.lineno,
             column=value.col_offset,

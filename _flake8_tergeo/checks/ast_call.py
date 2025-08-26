@@ -200,7 +200,8 @@ def _check_float_nan(node: ast.Call) -> IssueGenerator:
         isinstance(node.func, ast.Name)
         and node.func.id == "float"
         and len(node.args) == 1
-        and is_constant_node(node.args[0], str)
+        and isinstance(node.args[0], ast.Constant)
+        and isinstance(node.args[0].value, str)
         and node.args[0].value.upper() == "NAN"
     ):
         yield Issue(
