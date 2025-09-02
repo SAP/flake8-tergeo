@@ -152,6 +152,9 @@ disable = [
     "use-implicit-booleaness-not-comparison-to-string",
     "global-statement",
 ]
+per-file-ignores = [
+    "tests/**:missing-function-docstring,missing-class-docstring,redefined-outer-name,protected-access,unused-argument"
+]
 
 [tool.pylint.reports]
 reports = false
@@ -197,9 +200,6 @@ filterwarnings = [
     "ignore:ast\\..* is deprecated and will be removed in Python 3\\.14:DeprecationWarning:flake8_simplify",
 ]
 xfail_strict = true
-
-[tool.pylint-per-file-ignores]
-"/tests/" = "missing-function-docstring,missing-class-docstring,redefined-outer-name,protected-access,unused-argument,import-private-name"
 
 [tool.setuptools_scm]
 version_file = ""
