@@ -1,14 +1,26 @@
 [build-system]
-requires = ["setuptools>=61", "setuptools-scm~=9.0"]
+requires = [
+    "setuptools>=61",
+    "setuptools-scm~=9.0",
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "flake8-tergeo"
-dynamic = ["version"]
+dynamic = [
+    "version",
+]
 description = "flake8 plugin which keeps your code clean and tidy"
-authors = [{ name = "Kai Harder", email = "kai.harder@sap.com"}]
+authors = [
+    { name = "Kai Harder", email = "kai.harder@sap.com" },
+]
 readme = "README.md"
-keywords = ["flake8", "plugin", "quality", "linter"]
+keywords = [
+    "flake8",
+    "plugin",
+    "quality",
+    "linter",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Plugins",
@@ -25,7 +37,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Quality Assurance",
-    "Typing :: Typed"
+    "Typing :: Typed",
 ]
 requires-python = ">=3.9,<4"
 dependencies = [
@@ -43,11 +55,16 @@ dependencies = [
     "tomli~=2.2;python_version<'3.11'",
 ]
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = [
+    "LICENSE",
+]
 
 [project.urls]
 "Issue Tracker" = "https://github.com/SAP/flake8-tergeo/issues"
-"Changelog" = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
+
+[project.entry-points."flake8.extension"]
+FT = "_flake8_tergeo:Flake8TergeoPlugin"
 
 [dependency-groups]
 dev = [
@@ -82,17 +99,22 @@ test = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["_flake8_tergeo*"]
+include = [
+    "_flake8_tergeo*",
+]
 
 [tool.setuptools.package-data]
-_flake8_tergeo = ["py.typed"]
+_flake8_tergeo = [
+    "py.typed",
+]
 
 [tool.isort]
 profile = "black"
-add_imports = ["from __future__ import annotations"]
+add_imports = [
+    "from __future__ import annotations",
+]
 
 [tool.mypy]
-# main config
 strict_optional = true
 warn_incomplete_stub = true
 warn_no_return = true
@@ -100,17 +122,26 @@ warn_unreachable = true
 strict = true
 warn_unused_ignores = true
 warn_return_any = false
-disable_error_code = ["type-abstract"]
-enable_error_code = ["explicit-override", "possibly-undefined", "ignore-without-code", "deprecated"]
+disable_error_code = [
+    "type-abstract",
+]
+enable_error_code = [
+    "explicit-override",
+    "possibly-undefined",
+    "ignore-without-code",
+    "deprecated",
+]
 strict_bytes = true
-# output
 pretty = true
 show_column_numbers = true
 show_error_codes = true
 show_traceback = true
+strict_concatenate = true
 
 [[tool.mypy.overrides]]
-module = ["astpretty.*"]
+module = [
+    "astpretty.*",
+]
 follow_untyped_imports = true
 
 [tool.pylint.basic]
@@ -127,18 +158,22 @@ min-public-methods = 0
 
 [tool.pylint.master]
 max-line-length = 100
-py-version = [3, 9]
-load-plugins = ["pylint_per_file_ignores"]
+py-version = [
+    3,
+    9,
+]
+load-plugins = [
+    "pylint_per_file_ignores",
+]
 
 [tool.pylint."messages control"]
-enable = ["all"]
+enable = [
+    "all",
+]
 disable = [
-    # allow TODO comments
     "fixme",
-    # allow disables
     "locally-disabled",
     "suppressed-message",
-    # ignore too-many checks
     "too-many-arguments",
     "too-many-branches",
     "too-many-instance-attributes",
@@ -147,7 +182,6 @@ disable = [
     "too-many-locals",
     "too-many-lines",
     "too-many-boolean-expressions",
-    # other checks
     "use-implicit-booleaness-not-comparison-to-zero",
     "use-implicit-booleaness-not-comparison-to-string",
     "global-statement",
@@ -174,26 +208,23 @@ exclude_also = [
 
 [tool.coverage.run]
 branch = true
-include = ["_flake8_tergeo/*", "tests/*"]
+include = [
+    "_flake8_tergeo/*",
+    "tests/*",
+]
 
 [tool.diff_cover]
 include_untracked = true
 fail_under = 90
 exclude = [
-    "*/tests/*"
+    "*/tests/*",
 ]
-
-[project.entry-points."flake8.extension"]
-FT = "_flake8_tergeo:Flake8TergeoPlugin"
 
 [tool.pytest.ini_options]
 addopts = "--strict-markers --strict-config -p no:legacypath"
 filterwarnings = [
-    # make all warnings an error
     "error",
-    # https://github.com/berkerpeksag/astor/issues/217
     "ignore:ast\\.Num is deprecated and will be removed in Python 3\\.14:DeprecationWarning:astor",
-    # https://github.com/MartinThoma/flake8-simplify/issues/190
     "ignore:ast\\..* is deprecated and will be removed in Python 3\\.14:DeprecationWarning:flake8_simplify",
 ]
 xfail_strict = true
