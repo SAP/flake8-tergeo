@@ -215,6 +215,8 @@ include = [
     "_flake8_tergeo/*",
     "tests/*",
 ]
+patch = "subprocess"
+concurrency = ["multiprocessing"]
 
 [tool.diff_cover]
 include_untracked = true
