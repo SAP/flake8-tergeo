@@ -215,7 +215,7 @@ include = [
     "_flake8_tergeo/*",
     "tests/*",
 ]
-patch = "subprocess"
+patch = ["subprocess"]
 concurrency = ["multiprocessing"]
 
 [tool.diff_cover]
