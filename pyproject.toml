@@ -87,7 +87,7 @@ dev = [
 test = [
     "pytest==8.4.2",
     "pytest-mock==3.15.0",
-    "pytest-cov==6.3.0",
+    "pytest-cov==7.0.0",
     "pytest-xdist==3.8.0",
     "pytest-randomly==3.16.0",
     "pytest-datadir==1.8.0",
@@ -215,6 +215,8 @@ include = [
     "_flake8_tergeo/*",
     "tests/*",
 ]
+patch = ["subprocess"]
+concurrency = ["multiprocessing"]
 
 [tool.diff_cover]
 include_untracked = true
