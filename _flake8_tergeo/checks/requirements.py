@@ -319,8 +319,6 @@ def _parse_module_extra_mapping(value: str | None) -> dict[_Location, list[str]]
             if "::" in location
             else (location.strip(), None)
         )
-        # mypy complains because of reasons that module is maybe None
-        assert module is not None
         mappings[_Location(module, identifier)] = extras.strip().split(" ")
     return mappings
 
