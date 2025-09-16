@@ -1,25 +1,13 @@
 [build-system]
+build-backend = "setuptools.build_meta"
 requires = [
     "setuptools>=61",
     "setuptools-scm~=9.0",
 ]
-build-backend = "setuptools.build_meta"
 
 [project]
-name = "flake8-tergeo"
-dynamic = [
-    "version",
-]
-description = "flake8 plugin which keeps your code clean and tidy"
 authors = [
-    { name = "Kai Harder", email = "kai.harder@sap.com" },
-]
-readme = "README.md"
-keywords = [
-    "flake8",
-    "plugin",
-    "quality",
-    "linter",
+    {name = "Kai Harder", email = "kai.harder@sap.com"},
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -39,7 +27,6 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
     "Typing :: Typed",
 ]
-requires-python = ">=3.9,<4"
 dependencies = [
     "flake8>=7,<9",
     "typing-extensions~=4.4",
@@ -54,14 +41,27 @@ dependencies = [
     "dependency_groups~=1.3",
     "tomli~=2.2;python_version<'3.11'",
 ]
+description = "flake8 plugin which keeps your code clean and tidy"
+dynamic = [
+    "version",
+]
+keywords = [
+    "flake8",
+    "plugin",
+    "quality",
+    "linter",
+]
 license = "Apache-2.0"
 license-files = [
     "LICENSE",
 ]
+name = "flake8-tergeo"
+readme = "README.md"
+requires-python = ">=3.9,<4"
 
 [project.urls]
-"Issue Tracker" = "https://github.com/SAP/flake8-tergeo/issues"
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
+"Issue Tracker" = "https://github.com/SAP/flake8-tergeo/issues"
 
 [project.entry-points."flake8.extension"]
 FT = "_flake8_tergeo:Flake8TergeoPlugin"
@@ -83,6 +83,7 @@ dev = [
     "yesqa==1.5.0",
     "astpretty==3.0.0",
     "pyupgrade==3.20.0",
+    "toml-sort==0.24.3",
 ]
 test = [
     "pytest==8.4.2",
@@ -98,30 +99,42 @@ test = [
     "pytest-fixture-classes==1.0.3",
 ]
 
-[tool.setuptools.packages.find]
-include = [
-    "_flake8_tergeo*",
+[tool.coverage.report]
+exclude_also = [
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "class .*\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "pytest\\.fail",
 ]
+fail_under = 90
+show_missing = true
+skip_covered = true
 
-[tool.setuptools.package-data]
-_flake8_tergeo = [
-    "py.typed",
+[tool.coverage.run]
+branch = true
+concurrency = ["multiprocessing"]
+include = [
+    "_flake8_tergeo/*",
+    "tests/*",
 ]
+patch = ["subprocess"]
+
+[tool.diff_cover]
+exclude = [
+    "*/tests/*",
+]
+fail_under = 90
+include_untracked = true
 
 [tool.isort]
-profile = "black"
 add_imports = [
     "from __future__ import annotations",
 ]
+profile = "black"
 
 [tool.mypy]
-strict_optional = true
-warn_incomplete_stub = true
-warn_no_return = true
-warn_unreachable = true
-strict = true
-warn_unused_ignores = true
-warn_return_any = false
 disable_error_code = [
     "type-abstract",
 ]
@@ -131,46 +144,50 @@ enable_error_code = [
     "ignore-without-code",
     "deprecated",
 ]
-strict_bytes = true
 pretty = true
 show_column_numbers = true
 show_error_codes = true
 show_traceback = true
+strict = true
+strict_bytes = true
 strict_concatenate = true
 strict_equality_for_none = true
+strict_optional = true
+warn_incomplete_stub = true
+warn_no_return = true
+warn_return_any = false
+warn_unreachable = true
+warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
+follow_untyped_imports = true
 module = [
     "astpretty.*",
 ]
-follow_untyped_imports = true
 
 [tool.pylint.basic]
-no-docstring-rgx = "^_"
 good-names = [
     "visit_Module",
     "visit_ClassDef",
     "visit_FunctionDef",
     "visit_AsyncFunctionDef",
 ]
+no-docstring-rgx = "^_"
 
 [tool.pylint.design]
 min-public-methods = 0
 
 [tool.pylint.master]
+load-plugins = [
+    "pylint_per_file_ignores",
+]
 max-line-length = 100
 py-version = [
     3,
     9,
 ]
-load-plugins = [
-    "pylint_per_file_ignores",
-]
 
 [tool.pylint."messages control"]
-enable = [
-    "all",
-]
 disable = [
     "fixme",
     "locally-disabled",
@@ -187,8 +204,11 @@ disable = [
     "use-implicit-booleaness-not-comparison-to-string",
     "global-statement",
 ]
+enable = [
+    "all",
+]
 per-file-ignores = [
-    "tests/**:missing-function-docstring,missing-class-docstring,redefined-outer-name,protected-access,unused-argument"
+    "tests/**:missing-function-docstring,missing-class-docstring,redefined-outer-name,protected-access,unused-argument",
 ]
 
 [tool.pylint.reports]
@@ -196,35 +216,6 @@ reports = false
 
 [tool.pylint.similarities]
 ignore-imports = true
-
-[tool.coverage.report]
-fail_under = 90
-show_missing = true
-skip_covered = true
-exclude_also = [
-    "def __repr__",
-    "raise NotImplementedError",
-    "if TYPE_CHECKING:",
-    "class .*\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-    "pytest\\.fail",
-]
-
-[tool.coverage.run]
-branch = true
-include = [
-    "_flake8_tergeo/*",
-    "tests/*",
-]
-patch = ["subprocess"]
-concurrency = ["multiprocessing"]
-
-[tool.diff_cover]
-include_untracked = true
-fail_under = 90
-exclude = [
-    "*/tests/*",
-]
 
 [tool.pytest.ini_options]
 addopts = "--strict-markers --strict-config -p no:legacypath"
@@ -235,6 +226,28 @@ filterwarnings = [
 ]
 xfail_strict = true
 
+[tool.setuptools.package-data]
+_flake8_tergeo = [
+    "py.typed",
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "_flake8_tergeo*",
+]
+
 [tool.setuptools_scm]
 version_file = ""
 version_scheme = "calver-by-date"
+
+[tool.tomlsort]
+sort_first = [
+    "build-system",
+    "project",
+    "project.urls",
+    "project.entry-points.flake8.extension",
+    "dependency-groups",
+]
+sort_table_keys = true
+spaces_indent_inline_array = 4
+trailing_comma_inline_array = true
