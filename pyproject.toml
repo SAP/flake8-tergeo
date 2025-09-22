@@ -95,7 +95,7 @@ test = [
     "coverage==7.10.7",
     "diff-cover==9.6.0",
     "flake8-json==24.4.0",
-    "dirty-equals==0.9.0",
+    "dirty-equals==0.10.0",
     "pytest-fixture-classes==1.0.3",
 ]
 
