@@ -6,6 +6,7 @@ import argparse
 from typing import Any
 
 import pytest
+from flake8.options.manager import OptionManager
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import base
@@ -15,7 +16,6 @@ from _flake8_tergeo.base import (
     DefaultWrapper,
     Flake8TergeoPlugin,
 )
-from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.interfaces import AbstractChecker
 from tests import conftest
 

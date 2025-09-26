@@ -16,9 +16,9 @@ from flake8_typing_imports import Plugin as TypingImportPlugin
 from flake8_typing_imports import Version
 from typing_extensions import override
 
-from _flake8_tergeo.flake8_types import IssueGenerator
 from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.interfaces import AbstractNamespace
+from _flake8_tergeo.type_definitions import IssueGenerator
 from _flake8_tergeo.wrapper_base import BaseWrapperChecker
 
 

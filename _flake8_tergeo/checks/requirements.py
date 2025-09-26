@@ -14,17 +14,19 @@ from pathlib import Path
 from typing import NamedTuple, cast
 
 import dependency_groups
+from flake8.options.manager import OptionManager
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
 from _flake8_tergeo import base
 from _flake8_tergeo.ast_util import get_parents
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import (
     register,
     register_add_options,
     register_parse_options,
 )
+from _flake8_tergeo.type_definitions import IssueGenerator
 from _flake8_tergeo.util import stdlib_module_names
 
 try:

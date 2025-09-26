@@ -19,7 +19,7 @@ from pytest_mock import MockerFixture
 from _flake8_tergeo import base
 from _flake8_tergeo.ast_util import set_info_in_tree
 from _flake8_tergeo.checks import requirements
-from _flake8_tergeo.flake8_types import Issue
+from _flake8_tergeo.interfaces import Issue
 from tests.conftest import Flake8RunnerFixture
 from tests.path_util import mkdir, mkfile
 

@@ -6,9 +6,10 @@ import ast
 from dataclasses import dataclass
 
 from _flake8_tergeo.ast_util import get_parent, get_parents, is_expected_node
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
 from _flake8_tergeo.global_options import get_python_version
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 BAD_NAMES = ["pi", "e", "tau", "inf", "nan"]
 

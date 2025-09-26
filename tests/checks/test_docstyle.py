@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from _flake8_tergeo.flake8_types import Issue
+from _flake8_tergeo.interfaces import Issue
 from tests.conftest import Flake8RunnerFixture
 from tests.path_util import mkdir, mkfile
 

@@ -9,23 +9,27 @@ from collections.abc import Sequence
 from threading import Event
 from typing import Any, ClassVar
 
+from flake8.options.manager import OptionManager
 from typing_extensions import override
 
-from _flake8_tergeo import flake8_types, registry
+from _flake8_tergeo import registry
 from _flake8_tergeo.interfaces import AbstractChecker, AbstractOptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 class OwnOptionManager(AbstractOptionManager):
     """OptionManager wrapper which is used for own-defined checks."""
 
     @override
-    def extend_default_ignore(self, disables: list[str]) -> None:
+    def extend_default_ignore(self, error_codes: Sequence[str]) -> None:
         """Extend the default ignore.
 
         This method will add the self-defined check prefix before the error code.
         """
-        new_disables = [f"{OwnChecker.prefix}{disable}" for disable in disables]
-        self._option_manager.extend_default_ignore(new_disables)
+        new_error_codes = [
+            f"{OwnChecker.prefix}{error_code}" for error_code in error_codes
+        ]
+        self._option_manager.extend_default_ignore(new_error_codes)
 
     @override
     def add_option(self, *args: Any, **kwargs: Any) -> None:
@@ -40,7 +44,7 @@ class OwnChecker(AbstractChecker):
     options_parsed: ClassVar[Event] = Event()
 
     @classmethod
-    def add_options(cls, option_manager: flake8_types.OptionManager) -> None:
+    def add_options(cls, option_manager: OptionManager) -> None:
         """Handle flake8 add_options."""
         if cls.options_added.is_set():
             return
@@ -67,7 +71,7 @@ class ASTChecker(OwnChecker):
         self._tree = tree
 
     @override
-    def check(self) -> flake8_types.IssueGenerator:
+    def check(self) -> IssueGenerator:
         for node in ast.walk(self._tree):
             for func in registry.AST_REGISTRY[type(node)]:
                 yield from func(node)
@@ -81,6 +85,6 @@ class TokenChecker(OwnChecker):
         self._file_tokens = file_tokens
 
     @override
-    def check(self) -> flake8_types.IssueGenerator:
+    def check(self) -> IssueGenerator:
         for func in registry.TOKEN_REGISTRY:
             yield from func(self._file_tokens)

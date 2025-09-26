@@ -6,8 +6,9 @@ import re
 import tokenize
 from collections.abc import Sequence
 
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_token_checker
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 _INVALID_LINE_BREAK = re.compile(r"(?<!\\)\\$", re.M)
 _INVALID_MULTILINE_BACKSLASH = re.compile(r"(?<![\']{3}|[\"]{3})\\$", re.M)

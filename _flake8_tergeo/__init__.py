@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from _flake8_tergeo import global_options
 from _flake8_tergeo.base import Flake8TergeoPlugin
-from _flake8_tergeo.flake8_types import Issue
 from _flake8_tergeo.hacks import add_python314_removed_ast_nodes
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.own_base import ASTChecker, OwnChecker, TokenChecker
 from _flake8_tergeo.wrapper_base import BaseWrapperChecker
 

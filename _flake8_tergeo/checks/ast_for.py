@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import ast
 
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_for
-from _flake8_tergeo.type_definitions import AnyFor
+from _flake8_tergeo.type_definitions import AnyFor, IssueGenerator
 
 
 @register_for
