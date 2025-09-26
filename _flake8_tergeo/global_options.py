@@ -8,8 +8,8 @@ from argparse import Namespace
 from packaging.version import Version
 
 from _flake8_tergeo.base import get_plugin
-from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.registry import register_add_options, register_parse_options
+from _flake8_tergeo.type_definitions import OptionManager
 
 
 @register_add_options

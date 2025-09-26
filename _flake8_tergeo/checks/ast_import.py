@@ -8,9 +8,10 @@ from typing import Union
 from typing_extensions import TypeAlias
 
 from _flake8_tergeo.ast_util import get_imported_modules
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
 from _flake8_tergeo.global_options import get_python_version
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 EASTEREGG_IMPORTS = ["this", "antigravity", "__hello__", "__phello__"]
 DEBUGGER_MODULES = ["pdb", "ipdb", "pudb", "debug", "pdbpp", "wdb"]

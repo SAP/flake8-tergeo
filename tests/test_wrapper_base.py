@@ -10,7 +10,7 @@ import pytest
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import BaseWrapperChecker
-from _flake8_tergeo.flake8_types import OptionManager
+from _flake8_tergeo.type_definitions import OptionManager
 
 
 class TestBaseWrapperChecker:

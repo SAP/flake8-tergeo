@@ -7,9 +7,13 @@ import re
 
 from _flake8_tergeo.ast_util import get_parent, is_expected_node, is_stub, stringify
 from _flake8_tergeo.base import get_plugin
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_add_options, register_function_def
-from _flake8_tergeo.type_definitions import AnyFunctionDef
+from _flake8_tergeo.type_definitions import (
+    AnyFunctionDef,
+    IssueGenerator,
+    OptionManager,
+)
 
 PY2_REMOVED_METHODS = [
     "__oct__",

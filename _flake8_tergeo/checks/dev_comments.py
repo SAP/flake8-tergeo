@@ -10,12 +10,13 @@ from collections.abc import Sequence
 from typing_extensions import Protocol
 
 from _flake8_tergeo import base
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import (
     register_add_options,
     register_parse_options,
     register_token_checker,
 )
+from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
 
 _WHITESPACE = re.compile(r" +")
 

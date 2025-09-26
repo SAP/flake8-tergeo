@@ -9,8 +9,7 @@ from dirty_equals import IsOneOf
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo.checks.wrappers import BugBearChecker, TypingImportChecker
-from _flake8_tergeo.flake8_types import Issue
-from _flake8_tergeo.interfaces import AbstractNamespace
+from _flake8_tergeo.interfaces import AbstractNamespace, Issue
 from tests.conftest import Flake8RunnerFixture
 from tests.util import LenientIssue
 

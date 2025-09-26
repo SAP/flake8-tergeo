@@ -15,8 +15,8 @@ from _flake8_tergeo.base import (
     DefaultWrapper,
     Flake8TergeoPlugin,
 )
-from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.interfaces import AbstractChecker
+from _flake8_tergeo.type_definitions import OptionManager
 from tests import conftest
 
 

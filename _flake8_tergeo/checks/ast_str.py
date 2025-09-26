@@ -7,8 +7,9 @@ import string
 from typing import cast
 
 from _flake8_tergeo.ast_util import is_constant_node
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 @register(ast.Constant)

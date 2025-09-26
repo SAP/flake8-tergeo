@@ -16,9 +16,10 @@ from _flake8_tergeo.ast_util import (
     is_expected_node,
     stringify,
 )
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
 from _flake8_tergeo.global_options import get_python_version
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 NameOrAttribute: TypeAlias = Union[ast.Name, ast.Attribute]
 OS_ALIASES = ["EnvironmentError", "IOError", "WindowsError"]

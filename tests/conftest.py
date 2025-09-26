@@ -17,8 +17,8 @@ from pytest_mock import MockerFixture
 from typing_extensions import override
 
 from _flake8_tergeo import BaseWrapperChecker, Flake8TergeoPlugin, base, registry
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
-from _flake8_tergeo.interfaces import AbstractChecker
+from _flake8_tergeo.interfaces import AbstractChecker, Issue
+from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
 from tests.util import LenientIssue
 
 

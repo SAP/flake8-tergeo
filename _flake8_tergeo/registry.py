@@ -11,8 +11,13 @@ from typing import Any
 
 from typing_extensions import TypeAlias
 
-from _flake8_tergeo.flake8_types import IssueGenerator, OptionManager
-from _flake8_tergeo.type_definitions import PARAM, AnyFor, AnyFunctionDef
+from _flake8_tergeo.type_definitions import (
+    PARAM,
+    AnyFor,
+    AnyFunctionDef,
+    IssueGenerator,
+    OptionManager,
+)
 
 TokenFunc: TypeAlias = Callable[[Sequence[tokenize.TokenInfo]], IssueGenerator]
 AddOptionsFunc: TypeAlias = Callable[[OptionManager], None]

@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import ast
 
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 @register(ast.ExceptHandler)

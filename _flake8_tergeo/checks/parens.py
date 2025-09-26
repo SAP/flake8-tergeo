@@ -6,8 +6,9 @@ import tokenize
 from collections.abc import Sequence
 
 from _flake8_tergeo.base import get_plugin
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_add_options, register_token_checker
+from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
 
 NON_CODING_TOKENS = frozenset((tokenize.NL, tokenize.COMMENT))
 OPENING = frozenset(("(", "[", "{"))

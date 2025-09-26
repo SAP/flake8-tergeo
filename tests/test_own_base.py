@@ -9,8 +9,9 @@ from collections.abc import Sequence
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import registry
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.own_base import ASTChecker, OwnOptionManager, TokenChecker
+from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
 
 
 class TestOwnOptionManager:
