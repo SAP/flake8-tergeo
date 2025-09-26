@@ -9,6 +9,7 @@ from collections.abc import Generator, Sequence
 from importlib.metadata import version
 from typing import Any, ClassVar, TypeVar
 
+from flake8.options.manager import OptionManager
 from typing_extensions import override
 
 from _flake8_tergeo import util
@@ -18,7 +19,6 @@ from _flake8_tergeo.interfaces import (
     AbstractNamespace,
     AbstractOptionManager,
 )
-from _flake8_tergeo.type_definitions import OptionManager
 
 _BASE_PREFIX = "FT"
 _PLUGIN: Flake8TergeoPlugin | None = None

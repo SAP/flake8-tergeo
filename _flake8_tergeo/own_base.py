@@ -9,11 +9,12 @@ from collections.abc import Sequence
 from threading import Event
 from typing import Any, ClassVar
 
+from flake8.options.manager import OptionManager
 from typing_extensions import override
 
 from _flake8_tergeo import registry
 from _flake8_tergeo.interfaces import AbstractChecker, AbstractOptionManager
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 class OwnOptionManager(AbstractOptionManager):

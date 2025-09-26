@@ -6,12 +6,13 @@ import ast
 import tokenize
 from collections.abc import Sequence
 
+from flake8.options.manager import OptionManager
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import registry
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.own_base import ASTChecker, OwnOptionManager, TokenChecker
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 class TestOwnOptionManager:

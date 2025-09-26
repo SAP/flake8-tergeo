@@ -7,6 +7,7 @@ import tokenize
 from argparse import Namespace
 from collections.abc import Sequence
 
+from flake8.options.manager import OptionManager
 from typing_extensions import Protocol
 
 from _flake8_tergeo import base
@@ -16,7 +17,7 @@ from _flake8_tergeo.registry import (
     register_parse_options,
     register_token_checker,
 )
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 _WHITESPACE = re.compile(r" +")
 

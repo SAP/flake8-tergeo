@@ -7,7 +7,9 @@ from argparse import Namespace
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, ClassVar, NamedTuple
 
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from flake8.options.manager import OptionManager
+
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 if TYPE_CHECKING:
 

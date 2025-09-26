@@ -5,10 +5,12 @@ from __future__ import annotations
 import tokenize
 from collections.abc import Sequence
 
+from flake8.options.manager import OptionManager
+
 from _flake8_tergeo.base import get_plugin
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_add_options, register_token_checker
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 NON_CODING_TOKENS = frozenset((tokenize.NL, tokenize.COMMENT))
 OPENING = frozenset(("(", "[", "{"))

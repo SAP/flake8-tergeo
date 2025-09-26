@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import NamedTuple, cast
 
 import dependency_groups
+from flake8.options.manager import OptionManager
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
@@ -25,7 +26,7 @@ from _flake8_tergeo.registry import (
     register_add_options,
     register_parse_options,
 )
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 from _flake8_tergeo.util import stdlib_module_names
 
 try:

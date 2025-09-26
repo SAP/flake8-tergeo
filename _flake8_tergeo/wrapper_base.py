@@ -7,11 +7,12 @@ import argparse
 from collections.abc import Sequence
 from typing import Any, ClassVar
 
+from flake8.options.manager import OptionManager
 from typing_extensions import override
 
 from _flake8_tergeo import util
 from _flake8_tergeo.interfaces import AbstractChecker, AbstractOptionManager, Issue
-from _flake8_tergeo.type_definitions import IssueGenerator, OptionManager
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 class WrapperOptionManager(AbstractOptionManager):

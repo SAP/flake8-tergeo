@@ -9,6 +9,7 @@ from argparse import Namespace
 from collections.abc import Callable, Sequence
 from typing import Any
 
+from flake8.options.manager import OptionManager
 from typing_extensions import TypeAlias
 
 from _flake8_tergeo.type_definitions import (
@@ -16,7 +17,6 @@ from _flake8_tergeo.type_definitions import (
     AnyFor,
     AnyFunctionDef,
     IssueGenerator,
-    OptionManager,
 )
 
 TokenFunc: TypeAlias = Callable[[Sequence[tokenize.TokenInfo]], IssueGenerator]

@@ -6,7 +6,6 @@ import ast
 from collections.abc import Generator
 from typing import TYPE_CHECKING, Union
 
-from flake8.options.manager import OptionManager as Flake8OptionManager
 from typing_extensions import ParamSpec, TypeAlias
 
 if TYPE_CHECKING:
@@ -15,6 +14,5 @@ if TYPE_CHECKING:
 EllipsisType = type(...)
 AnyFunctionDef: TypeAlias = Union[ast.FunctionDef, ast.AsyncFunctionDef]
 IssueGenerator: TypeAlias = Generator["Issue"]
-OptionManager: TypeAlias = Flake8OptionManager
 AnyFor: TypeAlias = Union[ast.For, ast.AsyncFor]
 PARAM = ParamSpec("PARAM")
