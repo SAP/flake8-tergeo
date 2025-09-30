@@ -7,8 +7,9 @@ import re
 
 from typing_extensions import override
 
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.own_base import OwnChecker
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 _PATTERN = re.compile("\u202a|\u202b|\u202d|\u202e|\u2066|\u2067|\u2068|\u202c|\u2069")
 

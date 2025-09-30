@@ -7,8 +7,9 @@ from pathlib import Path
 
 from typing_extensions import override
 
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.own_base import OwnChecker
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 _PATTERN = re.compile("^[0-9a-z_]+$")
 _ENCODING = re.compile(r"^\s*#.*?coding[:=]")

@@ -7,10 +7,10 @@ import inspect
 from typing import Any
 
 import pytest
+from flake8.options.manager import OptionManager
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import BaseWrapperChecker
-from _flake8_tergeo.flake8_types import OptionManager
 
 
 class TestBaseWrapperChecker:

@@ -12,13 +12,14 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from flake8.options.manager import OptionManager
 from pytest_fixture_classes import fixture_class
 from pytest_mock import MockerFixture
 from typing_extensions import override
 
 from _flake8_tergeo import BaseWrapperChecker, Flake8TergeoPlugin, base, registry
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator, OptionManager
-from _flake8_tergeo.interfaces import AbstractChecker
+from _flake8_tergeo.interfaces import AbstractChecker, Issue
+from _flake8_tergeo.type_definitions import IssueGenerator
 from tests.util import LenientIssue
 
 

@@ -9,8 +9,9 @@ from _flake8_tergeo.checks.shared import (
     check_annotation_order,
     check_bottom_type_in_union,
 )
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 
 @register(ast.BinOp)

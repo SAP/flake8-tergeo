@@ -5,10 +5,10 @@ from __future__ import annotations
 import platform
 from argparse import Namespace
 
+from flake8.options.manager import OptionManager
 from packaging.version import Version
 
 from _flake8_tergeo.base import get_plugin
-from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.registry import register_add_options, register_parse_options
 
 

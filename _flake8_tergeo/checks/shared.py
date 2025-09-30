@@ -13,7 +13,8 @@ from _flake8_tergeo.ast_util import (
     is_in_type_alias,
     is_in_type_statement,
 )
-from _flake8_tergeo.flake8_types import Issue, IssueGenerator
+from _flake8_tergeo.interfaces import Issue
+from _flake8_tergeo.type_definitions import IssueGenerator
 
 BOTTOM_TYPES = ["Never", "NoReturn"]
 

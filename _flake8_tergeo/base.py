@@ -9,11 +9,11 @@ from collections.abc import Generator, Sequence
 from importlib.metadata import version
 from typing import Any, ClassVar, TypeVar
 
+from flake8.options.manager import OptionManager
 from typing_extensions import override
 
 from _flake8_tergeo import util
 from _flake8_tergeo.ast_util import set_info_in_tree
-from _flake8_tergeo.flake8_types import OptionManager
 from _flake8_tergeo.interfaces import (
     AbstractChecker,
     AbstractNamespace,
@@ -65,13 +65,13 @@ class BaseOptionManager(AbstractOptionManager):
     """Wrapper of flake8 OptionManager on plugin level."""
 
     @override
-    def extend_default_ignore(self, disables: list[str]) -> None:
+    def extend_default_ignore(self, error_codes: Sequence[str]) -> None:
         """Extend the default ignore.
 
         This method adds the plugin prefix before the error code.
         """
-        new_disables = [f"{_BASE_PREFIX}{disable}" for disable in disables]
-        self._option_manager.extend_default_ignore(new_disables)
+        new_error_codes = [f"{_BASE_PREFIX}{error_code}" for error_code in error_codes]
+        self._option_manager.extend_default_ignore(new_error_codes)
 
     @override
     def add_option(self, *args: Any, **kwargs: Any) -> None:
