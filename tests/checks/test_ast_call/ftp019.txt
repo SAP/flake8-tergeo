@@ -4,7 +4,8 @@
 OSError()
 SomeError(errno.NOENT)
 OSError("Hello world", errno.NOENT)
+OSError("hello")
+OSError({module}.NOENT, "dummy")
 
 # code with issues
 OSError({module}.NOENT)
-OSError({module}.NOENT, "dummy")

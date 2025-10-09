@@ -658,7 +658,7 @@ def _os_error_with_errno(node: ast.Call) -> IssueGenerator:
         return
     if stringify(node.func) != "OSError":
         return
-    if len(node.args) == 0:
+    if len(node.args) != 1:
         return
     if not isinstance(node.args[0], ast.Attribute):
         return
@@ -671,9 +671,8 @@ def _os_error_with_errno(node: ast.Call) -> IssueGenerator:
         column=node.col_offset,
         issue_number="019",
         message=(
-            "The constructor of OSError has no special handling for errno values, it just "
-            "treats them as error message. To set the errno attribute, set it on the OSError "
-            "instance after the call."
+            "The constructor of OSError only uses the errno parameter if a second string argument "
+            "is present, else the value is used for the message."
         ),
     )
 
