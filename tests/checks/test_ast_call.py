@@ -206,9 +206,8 @@ FTP019 = partial(
     Issue,
     issue_number="FTP019",
     message=(
-        "The constructor of OSError has no special handling for errno values, it just "
-        "treats them as error message. To set the errno attribute, set it on the OSError "
-        "instance after the call."
+        "The constructor of OSError only uses the errno parameter if a second string argument "
+        "is present, else the value is used for the message."
     ),
 )
 FTP130 = partial(
@@ -862,7 +861,7 @@ class TestFTP019:
             issue_number="FTP019",
             imp="import errno",
             module="errno",
-        ) == [FTP019(line=9, column=1), FTP019(line=10, column=1)]
+        ) == [FTP019(line=11, column=1)]
 
 
 @pytest.mark.parametrize(

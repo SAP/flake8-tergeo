@@ -97,9 +97,9 @@ Finds legacy calls of `typing.TypedDict`.
 Instead, extend `typing.TypedDict` by creating a new class.
 
 ## FTP019
-Checks if `OSError` is called with an `errno` constant as the first argument, e.g. `OSError(errno.ENOENT)`.
+Checks if `OSError` is called with only one argument being an `errno` constant, e.g. `OSError(errno.ENOENT)`.
 The parameter is not set as `errno` attribute on the exception but used value for the error message instead.
-To properly set the `errno` attribute it must be set on the exception instance after initialization: `error=OSError(); error.errno=errno.ENOENT`.
+To properly use it, add a 2nd argument containing a message.
 
 ## FTP020
 Checks if an encoding comment (`# -*- coding: utf-8 -*-`) is used.

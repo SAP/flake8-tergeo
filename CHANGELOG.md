@@ -2,6 +2,8 @@
 
 ## Next version
 - FTP077 now verifies also `isinstance` calls
+- Corrected FTP019: its okay to call `OSError` with an `errno` constant as long as a 2nd argument
+  is present
 
 ## 25.8.13.0
 - FTP316 which checks that a docstring starts with an uppercase letter or number
