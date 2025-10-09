@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+
+## 25.10.9.0
 - FTP077 now verifies also `isinstance` calls
 - Corrected FTP019: its okay to call `OSError` with an `errno` constant as long as a 2nd argument
   is present
