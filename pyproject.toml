@@ -77,7 +77,7 @@ dev = [
     "types-flake8==7.3.0.20250622",
     "types-flake8-simplify==0.22.0.20250708",
     "types-flake8-builtins==3.0.0.20250819",
-    "types-flake8-bugbear==24.12.12.20250416",
+    "types-flake8-bugbear==24.12.12.20251008",
     "types-flake8-typing-imports==1.16.0.20250708",
     "pylint-per-file-ignores==2.0.3",
     "types-stdlib-list==0.8.3.4",
