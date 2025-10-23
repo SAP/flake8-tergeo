@@ -48,7 +48,7 @@ def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
     to_ignore: list[str] = []
 
     for subnode in ast.walk(node):
-        if isinstance(subnode, (ast.Global, ast.Nonlocal)):
+        if isinstance(subnode, ast.Global | ast.Nonlocal):
             to_ignore.extend(subnode.names)
 
         if not previous_node:
@@ -201,7 +201,7 @@ def _check_get(node: AnyFunctionDef) -> IssueGenerator:
     if is_stub(node):
         return
     if not any(
-        isinstance(child, (ast.Return, ast.Yield, ast.YieldFrom))
+        isinstance(child, ast.Return | ast.Yield | ast.YieldFrom)
         for child in ast.walk(node)
     ):
         yield Issue(
@@ -230,7 +230,7 @@ def _check_py2_methods(node: AnyFunctionDef) -> IssueGenerator:
 
 def _has_decorator(node: AnyFunctionDef, decorator: str) -> bool:
     return any(
-        isinstance(deco, (ast.Name, ast.Attribute)) and stringify(deco) == decorator
+        isinstance(deco, ast.Name | ast.Attribute) and stringify(deco) == decorator
         for deco in node.decorator_list
     )
 

@@ -7,10 +7,9 @@ import collections
 import tokenize
 from argparse import Namespace
 from collections.abc import Callable, Sequence
-from typing import Any
+from typing import Any, TypeAlias
 
 from flake8.options.manager import OptionManager
-from typing_extensions import TypeAlias
 
 from _flake8_tergeo.type_definitions import (
     PARAM,

@@ -46,13 +46,6 @@ def test_ftp095(runner: Flake8RunnerFixture) -> None:
 
 class TestFTP101:
 
-    def test_python38(self, runner: Flake8RunnerFixture) -> None:
-        assert not runner(
-            filename="ftp101.txt",
-            issue_number="FTP101",
-            args=("--ftp-python-version", "3.8.0"),
-        )
-
     def test(self, runner: Flake8RunnerFixture) -> None:
         results = runner(
             filename="ftp101.txt",

@@ -58,29 +58,6 @@ class TestBugBearChecker:
             )
         ]
 
-    def test_905_disabled(self, runner: Flake8RunnerFixture) -> None:
-        assert not runner(
-            filename="ftb_905.txt",
-            issue_number="FTB",
-            args=("--ftp-python-version", "3.7.1"),
-        )
-
-    def test_905_enabled(self, runner: Flake8RunnerFixture) -> None:
-        assert runner(
-            filename="ftb_905.txt",
-            issue_number="FTB",
-            args=("--ftp-python-version", "3.10.1"),
-        ) == [
-            Issue(
-                line=1,
-                column=1,
-                issue_number="FTB905",
-                message=(
-                    "`zip()` without an explicit `strict=` parameter. (originally reported as B905)"
-                ),
-            )
-        ]
-
     def test_pre_parse_options_with_extend_immutable_calls(
         self, mocker: MockerFixture
     ) -> None:

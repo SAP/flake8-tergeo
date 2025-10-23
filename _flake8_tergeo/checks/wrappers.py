@@ -16,7 +16,6 @@ from flake8_typing_imports import Plugin as TypingImportPlugin
 from flake8_typing_imports import Version
 from typing_extensions import override
 
-from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.interfaces import AbstractNamespace
 from _flake8_tergeo.type_definitions import IssueGenerator
 from _flake8_tergeo.wrapper_base import BaseWrapperChecker
@@ -58,11 +57,7 @@ class BugBearChecker(BaseWrapperChecker):
 
     @override
     def check(self) -> IssueGenerator:
-        for issue in super().check():
-            # B905 runs on < 3.10: https://github.com/PyCQA/flake8-bugbear/issues/320
-            if issue.issue_number == "905" and get_python_version() < (3, 10):
-                continue
-            yield issue
+        yield from super().check()
 
 
 class ComprehensionsChecker(BaseWrapperChecker):

@@ -259,7 +259,7 @@ def _check_range(node: ast.Call) -> IssueGenerator:
         return
 
     arg = node.args[0]
-    if isinstance(arg, ast.UnaryOp) and isinstance(arg.op, (ast.USub, ast.UAdd)):
+    if isinstance(arg, ast.UnaryOp) and isinstance(arg.op, ast.USub | ast.UAdd):
         arg = arg.operand
     name = node.func.id
 
@@ -363,7 +363,7 @@ def _check_primitive_call(node: ast.Call) -> IssueGenerator:
         return
 
     arg = node.args[0]
-    if isinstance(arg, ast.UnaryOp) and isinstance(arg.op, (ast.USub, ast.UAdd)):
+    if isinstance(arg, ast.UnaryOp) and isinstance(arg.op, ast.USub | ast.UAdd):
         arg = arg.operand
     name = node.func.id
 
@@ -440,7 +440,7 @@ def _check_capture_output(node: ast.Call) -> IssueGenerator:
 
     # check if both stdout and stderr are present and both have the pipe variable assigned
     if [
-        isinstance(keyword.value, (ast.Name, ast.Attribute))
+        isinstance(keyword.value, ast.Name | ast.Attribute)
         and is_expected_node(keyword.value, "subprocess", "PIPE")
         for keyword in node.keywords
         if keyword.arg in {"stdout", "stderr"}
@@ -514,7 +514,7 @@ def _check_pointless_single_starred(node: ast.Call) -> IssueGenerator:
         if not isinstance(arg.value, _POINTLESS_STAR_NODES):
             continue
         if isinstance(arg.value, ast.Constant) and not isinstance(
-            arg.value.value, (str, bytes)
+            arg.value.value, str | bytes
         ):
             continue
         yield Issue(
@@ -600,7 +600,7 @@ def _check_deprecated_decorator(node: ast.Call) -> IssueGenerator:
     if not parent:  # pragma: no cover
         return
     parent = get_parent(parent)
-    if not isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef)):
+    if not isinstance(parent, ast.FunctionDef | ast.AsyncFunctionDef):
         return
 
     if any(
@@ -630,7 +630,7 @@ def _check_bad_subprocess_aliases(node: ast.Call) -> IssueGenerator:
     ):
         return
 
-    assert isinstance(node.func, (ast.Name, ast.Attribute))
+    assert isinstance(node.func, ast.Name | ast.Attribute)
     name = stringify(node.func)
     yield Issue(
         line=node.lineno,
@@ -744,8 +744,6 @@ def _check_issubclass_tuple(node: ast.Call) -> IssueGenerator:
 def _check_isx_tuple(
     node: ast.Call, funcname: str, issue_number: str
 ) -> IssueGenerator:
-    if get_python_version() < (3, 10):
-        return
     if not isinstance(node.func, ast.Name):
         return
     if node.func.id != funcname:

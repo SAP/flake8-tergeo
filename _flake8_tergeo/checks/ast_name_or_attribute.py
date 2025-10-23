@@ -3,16 +3,11 @@
 from __future__ import annotations
 
 import ast
-from typing import Union
-
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from _flake8_tergeo.ast_util import (
     get_parent,
-    has_future_annotations,
-    in_annotation,
     in_args_assign_annotation,
-    in_type_checking_block,
     is_expected_node,
     stringify,
 )
@@ -21,7 +16,7 @@ from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
 from _flake8_tergeo.type_definitions import IssueGenerator
 
-NameOrAttribute: TypeAlias = Union[ast.Name, ast.Attribute]
+NameOrAttribute: TypeAlias = ast.Name | ast.Attribute
 OS_ALIASES = ["EnvironmentError", "IOError", "WindowsError"]
 BUILTINS = ["Tuple", "List", "Dict", "Set", "FrozenSet", "Type"]
 OS_DEPENDENT_PATH = ["PurePosixPath", "PureWindowsPath", "PosixPath", "WindowsPath"]
@@ -103,26 +98,8 @@ def _check_regex_debug(node: NameOrAttribute) -> IssueGenerator:
     )
 
 
-def _supports_new_union_syntax() -> bool:
-    return get_python_version() >= (3, 10)
-
-
-def _supports_generics_in_stdlib() -> bool:
-    return get_python_version() >= (3, 9)
-
-
-def _use_new_union_syntax(node: NameOrAttribute, typing_node: str) -> bool:
-    if not (
-        _supports_new_union_syntax()
-        or (has_future_annotations(node) and in_annotation(node))
-        or in_type_checking_block(node)
-    ):
-        return False
-    return is_expected_node(node, "typing", typing_node)
-
-
 def _check_new_union_syntax(node: NameOrAttribute) -> IssueGenerator:
-    if not _use_new_union_syntax(node, "Union"):
+    if not is_expected_node(node, "typing", "Union"):
         return
     yield Issue(
         line=node.lineno,
@@ -133,7 +110,7 @@ def _check_new_union_syntax(node: NameOrAttribute) -> IssueGenerator:
 
 
 def _check_optional_new_union_syntax(node: NameOrAttribute) -> IssueGenerator:
-    if not _use_new_union_syntax(node, "Optional"):
+    if not is_expected_node(node, "typing", "Optional"):
         return
     yield Issue(
         line=node.lineno,
@@ -144,13 +121,6 @@ def _check_optional_new_union_syntax(node: NameOrAttribute) -> IssueGenerator:
 
 
 def _check_generic_builtins(node: NameOrAttribute) -> IssueGenerator:
-    if not (
-        _supports_generics_in_stdlib()
-        or (has_future_annotations(node) and in_annotation(node))
-        or in_type_checking_block(node)
-    ):
-        return
-
     simple_name = stringify(node).rsplit(".", maxsplit=1)[-1]
     if simple_name not in BUILTINS:
         return

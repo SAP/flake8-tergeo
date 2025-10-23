@@ -18,10 +18,10 @@ import tokenize
 from argparse import Namespace
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Protocol, Union, cast
+from typing import Protocol, TypeAlias, cast
 
 from flake8.options.manager import OptionManager
-from typing_extensions import TypeAlias, override
+from typing_extensions import override
 
 from _flake8_tergeo import base
 from _flake8_tergeo.ast_util import get_parent, is_expected_node
@@ -30,9 +30,9 @@ from _flake8_tergeo.own_base import OwnChecker
 from _flake8_tergeo.registry import register_add_options, register_parse_options
 from _flake8_tergeo.type_definitions import AnyFunctionDef, IssueGenerator
 
-DocstringNodes: TypeAlias = Union[
-    ast.Module, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef
-]
+DocstringNodes: TypeAlias = (
+    ast.Module | ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef
+)
 
 
 class _ParseOptions(Protocol):
@@ -142,7 +142,7 @@ class _Visitor(ast.NodeVisitor):
             # the function only has a docstring, so nothing more to check
             return
         if isinstance(
-            node.body[1], (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+            node.body[1], ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef
         ):
             # if the next node is a function or class, there should be a newline, but its up
             # to the user or formatter to decide that

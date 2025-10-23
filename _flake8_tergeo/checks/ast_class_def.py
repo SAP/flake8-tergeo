@@ -78,13 +78,13 @@ def _check_enum_has_unique_decorator(node: ast.ClassDef) -> IssueGenerator:
 
 def _check_lru_on_class(node: ast.ClassDef) -> IssueGenerator:
     for child in ast.walk(node):
-        if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+        if isinstance(child, ast.FunctionDef | ast.AsyncFunctionDef):
             yield from _check_function_definition(child)
 
 
 def _check_function_definition(node: AnyFunctionDef) -> IssueGenerator:
     for decorator in node.decorator_list:
-        if isinstance(decorator, (ast.Name, ast.Attribute)):
+        if isinstance(decorator, ast.Name | ast.Attribute):
             decorator_name = stringify(decorator)
             if decorator_name in {"staticmethod", "classmethod"}:
                 return

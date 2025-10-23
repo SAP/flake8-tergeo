@@ -103,7 +103,7 @@ def _check_sorted_assigns(assignment: Assignment) -> IssueGenerator:
 def _check_sorted(
     assignment: Assignment, value: ast.expr, issue_number: str, message: str
 ) -> IssueGenerator:
-    if not isinstance(value, (ast.List, ast.Tuple, ast.Set)):
+    if not isinstance(value, ast.List | ast.Tuple | ast.Set):
         return
 
     elements = [
@@ -123,7 +123,7 @@ def _check_sorted(
 def _check_single_element_unpacking(assignment: Assignment) -> IssueGenerator:
     if not assignment.value:
         return
-    if not isinstance(assignment.target, (ast.Tuple, ast.List)):
+    if not isinstance(assignment.target, ast.Tuple | ast.List):
         return
     if len(assignment.target.elts) != 1:
         return
@@ -152,7 +152,7 @@ def _check_invalid_slots_type(assignment: Assignment) -> IssueGenerator:
         return
     if not assignment.value:
         return
-    if not isinstance(assignment.value, (ast.Tuple, ast.Dict)):
+    if not isinstance(assignment.value, ast.Tuple | ast.Dict):
         yield Issue(
             line=assignment.lineno,
             column=assignment.col_offset,
@@ -168,10 +168,7 @@ def _check_slots_assign(assignment: Assignment) -> IssueGenerator:
         if isinstance(parent, ast.ClassDef):
             # the first container parent we found is a class -> fine; we can stop
             break
-        if isinstance(
-            parent,
-            (ast.FunctionDef, ast.AsyncFunctionDef, ast.Module),
-        ):
+        if isinstance(parent, ast.FunctionDef | ast.AsyncFunctionDef | ast.Module):
             # the first container parent is not a class -> yield and stop
             yield Issue(
                 line=assignment.lineno,

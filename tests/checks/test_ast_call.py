@@ -968,27 +968,18 @@ def test_ftp132(
     "func,issue,issue_number",
     [("isinstance", FTP134, "FTP134"), ("issubclass", FTP135, "FTP135")],
 )
-@pytest.mark.parametrize(
-    "version,find_by_version", [("3.9.0", False), ("3.11.0", True)]
-)
 def test_ftp134_135(
     runner: Flake8RunnerFixture,
     func: str,
     issue_number: str,
     issue: partial[Issue],
-    version: str,
-    find_by_version: bool,
 ) -> None:
     results = runner(
         filename="ftp134_135.txt",
         issue_number=issue_number,
         func=func,
-        args=("--ftp-python-version", version),
     )
-    if find_by_version:
-        assert results == [issue(line=10, column=1)]
-    else:
-        assert not results
+    assert results == [issue(line=10, column=1)]
 
 
 def test_ftp136(runner: Flake8RunnerFixture) -> None:

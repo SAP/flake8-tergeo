@@ -5,7 +5,6 @@ from __future__ import annotations
 import ast
 
 from _flake8_tergeo.ast_util import is_float
-from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
 from _flake8_tergeo.type_definitions import IssueGenerator
@@ -43,8 +42,6 @@ def _check_unpack(node: ast.Dict) -> IssueGenerator:
 
 
 def _check_union(node: ast.Dict) -> IssueGenerator:
-    if get_python_version() < (3, 9):
-        return
     if not node.keys:
         return
 

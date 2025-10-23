@@ -41,9 +41,9 @@ def _check_raise_too_generic(node: ast.Raise) -> IssueGenerator:
 
 
 def _check_raise_from_itself(node: ast.Raise) -> IssueGenerator:
-    if not node.cause or not isinstance(node.cause, (ast.Name, ast.Attribute)):
+    if not node.cause or not isinstance(node.cause, ast.Name | ast.Attribute):
         return
-    if not node.exc or not isinstance(node.exc, (ast.Name, ast.Attribute)):
+    if not node.exc or not isinstance(node.exc, ast.Name | ast.Attribute):
         return
     if stringify(node.exc) == stringify(node.cause):
         yield Issue(
@@ -73,7 +73,7 @@ def _get_129_issue(node: ast.Raise) -> Issue:
 
 
 def _check_raise_caught_class(node: ast.Raise) -> IssueGenerator:
-    if not node.cause or not isinstance(node.cause, (ast.Name, ast.Attribute)):
+    if not node.cause or not isinstance(node.cause, ast.Name | ast.Attribute):
         return
 
     except_node = _get_except(node)
@@ -85,12 +85,12 @@ def _check_raise_caught_class(node: ast.Raise) -> IssueGenerator:
     if isinstance(except_node.type, ast.Tuple):
         for caught in except_node.type.elts:
             if (
-                isinstance(caught, (ast.Name, ast.Attribute))
+                isinstance(caught, ast.Name | ast.Attribute)
                 and stringify(caught) == cause
             ):
                 yield _get_129_issue(node)
     elif (
-        isinstance(except_node.type, (ast.Name, ast.Attribute))
+        isinstance(except_node.type, ast.Name | ast.Attribute)
         and stringify(except_node.type) == cause
     ):
         yield _get_129_issue(node)

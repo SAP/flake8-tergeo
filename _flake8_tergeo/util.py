@@ -3,15 +3,7 @@
 from __future__ import annotations
 
 import inspect
-import sys
 from typing import Any
-
-if hasattr(sys, "stdlib_module_names"):  # pragma: no cover
-    stdlib_module_names = list(sys.stdlib_module_names)
-else:
-    import stdlib_list  # pylint: disable=import-error
-
-    stdlib_module_names = stdlib_list.stdlib_list()
 
 
 def has_add_options(clazz: type[Any]) -> bool:

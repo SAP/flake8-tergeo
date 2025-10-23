@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import ast
-from typing import Union
-
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from _flake8_tergeo.ast_util import get_imported_modules
 from _flake8_tergeo.global_options import get_python_version
@@ -30,7 +28,7 @@ OBSOLETE_FUTURES = [
 EASTEREGG_FUTURES = ["__future__.braces", "__future__.barry_as_FLUFL"]
 COMPRESSION_MODULES = ["bz2", "gzip", "lzma", "zlib"]
 
-AnyImport: TypeAlias = Union[ast.Import, ast.ImportFrom]
+AnyImport: TypeAlias = ast.Import | ast.ImportFrom
 
 
 @register(ast.Import, ast.ImportFrom)

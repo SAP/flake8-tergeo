@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import ast
 import sys
-from typing import Any, Union, cast
+from typing import Any, cast
 
 import pytest
 from pytest_mock import MockerFixture
@@ -160,7 +160,7 @@ def test_is_constant_node() -> None:
 def test_stringify(code: str, expected: str) -> None:
     tree = ast.parse(code)
     expr = cast(ast.Expr, tree.body[0])
-    value = cast(Union[ast.Name, ast.Attribute], expr.value)
+    value = cast(ast.Name | ast.Attribute, expr.value)
     assert stringify(value) == expected
 
 
