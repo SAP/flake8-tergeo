@@ -55,6 +55,10 @@ class BugBearChecker(BaseWrapperChecker):
             )
         )
 
+    @override
+    def check(self) -> IssueGenerator:
+        yield from super().check()
+
 
 class ComprehensionsChecker(BaseWrapperChecker):
     """Check wrapper for ComprehensionPlugin."""

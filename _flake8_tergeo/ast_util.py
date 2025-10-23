@@ -33,13 +33,13 @@ def set_info_in_tree(tree: ast.AST) -> None:
     """
     for node in ast.walk(tree):
         for field_name, child in _iter_child_nodes(node):
-            setattr(child, "ftp_parent", (field_name, node))
-            setattr(
+            setattr(child, "ftp_parent", (field_name, node))  # noqa: FTB010
+            setattr(  # noqa: FTB010
                 child,
                 "ftp_in_args_assign_annotation",
                 field_name == "annotation" or in_args_assign_annotation(node),
             )
-            setattr(
+            setattr(  # noqa: FTB010
                 child,
                 "ftp_in_return_annotation",
                 field_name == "returns" or in_return_annotation(node),

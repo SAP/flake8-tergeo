@@ -235,31 +235,15 @@ Checks if a `pprint.PrettyPrinter` statement is used.
 ## FTP054
 Checks if a union type annotation can utilize the new syntax of PEP 604.
 For example, `a: Union[Foo, Bar]` can be rewritten to `a: Foo|bar`.
-This check is only active when at least one of the following conditions is true:
-* a `from __future__ import annotations` import is present in the module
-* the current code is inside a `typing.TYPE_CHECKING` block
-
-Also, the check will only consider type annotations (to prevent invalid syntax) if
-at least one of the following conditions is true:
-* the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP055
 Checks if an optional type annotations can utilize the new syntax of PEP 604.
 For example, `a: Optional[Foo]` can be rewritten to `a: Foo|None`.
-For more details see `FTP054`.
 
 ## FTP056
 Checks if a builtin alias in the `typing` module can be rewritten as the builtin itself
 as of PEP 585.
 E.g. `typing.List[str]` can be changed to `list[str]`.
-
-This check is only active when at least one of the following conditions is true:
-* a `from __future__ import annotations` import is present in the module
-* the current code is inside a `typing.TYPE_CHECKING` block
-
-Also, the check will only consider type annotations (to prevent invalid syntax) if
-at least one of the following conditions is true:
-* the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP057
 Checks if relative imports are used.
