@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import ast
 from collections.abc import Generator
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, TypeAlias, Union
 
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import ParamSpec
 
 if TYPE_CHECKING:
     from _flake8_tergeo.interfaces import Issue

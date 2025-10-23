@@ -45,7 +45,7 @@ def _check_is_float(node: ast.Subscript) -> IssueGenerator:
 def _check_single_item_union(node: ast.Subscript) -> IssueGenerator:
     if not is_expected_node(node.value, "typing", "Union"):
         return
-    if not isinstance(node.slice, (ast.Name, ast.Attribute, ast.Constant)):
+    if not isinstance(node.slice, ast.Name | ast.Attribute | ast.Constant):
         return
     yield Issue(
         line=node.lineno,

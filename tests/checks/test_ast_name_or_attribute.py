@@ -154,9 +154,6 @@ class TestFTP076:
         ("from foo import typing", False, "typing.Union"),
     ],
 )
-@pytest.mark.parametrize(
-    "version,find_by_version", [("3.7.0", False), ("3.10.0", True)]
-)
 def test_ftp054(
     runner: Flake8RunnerFixture,
     future: str,
@@ -164,8 +161,6 @@ def test_ftp054(
     imp: str,
     find_by_imp: bool,
     union: str,
-    version: str,
-    find_by_version: bool,
 ) -> None:
     results = runner(
         filename="ftp054.txt",
@@ -173,15 +168,15 @@ def test_ftp054(
         future=future,
         imp=imp,
         union=union,
-        args=("--ftp-python-version", version),
     )
-    if find_by_imp and (find_by_future or find_by_version):
+    if find_by_imp and find_by_future:
         assert results == [
             FTP054(line=7, column=8),
             FTP054(line=8, column=9),
             FTP054(line=10, column=4),
             FTP054(line=11, column=14),
-        ] + ([FTP054(line=13, column=5)] if find_by_version else [])
+            FTP054(line=13, column=5),
+        ]
     elif find_by_imp:
         assert results == [FTP054(line=7, column=8), FTP054(line=8, column=9)]
     else:
@@ -205,9 +200,6 @@ def test_ftp054(
         ("from foo import typing", False, "typing.Optional"),
     ],
 )
-@pytest.mark.parametrize(
-    "version,find_by_version", [("3.7.0", False), ("3.10.0", True)]
-)
 def test_ftp055(
     runner: Flake8RunnerFixture,
     future: str,
@@ -215,8 +207,6 @@ def test_ftp055(
     imp: str,
     find_by_imp: bool,
     optional: str,
-    version: str,
-    find_by_version: bool,
 ) -> None:
     results = runner(
         filename="ftp055.txt",
@@ -224,15 +214,15 @@ def test_ftp055(
         future=future,
         imp=imp,
         optional=optional,
-        args=("--ftp-python-version", version),
     )
-    if find_by_imp and (find_by_future or find_by_version):
+    if find_by_imp and find_by_future:
         assert results == [
             FTP055(line=7, column=8),
             FTP055(line=8, column=9),
             FTP055(line=10, column=4),
             FTP055(line=11, column=14),
-        ] + ([FTP055(line=13, column=5)] if find_by_version else [])
+            FTP055(line=13, column=5),
+        ]
     elif find_by_imp:
         assert results == [FTP055(line=7, column=8), FTP055(line=8, column=9)]
     else:
@@ -262,7 +252,6 @@ def test_ftp055(
         ("import addict as typing", False, "typing.Dict"),
     ],
 )
-@pytest.mark.parametrize("version,find_by_version", [("3.8.0", False), ("3.9.0", True)])
 def test_ftp056(
     runner: Flake8RunnerFixture,
     future: str,
@@ -270,8 +259,6 @@ def test_ftp056(
     imp: str,
     find_by_imp: bool,
     builtin: str,
-    version: str,
-    find_by_version: bool,
 ) -> None:
     results = runner(
         filename="ftp056.txt",
@@ -279,15 +266,15 @@ def test_ftp056(
         future=future,
         imp=imp,
         builtin=builtin,
-        args=("--ftp-python-version", version),
     )
-    if find_by_imp and (find_by_future or find_by_version):
+    if find_by_imp and find_by_future:
         assert results == [
             FTP056(line=7, column=8, builtin=builtin),
             FTP056(line=8, column=9, builtin=builtin),
             FTP056(line=10, column=4, builtin=builtin),
             FTP056(line=11, column=14, builtin=builtin),
-        ] + ([FTP056(line=13, column=5, builtin=builtin)] if find_by_version else [])
+            FTP056(line=13, column=5, builtin=builtin),
+        ]
     elif find_by_imp:
         assert results == [
             FTP056(line=7, column=8, builtin=builtin),

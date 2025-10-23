@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next version
+- Dropped support for python 3.9
 
 ## 25.10.9.0
 - FTP077 now verifies also `isinstance` calls

@@ -141,7 +141,7 @@ def _find_import_node(code: str) -> ast.Import | ast.ImportFrom:
 
 def _find_import_node_recursive(node: ast.AST) -> ast.Import | ast.ImportFrom | None:
     for child in ast.iter_child_nodes(node):
-        if isinstance(child, (ast.Import, ast.ImportFrom)):
+        if isinstance(child, ast.Import | ast.ImportFrom):
             return child
         found = _find_import_node_recursive(child)
         if found:

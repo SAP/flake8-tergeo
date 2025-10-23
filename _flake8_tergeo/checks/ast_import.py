@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import ast
-from typing import Union
-
-from typing_extensions import TypeAlias
+from typing import TypeAlias, Union
 
 from _flake8_tergeo.ast_util import get_imported_modules
 from _flake8_tergeo.global_options import get_python_version

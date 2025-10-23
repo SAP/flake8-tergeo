@@ -11,6 +11,7 @@ from collections.abc import Iterator
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import requires as _base_requires
 from pathlib import Path
+from sys import stdlib_module_names
 from typing import NamedTuple, cast
 
 import dependency_groups
@@ -27,7 +28,6 @@ from _flake8_tergeo.registry import (
     register_parse_options,
 )
 from _flake8_tergeo.type_definitions import IssueGenerator
-from _flake8_tergeo.util import stdlib_module_names
 
 try:
     import tomllib
@@ -179,7 +179,7 @@ def _get_identifier(node: ast.Import | ast.ImportFrom) -> str:
     # e.g. if the import is in a method foo in class A, the identifier would be A::foo
     identifiers = []
     for parent in get_parents(node):
-        if isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef)):
+        if isinstance(parent, ast.FunctionDef | ast.AsyncFunctionDef):
             identifiers.append(parent.name)
         if isinstance(parent, ast.ClassDef):
             identifiers.append(parent.name)

@@ -27,7 +27,7 @@ management process, ensuring that their code adheres to best practices with mini
 
 | ID | Plugin | Original Prefix | Description | Disabled Checks |
 | --- | --- | --- | --- | --- |
-| FTB | flake8-bugbear | B | Checks for common issues | 001, 016, 905 (if python <3.10), 950 |
+| FTB | flake8-bugbear | B | Checks for common issues | 001, 016, 950 |
 | FTU | flake8-builtins | A | Checks for overwritten built-in methods | |
 | FTC | flake8-comprehensions | C | Checks set/list/dict comprehensions | |
 | FTT | flake8-pytest-style | PT | Checks common style issues or inconsistencies with pytest-based tests | 004, 005, 013, 019 |

@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import ast
-from typing import Union
-
-from typing_extensions import TypeAlias
+from typing import TypeAlias, Union
 
 from _flake8_tergeo.ast_util import (
     get_parent,
@@ -103,18 +101,9 @@ def _check_regex_debug(node: NameOrAttribute) -> IssueGenerator:
     )
 
 
-def _supports_new_union_syntax() -> bool:
-    return get_python_version() >= (3, 10)
-
-
-def _supports_generics_in_stdlib() -> bool:
-    return get_python_version() >= (3, 9)
-
-
 def _use_new_union_syntax(node: NameOrAttribute, typing_node: str) -> bool:
     if not (
-        _supports_new_union_syntax()
-        or (has_future_annotations(node) and in_annotation(node))
+        (has_future_annotations(node) and in_annotation(node))
         or in_type_checking_block(node)
     ):
         return False
@@ -145,8 +134,7 @@ def _check_optional_new_union_syntax(node: NameOrAttribute) -> IssueGenerator:
 
 def _check_generic_builtins(node: NameOrAttribute) -> IssueGenerator:
     if not (
-        _supports_generics_in_stdlib()
-        or (has_future_annotations(node) and in_annotation(node))
+        (has_future_annotations(node) and in_annotation(node))
         or in_type_checking_block(node)
     ):
         return

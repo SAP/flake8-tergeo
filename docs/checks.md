@@ -236,13 +236,11 @@ Checks if a `pprint.PrettyPrinter` statement is used.
 Checks if a union type annotation can utilize the new syntax of PEP 604.
 For example, `a: Union[Foo, Bar]` can be rewritten to `a: Foo|bar`.
 This check is only active when at least one of the following conditions is true:
-* running python 3.10+
 * a `from __future__ import annotations` import is present in the module
 * the current code is inside a `typing.TYPE_CHECKING` block
 
 Also, the check will only consider type annotations (to prevent invalid syntax) if
 at least one of the following conditions is true:
-* python 3.9 or below is used
 * the code is not inside a `typing.TYPE_CHECKING` block
 
 ## FTP055
@@ -256,7 +254,6 @@ as of PEP 585.
 E.g. `typing.List[str]` can be changed to `list[str]`.
 
 This check is only active when at least one of the following conditions is true:
-* running python 3.9+
 * a `from __future__ import annotations` import is present in the module
 * the current code is inside a `typing.TYPE_CHECKING` block
 
@@ -449,7 +446,6 @@ Find `print("")` which can be simplified to `print()`
 Find unpack operators inside of a dict which can be rewritten with the dict union operator.
 E.g. `{**a, **b}` can be rewritten to `a|b` and `{**a, 'b': 2}` to `a|{'b': 2}`.
 The check ignores unpacks in the middle of the dict, e.g. `{'a': 1, **b, 'c': 3}`.
-This check is only active when running python 3.9+.
 
 ## FTP102
 Find `Path(".")` of `pathlib.Path` which can be simplified to `Path()`
@@ -619,12 +615,10 @@ The check is only active for python 3.14 and onwards.
 ## FTP134
 Checks if `isinstance` is called with a tuple which can be replaced with a union type.
 For example `isinstance(foo, (str, int))` can be rewritten to `isinstance(foo, str|int)`.
-The check is only active for python 3.10 and onwards.
 
 ## FTP135
 Checks if `issubclass` is called with a tuple which can be replaced with a union type.
 For example `issubclass(Foo, (A, B))` can be rewritten to `issubclass(Foo, A|B)`.
-The check is only active for python 3.10 and onwards.
 
 ## FTP136
 Checks if `type(None)` is used within `isinstance` when called with a union type.

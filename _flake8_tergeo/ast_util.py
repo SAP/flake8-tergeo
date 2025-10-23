@@ -7,9 +7,7 @@ import sys
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from functools import cache, lru_cache
-from typing import cast
-
-from typing_extensions import TypeGuard
+from typing import TypeGuard, cast
 
 from _flake8_tergeo.type_definitions import AnyFunctionDef, EllipsisType
 
@@ -35,13 +33,13 @@ def set_info_in_tree(tree: ast.AST) -> None:
     """
     for node in ast.walk(tree):
         for field_name, child in _iter_child_nodes(node):
-            setattr(child, "ftp_parent", (field_name, node))  # noqa: FTB010
-            setattr(  # noqa: FTB010
+            setattr(child, "ftp_parent", (field_name, node))
+            setattr(
                 child,
                 "ftp_in_args_assign_annotation",
                 field_name == "annotation" or in_args_assign_annotation(node),
             )
-            setattr(  # noqa: FTB010
+            setattr(
                 child,
                 "ftp_in_return_annotation",
                 field_name == "returns" or in_return_annotation(node),
@@ -120,7 +118,7 @@ def _is_stub_statement(node: ast.AST) -> bool:
     return (
         is_constant_node(node.value, EllipsisType)
         if isinstance(node, ast.Expr)
-        else isinstance(node, (ast.Raise, ast.Pass))
+        else isinstance(node, ast.Raise | ast.Pass)
     )
 
 
@@ -128,7 +126,7 @@ def stringify(node: ast.Name | ast.Attribute) -> str:
     """Stringify a given node."""
     if isinstance(node, ast.Name):
         return node.id
-    if not isinstance(node.value, (ast.Name, ast.Attribute)):
+    if not isinstance(node.value, ast.Name | ast.Attribute):
         return ""
     return stringify(node.value) + "." + node.attr
 
@@ -161,7 +159,7 @@ def is_float(node: ast.expr | None) -> TypeGuard[ast.UnaryOp]:
     """Check if a node a real float."""
     if not node:
         return False
-    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.USub, ast.UAdd)):
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub | ast.UAdd):
         node = node.operand
     return is_constant_node(node, float)
 
@@ -227,7 +225,7 @@ def is_expected_node(
     node: ast.AST, module: str, attr: str
 ) -> TypeGuard[ast.Attribute | ast.Name]:
     """Check if a node is the one which is needed and is imported."""
-    if not isinstance(node, (ast.Attribute, ast.Name)):
+    if not isinstance(node, ast.Attribute | ast.Name):
         return False
     name = stringify(node)
     data = _get_import_map(module, attr)

@@ -18,7 +18,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -36,7 +35,6 @@ dependencies = [
     "flake8-simplify==0.22.0",
     "flake8-pytest-style==2.1.0",
     "flake8-typing-imports==1.17.0",
-    "stdlib-list==0.11.0;python_version<'3.10'",
     "packaging>=24",
     "dependency_groups~=1.3",
     "tomli~=2.2;python_version<'3.11'",
@@ -57,7 +55,7 @@ license-files = [
 ]
 name = "flake8-tergeo"
 readme = "README.md"
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 
 [project.urls]
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
@@ -80,7 +78,6 @@ dev = [
     "types-flake8-bugbear==24.12.12.20251008",
     "types-flake8-typing-imports==1.17.0.20251011",
     "pylint-per-file-ignores==2.0.3",
-    "types-stdlib-list==0.8.3.4",
     "yesqa==1.5.0",
     "astpretty==3.0.0",
     "pyupgrade==3.21.0",
@@ -198,7 +195,7 @@ load-plugins = [
     "pylint.extensions.typing",
 ]
 max-line-length = 100
-py-version = 3.9
+py-version = "3.10"
 
 [tool.pylint."messages control"]
 disable = [

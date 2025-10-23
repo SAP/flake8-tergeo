@@ -69,7 +69,7 @@ class AbstractChecker(abc.ABC):
         """Execute the check."""
 
     @classmethod
-    def pre_parse_options(cls, options: AbstractNamespace) -> None:  # noqa: FTB027
+    def pre_parse_options(cls, options: AbstractNamespace) -> None:
         """Pre-processing of checker options."""
 
 
