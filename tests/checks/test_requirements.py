@@ -121,7 +121,8 @@ def _create_project(
 
     # install the package in the current venv
     subprocess.run(
-        ["uv" , "pip", "install", "--no-deps", "--no-cache-dir", "-e", project], check=True
+        ["uv", "pip", "install", "--no-deps", "--no-cache-dir", "-e", project],
+        check=True,
     )
 
 
