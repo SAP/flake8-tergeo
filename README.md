@@ -19,6 +19,12 @@ formatting rules are included.
 
 You can find the documentation [here](https://sap.github.io/flake8-tergeo/).
 
+## Development
+This project uses `uv`.
+To setup a venv for development use
+`python3.14 -m venv venv && pip install uv && uv sync --all-groups && rm -rf venv/`.
+Then use `source .venv/bin/activate` to activate your venv.
+
 ## Release Actions
 * Determine the new version by using the format `YY.M.D.C` with `YY` are the two last digits of the
   year, `M` is the current month (maybe two digits if needed), `D` is the current day (maybe two digits if needed)
