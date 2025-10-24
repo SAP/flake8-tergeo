@@ -1,9 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = [
-    "setuptools>=61",
-    "setuptools-scm~=9.0",
-]
+requires = ["setuptools>=61"]
 
 [project]
 authors = [
@@ -40,9 +37,6 @@ dependencies = [
     "tomli~=2.2;python_version<'3.11'",
 ]
 description = "flake8 plugin which keeps your code clean and tidy"
-dynamic = [
-    "version",
-]
 keywords = [
     "flake8",
     "plugin",
@@ -56,6 +50,7 @@ license-files = [
 name = "flake8-tergeo"
 readme = "README.md"
 requires-python = ">=3.10,<4"
+version = "25.10.9.0"
 
 [project.urls]
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
@@ -251,10 +246,6 @@ _flake8_tergeo = [
 include = [
     "_flake8_tergeo*",
 ]
-
-[tool.setuptools_scm]
-version_file = ""
-version_scheme = "calver-by-date"
 
 [tool.tomlsort]
 sort_first = [

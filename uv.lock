@@ -405,6 +405,7 @@ wheels = [
 
 [[package]]
 name = "flake8-tergeo"
+version = "25.10.9.0"
 source = { editable = "." }
 dependencies = [
     { name = "dependency-groups" },
