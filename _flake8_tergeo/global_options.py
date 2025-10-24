@@ -30,6 +30,8 @@ def register_global_options(option_manager: OptionManager) -> None:
 def parse_global_options(options: Namespace) -> None:
     """Parse the global options."""
     version = Version(options.python_version)
+    if version < Version("3.10.0") or version >= Version("4.0.0"):
+        raise ValueError(f"Unsupported python version: {options.python_version}")
     options.python_version = (version.major, version.minor, version.micro)
 
 

@@ -30,7 +30,7 @@ def test_register_global_options(mocker: MockerFixture) -> None:
 
 @pytest.mark.parametrize(
     "version,parsed_version",
-    [("3.8.0", (3, 8, 0)), ("3.10.6", (3, 10, 6)), ("3.14.0b1", (3, 14, 0))],
+    [("3.11.0", (3, 11, 0)), ("3.10.6", (3, 10, 6)), ("3.14.0b1", (3, 14, 0))],
 )
 def test_parse_global_options(
     mocker: MockerFixture, version: str, parsed_version: tuple[int, int, int]
@@ -50,6 +50,16 @@ def test_parse_global_options_invalid_not_int(
     options.python_version = version
 
     with pytest.raises(InvalidVersion):
+        global_options.parse_global_options(options)
+
+
+@pytest.mark.parametrize("version", ["2.0.0", "3.9.0", "4.0.0"])
+def test_parse_global_options_unsupported_python_version(
+    mocker: MockerFixture, version: str
+) -> None:
+    options = mocker.Mock(python_version=version)
+
+    with pytest.raises(ValueError, match="Unsupported python version:"):
         global_options.parse_global_options(options)
 
 
