@@ -142,6 +142,10 @@ enable_error_code = [
     "possibly-undefined",
     "ignore-without-code",
     "deprecated",
+    "redundant-self",
+    "unused-awaitable",
+    "truthy-iterable",
+    "exhaustive-match",
 ]
 pretty = true
 show_column_numbers = true

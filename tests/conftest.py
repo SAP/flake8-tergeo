@@ -7,7 +7,7 @@ import ast
 import json
 import subprocess
 import tokenize
-from collections.abc import Iterable
+from collections.abc import Collection
 from pathlib import Path
 from typing import Any
 
@@ -171,7 +171,7 @@ class Flake8RunnerFixture:
         issue_number: str,
         args: tuple[str, ...] = (),
         **kwargs: str,
-    ) -> Iterable[Issue | LenientIssue]:
+    ) -> Collection[Issue | LenientIssue]:
         content = (self.datadir / filename).read_text(encoding="utf-8")
         if kwargs:
             content = content.format(**kwargs)
