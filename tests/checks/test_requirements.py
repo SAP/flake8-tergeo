@@ -121,12 +121,13 @@ def _create_project(
 
     # install the package in the current venv
     subprocess.run(
-        ["pip", "install", "--no-deps", "--no-cache-dir", "-e", project], check=True
+        ["uv", "pip", "install", "--no-deps", "--no-cache-dir", "-e", project],
+        check=True,
     )
 
 
 def _remove_package(project: str) -> None:
-    subprocess.run(["pip", "uninstall", "--yes", project], check=True)
+    subprocess.run(["uv", "pip", "uninstall", project], check=True)
 
 
 def _find_import_node(code: str) -> ast.Import | ast.ImportFrom:
