@@ -118,7 +118,7 @@ def test_ftp015(runner: Flake8RunnerFixture) -> None:
 
 
 @pytest.mark.parametrize(
-    "version,find_annotations", [("3.7.0", False), ("3.14.1", True)]
+    "version,find_annotations", [("3.10.0", False), ("3.14.1", True)]
 )
 def test_ftp030(
     runner: Flake8RunnerFixture, version: str, find_annotations: bool
