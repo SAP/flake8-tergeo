@@ -225,7 +225,7 @@ def test_ftp005(runner: Flake8RunnerFixture) -> None:
     ],
 )
 @pytest.mark.parametrize(
-    "version,find_by_version", [("3.7.0", False), ("3.12.0", True)]
+    "version,find_by_version", [("3.10.0", False), ("3.12.0", True)]
 )
 def test_ftp128(
     runner: Flake8RunnerFixture,
