@@ -72,7 +72,7 @@ dev = [
     "types-flake8-builtins==3.0.0.20250819",
     "types-flake8-bugbear==24.12.12.20251008",
     "types-flake8-typing-imports==1.17.0.20251011",
-    "pylint-per-file-ignores==2.0.3",
+    "pylint-per-file-ignores==3.1.0",
     "yesqa==1.5.0",
     "astpretty==3.0.0",
     "pyupgrade==3.21.0",
