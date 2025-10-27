@@ -483,7 +483,7 @@ dev = [
     { name = "pyupgrade", specifier = "==3.21.0" },
     { name = "toml-sort", specifier = "==0.24.3" },
     { name = "types-flake8", specifier = "==7.3.0.20250622" },
-    { name = "types-flake8-bugbear", specifier = "==24.12.12.20251008" },
+    { name = "types-flake8-bugbear", specifier = "==25.10.21.20251024" },
     { name = "types-flake8-builtins", specifier = "==3.1.0.20251027" },
     { name = "types-flake8-simplify", specifier = "==0.22.0.20250708" },
     { name = "types-flake8-typing-imports", specifier = "==1.17.0.20251011" },
@@ -1093,11 +1093,11 @@ wheels = [
 
 [[package]]
 name = "types-flake8-bugbear"
-version = "24.12.12.20251008"
+version = "25.10.21.20251024"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/6f/59/fc90885b2b043a6e5068579cbe479e22fb8fcfe04e96ae87494fb051e256/types_flake8_bugbear-24.12.12.20251008.tar.gz", hash = "sha256:9220f91c3f76de35ecbea6cab9e7b35e8f2e05d402f31c3b53435914abada250", size = 11370, upload-time = "2025-10-08T02:51:30.913Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fa/8d/55e6c43948dbc4d58d5d575456cd866c450576bb0fcf8fa556e5647506c6/types_flake8_bugbear-25.10.21.20251024.tar.gz", hash = "sha256:2d1b446ee8d73fa719fab353e4678582c908ddd1ecc978d11421e90ac398e611", size = 11435, upload-time = "2025-10-24T02:54:18.713Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c6/bd/338bac9dbf373b3314ad09a0c60a8b40c8d01f07ce62fe6627924529d398/types_flake8_bugbear-24.12.12.20251008-py3-none-any.whl", hash = "sha256:89e1c8487e53d13ba641c64c7f2d9a89daa235c6c9a8abd5f8b8a47560359ecb", size = 9751, upload-time = "2025-10-08T02:51:29.615Z" },
+    { url = "https://files.pythonhosted.org/packages/11/de/a18a50ffe84803a8850c5154f518d1c127a6f41349d983c2881ebefb6848/types_flake8_bugbear-25.10.21.20251024-py3-none-any.whl", hash = "sha256:f6bb7ff29c7e33986534bcafae51b6d7c94534368fa4690a1b213bd62bf1ca90", size = 9799, upload-time = "2025-10-24T02:54:17.671Z" },
 ]
 
 [[package]]
