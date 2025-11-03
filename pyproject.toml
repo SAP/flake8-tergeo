@@ -171,6 +171,9 @@ good-names = [
     "visit_AsyncFunctionDef",
 ]
 no-docstring-rgx = "^_"
+# with pylint 4.0 reassigned constants are also considered as variables leading to false positives
+# therefore we allow capital letters here as well
+variable-rgx = "([A-Z0-9_]+|[a-z0-9_]+)$"
 
 [tool.pylint.design]
 min-public-methods = 0
