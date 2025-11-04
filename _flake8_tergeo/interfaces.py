@@ -34,7 +34,7 @@ else:
             self._option_manager = option_manager
 
         @abc.abstractmethod
-        def extend_default_ignore(self, disables: Sequence[str]) -> None:
+        def extend_default_ignore(self, error_codes: Sequence[str]) -> None:
             """Wrap flake8 OptionManager.extend_default_ignore."""
 
         @abc.abstractmethod
