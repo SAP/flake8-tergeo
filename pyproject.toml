@@ -63,7 +63,7 @@ FT = "_flake8_tergeo:Flake8TergeoPlugin"
 dev = [
     "pre-commit==4.4.0",
     "pylint==4.0.2",
-    "black==25.9.0",
+    "black==25.11.0",
     "isort==6.1.0",
     "mypy==1.18.2",
     "flake8==7.3.0",
