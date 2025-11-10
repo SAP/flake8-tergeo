@@ -61,7 +61,7 @@ FT = "_flake8_tergeo:Flake8TergeoPlugin"
 
 [dependency-groups]
 dev = [
-    "pre-commit==4.3.0",
+    "pre-commit==4.4.0",
     "pylint==4.0.2",
     "black==25.9.0",
     "isort==6.1.0",
