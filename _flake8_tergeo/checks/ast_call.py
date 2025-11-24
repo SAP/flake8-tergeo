@@ -798,7 +798,7 @@ def _check_mock_builtins_open(node: ast.Call) -> IssueGenerator:
         # arguments for simplicity
         (
             isinstance(node.func, ast.Name | ast.Attribute)
-            and stringify(node.func) in ("mocker.patch", "mocker.patch.object")
+            and stringify(node.func) in {"mocker.patch", "mocker.patch.object"}
         )
         # Check if its a unittest.mock.patch(.object) call.
         # is_expected_node makes sure that its imported and that all possible combinations
