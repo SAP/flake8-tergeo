@@ -1,0 +1,9 @@
+{mock_imp}
+{builtins_imp}
+
+# code without issues
+foo()
+mock.patch("other")
+
+# code with issues
+{func_call}

@@ -986,3 +986,85 @@ def test_ftp136(runner: Flake8RunnerFixture) -> None:
     assert runner(filename="ftp136.txt", issue_number="FTP136") == [
         FTP136(line=9, column=1)
     ]
+
+
+FTP137 = partial(
+    Issue,
+    issue_number="FTP137",
+    message="Avoid mocking 'open' directly. "
+    "Mock 'open' in the specific module where it's used instead.",
+)
+
+
+@pytest.mark.parametrize(
+    "mock_imp,builtins_imp,func_call,found",
+    [
+        (
+            "import unittest.mock",
+            "",
+            "unittest.mock.patch('builtins.open')",
+            True,
+        ),
+        (
+            "from foo import mock",
+            "",
+            "mock.patch('builtins.open')",
+            False,
+        ),
+        (
+            "from unittest import mock",
+            "",
+            "mock.patch('builtins.open')",
+            True,
+        ),
+        (
+            "from unittest import mock",
+            "",
+            "mock.patch.object('builtins', 'open')",
+            False,
+        ),
+        (
+            "from unittest import mock",
+            "",
+            "mock.patch.object(builtins, 'open')",
+            False,
+        ),
+        (
+            "from unittest import mock",
+            "import builtins",
+            "mock.patch.object(builtins, 'open')",
+            True,
+        ),
+        (
+            "from unittest import mock",
+            "",
+            "mock.patch.object(__builtins__, 'open')",
+            True,
+        ),
+        ("", "", "mocker.patch.object(__builtins__, 'open')", True),
+        ("", "", "mocker.patch('builtins.open')", True),
+        ("", "", "mocker.patch.object(other, 'open')", False),
+        ("", "import builtins", "mocker.patch.object(builtins, 'open')", True),
+        ("", "", "mocker.patch.object(builtins, 'open')", False),
+    ],
+)
+def test_ftp137(
+    runner: Flake8RunnerFixture,
+    mock_imp: str,
+    builtins_imp: str,
+    func_call: str,
+    found: bool,
+) -> None:
+    results = runner(
+        filename="ftp137.txt",
+        issue_number="FTP137",
+        mock_imp=mock_imp,
+        func_call=func_call,
+        builtins_imp=builtins_imp,
+    )
+    if found:
+        assert results == [
+            FTP137(line=9, column=1),
+        ]
+    else:
+        assert not results
