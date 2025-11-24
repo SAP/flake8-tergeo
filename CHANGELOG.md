@@ -2,6 +2,7 @@
 
 ## Next version
 - Dropped support for python 3.9
+- FTP137 which can find mocks of `open`
 
 ## 25.10.9.0
 - FTP077 now verifies also `isinstance` calls

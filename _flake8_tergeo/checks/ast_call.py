@@ -96,6 +96,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_isinstance_tuple(node)
     yield from _check_issubclass_tuple(node)
     yield from _check_type_none_in_isinstance(node)
+    yield from _check_mock_builtins_open(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -788,3 +789,54 @@ def _check_type_none_in_isinstance(node: ast.Call) -> IssueGenerator:
                 issue_number="136",
                 message="Use None instead of type(None) in union types in isinstance calls.",
             )
+
+
+def _check_mock_builtins_open(node: ast.Call) -> IssueGenerator:
+    if not (
+        # Check if its a mocker call provided by pytest-mock.
+        # The fixture is not imported and we won't check if it's part of the sounding function
+        # arguments for simplicity
+        (
+            isinstance(node.func, ast.Name | ast.Attribute)
+            and stringify(node.func) in ("mocker.patch", "mocker.patch.object")
+        )
+        # Check if its a unittest.mock.patch(.object) call.
+        # is_expected_node makes sure that its imported and that all possible combinations
+        # are covered. As we check for calls, usage as decorator is also covered
+        or is_expected_node(node.func, "unittest.mock", "patch")
+        or is_expected_node(node.func, "unittest.mock", "patch.object")
+    ):
+        return
+
+    if (
+        # No arguments given so we can't determine what is patched
+        not node.args
+        or not (
+            (
+                # check if the first argument is 'builtins.open' or '__builtins__.open'
+                is_constant_node(node.args[0], str)
+                and node.args[0].value in {"builtins.open", "__builtins__.open"}
+            )
+            or (
+                # check if the first argument is the builtin module and the second 'open'
+                isinstance(node.args[0], ast.Name)
+                and (
+                    # either the name is builtins and it's imported
+                    (node.args[0].id == "builtins" and "builtins" in get_imports(node))
+                    # or the name is __builtins__
+                    or node.args[0].id == "__builtins__"
+                )
+                and is_constant_node(node.args[1], str)
+                and node.args[1].value == "open"
+            )
+        )
+    ):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="137",
+        message="Avoid mocking 'open' directly. "
+        "Mock 'open' in the specific module where it's used instead.",
+    )
