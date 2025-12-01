@@ -64,7 +64,7 @@ dev = [
     "pre-commit==4.5.0",
     "pylint==4.0.3",
     "black==25.11.0",
-    "isort==6.1.0",
+    "isort==7.0.0",
     "mypy==1.18.2",
     "flake8==7.3.0",
     "types-flake8==7.3.0.20250622",
