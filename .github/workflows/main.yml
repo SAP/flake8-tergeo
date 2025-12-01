@@ -73,9 +73,7 @@ jobs:
       - name: Install flake8
         run: uv pip install -U flake8==${{ matrix.flake8-version }}
       - name: run tests (with coverage)
-        run: uv run pytest -n 8 --dist worksteal --cov --cov-report xml --cov-config pyproject.toml tests/
-      - name: run diff-cover
-        run: uv run diff-cover --config-file pyproject.toml coverage.xml
+        run: uv run --no-sync pytest -n 8 --dist worksteal --cov --cov-report xml --cov-config pyproject.toml --cov-fail-under 0 tests/
       - name: Rename coverage file
         run: |
           UUID=$(uuidgen)
@@ -116,6 +114,8 @@ jobs:
           mv .coverage ../.coverage
           cd ..
           uv run coverage xml
+      - name: run diff-cover
+        run: uv run diff-cover --config-file pyproject.toml coverage.xml
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
         with:
