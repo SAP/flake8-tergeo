@@ -87,7 +87,7 @@ test = [
     "pytest-randomly==4.0.1",
     "pytest-datadir==1.8.0",
     "coverage==7.13.0",
-    "diff-cover==9.7.2",
+    "diff-cover==10.0.0",
     "flake8-json==24.4.0",
     "dirty-equals==0.11",
     "pytest-fixture-classes==1.0.4",
