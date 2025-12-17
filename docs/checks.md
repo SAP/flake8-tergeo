@@ -611,6 +611,9 @@ For example `isinstance(foo, (str, type(None)))` can be rewritten to `isinstance
 ## FTP137
 Checks for mocking of `open` using `unittest.mock` or `pytest-mock`. Instead of mocking the builtin, mock `open` in the specific module where it's imported and used.
 
+## FTP138
+Finds calls of `sys` trace functions like `sys.settrace`.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

@@ -245,6 +245,11 @@ FTP136 = partial(
     issue_number="FTP136",
     message="Use None instead of type(None) in union types in isinstance calls.",
 )
+_FTP138 = partial(
+    Issue,
+    issue_number="FTP138",
+    message="Trace function {func} should not be called.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -264,6 +269,13 @@ def FTP121(  # pylint:disable=invalid-name
     *, line: int, column: int, func: str
 ) -> Issue:
     issue = _FTP121(line=line, column=column)
+    return issue._replace(message=issue.message.format(func=func))
+
+
+def FTP138(  # pylint:disable=invalid-name
+    *, line: int, column: int, func: str
+) -> Issue:
+    issue = _FTP138(line=line, column=column)
     return issue._replace(message=issue.message.format(func=func))
 
 
@@ -1068,3 +1080,27 @@ def test_ftp137(
         ]
     else:
         assert not results
+
+
+class TestFTP138:
+
+    @pytest.mark.parametrize(
+        "imp,func",
+        [("import foo", f"foo.{func}") for func in ast_call.SYS_TRACE_FUNCTIONS],
+    )
+    def test_ignore_invalid_import(
+        self, runner: Flake8RunnerFixture, imp: str, func: str
+    ) -> None:
+        assert not runner(
+            filename="ftp138.txt", issue_number="FTP138", imp=imp, func=func
+        )
+
+    @pytest.mark.parametrize(
+        "imp,func",
+        [("import sys", f"sys.{func}") for func in ast_call.SYS_TRACE_FUNCTIONS],
+    )
+    def test(self, runner: Flake8RunnerFixture, imp: str, func: str) -> None:
+        results = runner(
+            filename="ftp138.txt", issue_number="FTP138", imp=imp, func=func
+        )
+        assert results == [FTP138(line=9, column=1, func=func)]

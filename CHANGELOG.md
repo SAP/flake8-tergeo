@@ -3,6 +3,9 @@
 ## Next version
 - Dropped support for python 3.9
 - FTP137 which can find mocks of `open`
+- FTP045 will also find calls of `eval` and `exec`
+- FTP121 will also find calls of `os.system`
+- FTP138 which finds calls of trace functions like `sys.settrace`
 
 ## 25.10.9.0
 - FTP077 now verifies also `isinstance` calls
