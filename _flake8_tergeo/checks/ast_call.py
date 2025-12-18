@@ -24,6 +24,8 @@ BAD_CALLS = (
     "compile",
     "copyright",
     "credits",
+    "eval",
+    "exec",
     "exit",
     "help",
     "quit",
@@ -31,6 +33,7 @@ BAD_CALLS = (
 )
 _POINTLESS_STAR_NODES = (ast.Dict, ast.List, ast.Set, ast.Tuple, ast.Constant)
 BAD_SUBPROCESS_ALIASES = (
+    "system",
     "popen",
     "spawnl",
     "spawnle",
@@ -50,6 +53,13 @@ RE_FUNCTIONS = (
     "finditer",
     "sub",
     "subn",
+)
+SYS_TRACE_FUNCTIONS = (
+    "call_tracing",
+    "setprofile",
+    "settrace",
+    "gettrace",
+    "getprofile",
 )
 RE_PARENTS = (ast.FunctionDef, ast.AsyncFunctionDef, ast.For, ast.While, ast.Lambda)
 
@@ -97,6 +107,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_issubclass_tuple(node)
     yield from _check_type_none_in_isinstance(node)
     yield from _check_mock_builtins_open(node)
+    yield from _check_sys_trace_functions(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -839,4 +850,20 @@ def _check_mock_builtins_open(node: ast.Call) -> IssueGenerator:
         issue_number="137",
         message="Avoid mocking 'open' directly. "
         "Mock 'open' in the specific module where it's used instead.",
+    )
+
+
+def _check_sys_trace_functions(node: ast.Call) -> IssueGenerator:
+    if not any(
+        is_expected_node(node.func, "sys", func) for func in SYS_TRACE_FUNCTIONS
+    ):
+        return
+
+    assert isinstance(node.func, ast.Name | ast.Attribute)
+    name = stringify(node.func)
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="138",
+        message=f"Trace function {name} should not be called.",
     )
