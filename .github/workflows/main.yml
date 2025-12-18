@@ -16,7 +16,7 @@ jobs:
   ci-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
@@ -29,7 +29,7 @@ jobs:
   ci-pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
@@ -58,7 +58,7 @@ jobs:
         flake8-version: [7.0.*, 7.*]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     if: success()
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
