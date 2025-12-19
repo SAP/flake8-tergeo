@@ -50,7 +50,7 @@ license-files = [
 name = "flake8-tergeo"
 readme = "README.md"
 requires-python = ">=3.10,<4"
-version = "25.10.9.0"
+version = "25.12.19.0"
 
 [project.urls]
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"

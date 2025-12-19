@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+
+## 25.12.19.0
 - Dropped support for python 3.9
 - FTP137 which can find mocks of `open`
 - FTP045 will also find calls of `eval` and `exec`
