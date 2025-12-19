@@ -50,7 +50,7 @@ license-files = [
 name = "flake8-tergeo"
 readme = "README.md"
 requires-python = ">=3.10,<4"
-version = "25.12.19.0"
+version = "25.12.19.1"
 
 [project.urls]
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
@@ -243,6 +243,7 @@ xfail_strict = true
 [tool.setuptools.package-data]
 _flake8_tergeo = [
     "py.typed",
+    "checks/ftp115_invisible_chars.txt",
 ]
 
 [tool.setuptools.packages.find]
