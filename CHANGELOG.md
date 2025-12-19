@@ -2,6 +2,9 @@
 
 ## Next version
 
+## 25.12.19.1
+- Fixed an issue causing the plugin to fail with an internal error
+
 ## 25.12.19.0
 - Dropped support for python 3.9
 - FTP137 which can find mocks of `open`
