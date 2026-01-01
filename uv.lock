@@ -8,15 +8,6 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "astor"
-version = "0.8.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/5a/21/75b771132fee241dfe601d39ade629548a9626d1d39f333fde31bc46febe/astor-0.8.1.tar.gz", hash = "sha256:6a6effda93f4e1ce9f618779b2dd1d9d84f1e32812c23a29b3fff6fd7f63fa5e", size = 35090, upload-time = "2019-12-10T01:50:35.51Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c3/88/97eef84f48fa04fbd6750e62dcceafba6c63c81b7ac1420856c8dcc0a3f9/astor-0.8.1-py2.py3-none-any.whl", hash = "sha256:070a54e890cefb5b3739d19f30f5a5ec840ffc9c50ffa7d23cc9fc1a38ebbfc5", size = 27488, upload-time = "2019-12-10T01:50:33.628Z" },
-]
-
-[[package]]
 name = "astpretty"
 version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -401,15 +392,14 @@ wheels = [
 
 [[package]]
 name = "flake8-simplify"
-version = "0.22.0"
+version = "0.30.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "astor" },
     { name = "flake8" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/6d/fa628c641349a3737932f9e5e2cf62b9fca3e124426b0f2688bdbc336cc4/flake8_simplify-0.22.0.tar.gz", hash = "sha256:526421594d5815cf786a637c2a705223956f7e34872b6bb9f66c5ce3e28caaf9", size = 34100, upload-time = "2025-06-01T11:59:34.725Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f0/33/c41fa08469da7586d1076d755ea713c7113e9f0215b6b4dbbedfcc147c95/flake8_simplify-0.30.0.tar.gz", hash = "sha256:61bff74fab73884e1ec12e472d67e7e789043028ff858e5f9af389d392d65b82", size = 33680, upload-time = "2026-01-01T13:32:22.806Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/45/99/23ab2049d5b6346a58315a87fb7916122e7d3aaa2b8d7ae4577f1fa43c94/flake8_simplify-0.22.0-py3-none-any.whl", hash = "sha256:812c65bf49d7857093750df71fc9c4a925fc192bfca14ecf04570e224f17581f", size = 26989, upload-time = "2025-06-01T11:59:32.736Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/d5/18a89f40c1a145a44d1fad825553be8131bcb727f5f2783d3727a2f4b2d0/flake8_simplify-0.30.0-py3-none-any.whl", hash = "sha256:c9f54a50d24780832a3f2bb7a687ef465b91f10d7cb4ea0845dff4b65d9c91f4", size = 26241, upload-time = "2026-01-01T13:32:20.988Z" },
 ]
 
 [[package]]
@@ -472,7 +462,7 @@ requires-dist = [
     { name = "flake8-builtins", specifier = "==3.1.0" },
     { name = "flake8-comprehensions", specifier = "==3.17.0" },
     { name = "flake8-pytest-style", specifier = "==2.2.0" },
-    { name = "flake8-simplify", specifier = "==0.22.0" },
+    { name = "flake8-simplify", specifier = "==0.30.0" },
     { name = "flake8-typing-imports", specifier = "==1.17.0" },
     { name = "packaging", specifier = ">=24" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = "~=2.2" },
