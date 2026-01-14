@@ -77,7 +77,7 @@ dev = [
     "astpretty==3.0.0",
     "pyupgrade==3.21.2",
     "toml-sort==0.24.3",
-    "uv==0.9.24",
+    "uv==0.9.25",
 ]
 test = [
     "pytest==9.0.2",
