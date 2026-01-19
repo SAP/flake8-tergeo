@@ -200,13 +200,13 @@ class Flake8TergeoPlugin:
     def _run_parse_options(cls, checker: type[AbstractChecker]) -> None:
         if util.has_parse_options(checker):
             if util.is_complex_parse_options(checker):
-                checker.parse_options(  # type:ignore[attr-defined]
+                checker.parse_options(  # type: ignore[attr-defined]
                     cls._parse_options_option_manager,
                     cls._parse_options_options,
                     cls._parse_options_args,
                 )
             else:
-                checker.parse_options(  # type:ignore[attr-defined]
+                checker.parse_options(  # type: ignore[attr-defined]
                     cls._parse_options_options
                 )
 
@@ -223,7 +223,7 @@ class Flake8TergeoPlugin:
 
         for checker in _get_concrete_classes(AbstractChecker):
             if util.has_add_options(checker):
-                checker.add_options(option_manager)  # type:ignore[attr-defined]
+                checker.add_options(option_manager)  # type: ignore[attr-defined]
 
     @classmethod
     def parse_options(

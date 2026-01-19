@@ -27,14 +27,12 @@ from _flake8_tergeo.ast_util import (
 
 
 def test_parents() -> None:
-    tree = ast.parse(
-        """
+    tree = ast.parse("""
 class Foo:
     def bar():
         a = 1
         return a
-    """
-    )
+    """)
     set_info_in_tree(tree)
 
     assert not get_parent(tree)
@@ -102,7 +100,7 @@ def test_get_line_range(code: str, start: int, end: int) -> None:
 def test_is_stub(signature: str, body: str) -> None:
     func = signature + ":" + body
     tree = ast.parse(func)
-    assert is_stub(tree.body[0])  # type:ignore[arg-type]
+    assert is_stub(tree.body[0])  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(
@@ -170,8 +168,7 @@ def test_get_imports_no_imports() -> None:
 
 
 def test_get_imports() -> None:
-    tree = ast.parse(
-        """
+    tree = ast.parse("""
 import foo
 from bar import foo
 
@@ -181,8 +178,7 @@ if TYPE_CHECKING:
 def more():
     import m1, m2
     from m3 import x as y
-"""
-    )
+""")
     assert get_imports(tree) == ["bar.foo", "foo", "for_checking", "m1", "m2", "m3.x"]
 
 
