@@ -32,7 +32,7 @@ from _flake8_tergeo.type_definitions import IssueGenerator
 try:
     import tomllib
 except ImportError:  # pragma: no cover
-    import tomli as tomllib  # type:ignore[import-not-found,no-redef]
+    import tomli as tomllib  # type: ignore[import-not-found,no-redef]
 
 EXTRA_PATTERN = re.compile(r'.*extra == "(?P<extra>[a-zA-Z0-9\-]+)".*')
 INSTALL_REQUIRE_EXTRA = ""  # install requires have no real name, so use an empty string
