@@ -5,7 +5,7 @@ SPDX-PackageSupplier = "kai.harder@sap.com"
 version = 1
 
 [[annotations]]
-SPDX-FileCopyrightText = "2025 SAP SE or an SAP affiliate company and flake8-tergeo contributors"
+SPDX-FileCopyrightText = "2026 SAP SE or an SAP affiliate company and flake8-tergeo contributors"
 SPDX-License-Identifier = "Apache-2.0"
 path = "**"
 precedence = "aggregate"
