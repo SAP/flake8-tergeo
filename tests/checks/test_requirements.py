@@ -306,6 +306,51 @@ def test_parse_options(mocker: MockerFixture, options: Namespace) -> None:
     assert options.requirements_module_extra_mapping == {}
 
 
+def test_parse_options_recursive_extras(
+    mocker: MockerFixture, options: Namespace
+) -> None:
+    mocker.patch.object(
+        requirements,
+        "_requires",
+        return_value=[
+            "dep-1==1.2.3",
+            "foo[e2]; extra == 'e1'",
+            "dep-2==1.2.3; extra == 'e1'",
+            "foo[e3]; extra == 'e2'",
+            "dep-3==1.2.3; extra == 'e2'",
+            "dep-4==1.2.3; extra == 'e3'",
+        ],
+    )
+    mocker.patch.object(requirements, "stdlib_module_names", [])
+    mocker.patch.object(base, "get_plugin")
+
+    requirements.parse_options(options)
+    assert options.requirements_allow_list == {
+        "": ["dep_1"],
+        "e1": ["dep_4", "dep_3", "dep_2"],
+        "e2": ["dep_4", "dep_3"],
+        "e3": ["dep_4"],
+    }
+
+
+def test_parse_options_recursive_extras_loop(
+    mocker: MockerFixture, options: Namespace
+) -> None:
+    mocker.patch.object(
+        requirements,
+        "_requires",
+        return_value=[
+            "foo[e2]; extra == 'e1'",
+            "foo[e1]; extra == 'e2'",
+        ],
+    )
+    mocker.patch.object(requirements, "stdlib_module_names", [])
+    mocker.patch.object(base, "get_plugin")
+
+    requirements.parse_options(options)
+    assert options.requirements_allow_list == {"": [], "e1": [], "e2": []}
+
+
 def test_parse_options_without_distribution_name(options: Namespace) -> None:
     options.distribution_name = None
 

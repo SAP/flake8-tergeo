@@ -242,23 +242,91 @@ def _ignore_import(options: _Options, node: ast.Import | ast.ImportFrom) -> bool
     )
 
 
+def resolve_extra(
+    *,
+    extra_name: str,
+    visited: set[str],
+    requirements_by_extra: dict[str, list[Requirement]],
+    distribution_name: str,
+) -> list[str]:
+    """Recursively resolve a single extra, tracking visited extras to prevent cycles."""
+    if extra_name in visited:
+        # Circular dependency detected, return empty to avoid infinite loop
+        return []
+
+    visited.add(extra_name)
+    packages: list[str] = []
+
+    if extra_name not in requirements_by_extra:
+        return packages
+
+    for requirement in requirements_by_extra[extra_name]:
+        # Check if this requirement references another extra of the same distribution
+        # e.g., "my-project[B]" where my-project is the current distribution
+        if requirement.extras and _normalize(requirement.name) == distribution_name:
+            # This requirement references other extras, resolve them recursively
+            for referenced_extra in requirement.extras:
+                packages.extend(
+                    resolve_extra(
+                        extra_name=referenced_extra,
+                        visited=visited.copy(),
+                        requirements_by_extra=requirements_by_extra,
+                        distribution_name=distribution_name,
+                    )
+                )
+        else:
+            # Regular dependency, add it to the list
+            packages.append(_normalize(requirement.name))
+
+    return packages
+
+
+def _resolve_extras_recursively(
+    distribution_name: str,
+    requirements_by_extra: dict[str, list[Requirement]],
+) -> dict[str, list[str]]:
+    resolved: dict[str, list[str]] = defaultdict(list)
+
+    # Resolve each extra
+    for extra_name in requirements_by_extra:
+        resolved[extra_name] = resolve_extra(
+            extra_name=extra_name,
+            visited=set(),
+            requirements_by_extra=requirements_by_extra,
+            distribution_name=distribution_name,
+        )
+
+    return resolved
+
+
 @register_parse_options
 def parse_options(options: Namespace) -> None:
     """Parse options for this checker."""
     if not options.distribution_name:
         return
 
+    options.distribution_name = _normalize(options.distribution_name)
     options.requirements_mapping = _parse_mapping(options.requirements_mapping)
     options.requirements_module_extra_mapping = _parse_module_extra_mapping(
         options.requirements_module_extra_mapping
     )
+
+    requirements_by_extra: dict[str, list[Requirement]] = defaultdict(list)
     requirements_allow_list = options.requirements_allow_list = defaultdict(list)
 
     for req in _requires(options.distribution_name):
         requirement = Requirement(req)
         match = EXTRA_PATTERN.fullmatch(str(requirement.marker))
-        extra = match.group("extra") if match else ""
-        requirements_allow_list[extra].append(_normalize(requirement.name))
+        extra = match.group("extra") if match else INSTALL_REQUIRE_EXTRA
+        requirements_by_extra[extra].append(requirement)
+
+    # Recursively resolve extras to handle cases where extras reference other extras
+    resolved_extras = _resolve_extras_recursively(
+        options.distribution_name, requirements_by_extra
+    )
+
+    for extra, packages in resolved_extras.items():
+        requirements_allow_list[extra].extend(packages)
 
     for group, requirement in _get_from_dependency_groups():
         requirements_allow_list[group].append(_normalize(requirement.name))
