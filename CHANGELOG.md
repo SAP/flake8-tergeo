@@ -2,6 +2,9 @@
 
 ## Next version
 
+## 26.1.28.0
+- Support recursive optional requirements in FTP041
+
 ## 25.12.19.1
 - Fixed an issue causing the plugin to fail with an internal error
 
