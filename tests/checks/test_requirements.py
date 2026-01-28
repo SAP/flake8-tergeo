@@ -333,6 +333,24 @@ def test_parse_options_recursive_extras(
     }
 
 
+def test_parse_options_recursive_extras_loop(
+    mocker: MockerFixture, options: Namespace
+) -> None:
+    mocker.patch.object(
+        requirements,
+        "_requires",
+        return_value=[
+            "foo[e2]; extra == 'e1'",
+            "foo[e1]; extra == 'e2'",
+        ],
+    )
+    mocker.patch.object(requirements, "stdlib_module_names", [])
+    mocker.patch.object(base, "get_plugin")
+
+    requirements.parse_options(options)
+    assert options.requirements_allow_list == {"": [], "e1": [], "e2": []}
+
+
 def test_parse_options_without_distribution_name(options: Namespace) -> None:
     options.distribution_name = None
 
