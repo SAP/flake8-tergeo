@@ -310,10 +310,9 @@ def parse_options(options: Namespace) -> None:
     options.requirements_module_extra_mapping = _parse_module_extra_mapping(
         options.requirements_module_extra_mapping
     )
-    requirements_allow_list = options.requirements_allow_list = defaultdict(list)
 
-    # First pass: collect all requirements grouped by extra
     requirements_by_extra: dict[str, list[Requirement]] = defaultdict(list)
+    requirements_allow_list = options.requirements_allow_list = defaultdict(list)
 
     for req in _requires(options.distribution_name):
         requirement = Requirement(req)
