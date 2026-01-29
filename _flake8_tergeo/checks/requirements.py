@@ -89,11 +89,11 @@ def _check_module(module: str, node: ast.Import | ast.ImportFrom) -> IssueGenera
     # e.g. pytest for "import pytest" or gitpython for "import git"
     dist_name = _get_distribution_from_import(options, module)
     # receive the extra requirements which are configured for the current file
-    # if requirements_module_extra_mapping is not use, everything is allowed
+    # if requirements_module_extra_mapping is not use, only install requirements are allowed
     extras = (
         _get_extras(options, node)
         if options.requirements_module_extra_mapping
-        else ["*"]
+        else [INSTALL_REQUIRE_EXTRA]
     )
     import_allowed = (
         any(
