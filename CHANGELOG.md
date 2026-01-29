@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next version
+- If a module is not listed in ``--ftp-requirements-module-extra-mapping``, FTP041 will
+  now only allow install requirements instead of all requirements
 
 ## 26.1.28.0
 - Support recursive optional requirements in FTP041

@@ -36,6 +36,14 @@ def project_names() -> dict[str, str]:
 
 
 @pytest.fixture
+def base_path(tmp_path: Path) -> str:
+    base_path = str(tmp_path).replace("/", ".")
+    if base_path.startswith("."):
+        base_path = base_path[1:]
+    return base_path
+
+
+@pytest.fixture
 def args(project_names: dict[str, str], package_tmp_path: Path) -> tuple[str, ...]:
     return (
         "--ftp-distribution-name",
@@ -55,11 +63,7 @@ def args(project_names: dict[str, str], package_tmp_path: Path) -> tuple[str, ..
 
 
 @pytest.fixture
-def args_with_extra_mapping(tmp_path: Path, args: tuple[str, ...]) -> tuple[str, ...]:
-    base_path = str(tmp_path).replace("/", ".")
-    if base_path.startswith("."):
-        base_path = base_path[1:]
-
+def args_with_extra_mapping(base_path: str, args: tuple[str, ...]) -> tuple[str, ...]:
     return (
         *args,
         "--ftp-requirements-module-extra-mapping",
@@ -433,7 +437,10 @@ def test_get_identifier(code: str, expected: str) -> None:
 
 
 @pytest.mark.usefixtures("create_dummy_packages")
-def test_ftp041_ignore(runner: Flake8RunnerFixture, args: tuple[str, ...]) -> None:
+def test_ftp041_ignore(
+    runner: Flake8RunnerFixture, args: tuple[str, ...], base_path: str
+) -> None:
+    args = (*args, "--ftp-requirements-module-extra-mapping", f"{base_path} | *")
     assert not runner(filename="ftp041_ignore.txt", issue_number="FTP041", args=args)
 
 
