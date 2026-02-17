@@ -459,7 +459,8 @@ Instead use `typing.NoReturn`
 
 ## FTP108
 Find usage of `typing.NoReturn` in non-return annotations (arguments and assignments).
-Instead use `typing.Never`
+Usage in `Callable` like `x = Callable[[int], NoReturn]` is ignored.
+Instead use `typing.Never`.
 
 ## FTP109
 Checks for unnecessary usage of `bytes()`, like `bytes(b'abc'')`

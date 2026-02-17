@@ -387,8 +387,8 @@ class TestFTP108:
             filename="ftp108.txt", issue_number="FTP108", imp=imp, no_return=no_return
         )
         assert results == [
-            FTP108(line=10, column=20),
-            FTP108(line=11, column=4),
+            FTP108(line=11, column=20),
+            FTP108(line=12, column=4),
         ]
 
 
