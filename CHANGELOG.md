@@ -3,6 +3,7 @@
 ## Next version
 - If a module is not listed in ``--ftp-requirements-module-extra-mapping``, FTP041 will
   now only allow install requirements instead of all requirements
+- FTP108 now ignores usages of `NoReturn` in `Callable` like `x = Callable[[int], NoReturn]`
 
 ## 26.1.28.0
 - Support recursive optional requirements in FTP041

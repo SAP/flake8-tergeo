@@ -1,10 +1,11 @@
 {imp}
-from typing import Never
+from typing import Never, Callable
 
 # code without issues
 def foo() -> Never: pass
 def bar(a:int) -> {no_return}: pass
 a = {no_return}
+x: Callable[[int], NoReturn]
 
 # code with issues
 def foo(a: int, b: {no_return}) -> None: pass

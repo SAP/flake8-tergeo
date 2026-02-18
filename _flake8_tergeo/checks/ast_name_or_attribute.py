@@ -7,6 +7,7 @@ from typing import TypeAlias
 
 from _flake8_tergeo.ast_util import (
     get_parent,
+    get_parents,
     in_args_assign_annotation,
     is_expected_node,
     stringify,
@@ -207,10 +208,24 @@ def _check_nested_union(node: NameOrAttribute) -> IssueGenerator:
     )
 
 
+def _is_inside_callable(node: ast.AST) -> bool:
+    """Check if a node is inside a Callable type annotation (e.g., Callable[[int], NoReturn])."""
+    return any(
+        isinstance(parent, ast.Subscript)
+        and (
+            is_expected_node(parent.value, "typing", "Callable")
+            or is_expected_node(parent.value, "collections.abc", "Callable")
+        )
+        for parent in get_parents(node)
+    )
+
+
 def _check_valid_arg_assign_annotation(node: NameOrAttribute) -> IssueGenerator:
     if not in_args_assign_annotation(node):
         return
     if not is_expected_node(node, "typing", "NoReturn"):
+        return
+    if _is_inside_callable(node):
         return
     yield Issue(
         line=node.lineno,
