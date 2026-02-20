@@ -2,6 +2,21 @@
 
 <!-- towncrier release notes start -->
 
+## 26.2.20.0 (2026-02-20)
+
+### Features
+
+- FTP139 which can find uses of `profile` and `cProfile` which should be replaced with
+  `profiling.tracing` within python 3.15 onwards.
+
+### Changes
+
+- FTP108 now ignores usages of `NoReturn` in `Callable` like `x = Callable[[int], NoReturn]`
+- If a module is not listed in ``--ftp-requirements-module-extra-mapping``, FTP041 will
+  now only allow install requirements instead of all requirements
+- Updated the release actions
+
+
 ## 26.1.28.0
 - Support recursive optional requirements in FTP041
 
