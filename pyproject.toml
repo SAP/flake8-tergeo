@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=61"]
+requires = ["setuptools~=82.0", "setuptools-scm~=9.2"]
 
 [project]
 authors = [
@@ -37,6 +37,7 @@ dependencies = [
     "tomli~=2.2;python_version<'3.11'",
 ]
 description = "flake8 plugin which keeps your code clean and tidy"
+dynamic = ["version"]
 keywords = [
     "flake8",
     "plugin",
@@ -50,7 +51,6 @@ license-files = [
 name = "flake8-tergeo"
 readme = "README.md"
 requires-python = ">=3.10,<4"
-version = "26.1.28.0"
 
 [project.urls]
 Changelog = "https://github.com/SAP/flake8-tergeo/blob/main/CHANGELOG.md"
@@ -78,6 +78,7 @@ dev = [
     "pyupgrade==3.21.2",
     "toml-sort==0.24.3",
     "uv==0.10.4",
+    "towncrier==25.8.0",
 ]
 test = [
     "pytest==9.0.2",
@@ -231,14 +232,12 @@ reports = false
 [tool.pylint.similarities]
 ignore-imports = true
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers --strict-config -p no:legacypath"
+[tool.pytest]
+addopts = ["-p", "no:legacypath"]
 filterwarnings = [
     "error",
-    "ignore:ast\\.Num is deprecated and will be removed in Python 3\\.14:DeprecationWarning:astor",
-    "ignore:ast\\..* is deprecated and will be removed in Python 3\\.14:DeprecationWarning:flake8_simplify",
 ]
-xfail_strict = true
+strict = true
 
 [tool.setuptools.package-data]
 _flake8_tergeo = [
@@ -251,6 +250,10 @@ include = [
     "_flake8_tergeo*",
 ]
 
+[tool.setuptools_scm]
+version_file = ""
+version_scheme = "calver-by-date"
+
 [tool.tomlsort]
 sort_first = [
     "build-system",
@@ -262,6 +265,33 @@ sort_first = [
 sort_table_keys = true
 spaces_indent_inline_array = 4
 trailing_comma_inline_array = true
+
+[tool.towncrier]
+directory = "news"
+filename = "CHANGELOG.md"
+start_string = "<!-- towncrier release notes start -->\n"
+title_format = "## {version} ({project_date})"
+underlines = ["", "", ""]
+
+[[tool.towncrier.type]]
+directory = "removal"
+name = "Removals"
+
+[[tool.towncrier.type]]
+directory = "deprecation"
+name = "Deprecations"
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "Features"
+
+[[tool.towncrier.type]]
+directory = "change"
+name = "Changes"
+
+[[tool.towncrier.type]]
+directory = "fix"
+name = "Fixes"
 
 [tool.uv]
 default-groups = []
