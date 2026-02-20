@@ -44,6 +44,7 @@ def check_imports(node: AnyImport) -> IssueGenerator:
     yield from _check_relative_imports(node)
     yield from _check_unnecessary_alias(node)
     yield from _check_compression_module(node)
+    yield from _check_profile_module(node)
 
 
 def _check_c_element_tree(node: AnyImport) -> IssueGenerator:
@@ -167,3 +168,16 @@ def _check_compression_module(node: AnyImport) -> IssueGenerator:
                     f"Replace the imported module with compression.{module}"
                 ),
             )
+
+
+def _check_profile_module(node: AnyImport) -> IssueGenerator:
+    if get_python_version() < (3, 15):
+        return
+    imports = get_imported_modules(node)
+    if "profile" in imports or "cProfile" in imports:
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="139",
+            message="Use profiling.tracing instead of profile or cProfile.",
+        )

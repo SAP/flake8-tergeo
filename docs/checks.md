@@ -615,6 +615,10 @@ Checks for mocking of `open` using `unittest.mock` or `pytest-mock`. Instead of 
 ## FTP138
 Finds calls of `sys` trace functions like `sys.settrace`.
 
+## FTP139
+Checks if `profile` or `cProfile` are imported as with python 3.15 `profiling.tracing` should be used.
+The check is only active for python 3.15 and onwards.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

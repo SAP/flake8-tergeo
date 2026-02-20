@@ -54,6 +54,11 @@ _FTP133 = partial(
         "Replace the imported module with compression.{module}"
     ),
 )
+FTP139 = partial(
+    Issue,
+    issue_number="FTP139",
+    message="Use profiling.tracing instead of profile or cProfile.",
+)
 
 
 def FTP001(  # pylint:disable=invalid-name
@@ -231,5 +236,38 @@ def test_ftp133(
     )
     if find_by_version and find_by_imp:
         assert results == [FTP133(line=1, column=1, module=module)]
+    else:
+        assert not results
+
+
+@pytest.mark.parametrize(
+    "python_version,find_by_version", [("3.10.0", False), ("3.15.1", True)]
+)
+@pytest.mark.parametrize(
+    "imp,find_by_imp",
+    [
+        ("import cProfile", True),
+        ("import profile", True),
+        ("from cProfile import something", True),
+        ("import profiling.tracing", False),
+        ("import otherProfile", False),
+        ("import profile2", False),
+    ],
+)
+def test_ftp139(
+    runner: Flake8RunnerFixture,
+    python_version: str,
+    find_by_version: bool,
+    imp: str,
+    find_by_imp: bool,
+) -> None:
+    results = runner(
+        filename="ftp139.txt",
+        issue_number="FTP139",
+        imp=imp,
+        args=("--ftp-python-version", python_version),
+    )
+    if find_by_version and find_by_imp:
+        assert results == [FTP139(line=1, column=1)]
     else:
         assert not results
