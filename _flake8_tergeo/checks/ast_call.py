@@ -108,6 +108,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_type_none_in_isinstance(node)
     yield from _check_mock_builtins_open(node)
     yield from _check_sys_trace_functions(node)
+    yield from _check_utf_8_encoding(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -867,3 +868,24 @@ def _check_sys_trace_functions(node: ast.Call) -> IssueGenerator:
         issue_number="138",
         message=f"Trace function {name} should not be called.",
     )
+
+
+def _check_utf_8_encoding(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 15):
+        return
+    for keyword in node.keywords:
+        if (
+            keyword.arg == "encoding"
+            and is_constant_node(keyword.value, str)
+            and cast(str, keyword.value.value).lower() == "utf-8"
+        ):
+            yield Issue(
+                line=node.lineno,
+                column=node.col_offset,
+                issue_number="140",
+                message=(
+                    "UTF-8 encoding is the default in Python 3.15 and does not need to be "
+                    "specified. Remove the encoding argument or specify a different encoding if "
+                    "needed."
+                ),
+            )

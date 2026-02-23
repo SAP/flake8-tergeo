@@ -1,0 +1,8 @@
+# code without issues
+x()
+x = 1
+x(env="utf-8")
+foo(encoding="utf-16")
+
+# code with issues
+foo(encoding="utf-8")

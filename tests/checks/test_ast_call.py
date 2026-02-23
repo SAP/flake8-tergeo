@@ -250,6 +250,14 @@ _FTP138 = partial(
     issue_number="FTP138",
     message="Trace function {func} should not be called.",
 )
+FTP140 = partial(
+    Issue,
+    issue_number="FTP140",
+    message=(
+        "UTF-8 encoding is the default in Python 3.15 and does not need to be specified. "
+        "Remove the encoding argument or specify a different encoding if needed."
+    ),
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -1104,3 +1112,16 @@ class TestFTP138:
             filename="ftp138.txt", issue_number="FTP138", imp=imp, func=func
         )
         assert results == [FTP138(line=9, column=1, func=func)]
+
+
+@pytest.mark.parametrize(
+    "python_version,find_by_version", [("3.10.0", False), ("3.15.1", True)]
+)
+def test_ftp140(
+    runner: Flake8RunnerFixture, python_version: str, find_by_version: bool
+) -> None:
+    assert runner(
+        filename="ftp140.txt",
+        issue_number="FTP140",
+        args=("--ftp-python-version", python_version),
+    ) == ([FTP140(line=8, column=1)] if find_by_version else [])
