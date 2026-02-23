@@ -619,6 +619,11 @@ Finds calls of `sys` trace functions like `sys.settrace`.
 Checks if `profile` or `cProfile` are imported as with python 3.15 `profiling.tracing` should be used.
 The check is only active for python 3.15 and onwards.
 
+## FTP140
+Checks if `encoding="UTF-8"` is used in any function call as UTF-8 is the default encoding
+starting with python 3.15.
+The check is only active for python 3.15 and onwards.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
