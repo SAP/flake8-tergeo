@@ -1,0 +1,19 @@
+{imp}
+
+# code without issues
+{func}()
+{func}
+class Foo: pass
+
+@{func}(slots=False)
+class Foo: pass
+
+@{func}(slots=True)
+class Foo: pass
+
+# code with issues
+@{func}(frozen=False)
+class Foo: pass
+
+@{func}
+class Foo: pass

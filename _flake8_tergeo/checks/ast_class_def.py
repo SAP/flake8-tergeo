@@ -29,6 +29,7 @@ def check_ast_class_def(node: ast.ClassDef) -> IssueGenerator:
     yield from _check_enum_bases(node)
     yield from _check_duplicate_class_fields(node)
     yield from _check_class_extends_generic(node)
+    yield from _check_dataclass_slots(node)
 
 
 def _check_abc(node: ast.ClassDef) -> IssueGenerator:
@@ -170,4 +171,22 @@ def _check_class_extends_generic(node: ast.ClassDef) -> IssueGenerator:
                 column=base.col_offset,
                 issue_number="128",
                 message="Use the new generic syntax instead of Generic.",
+            )
+
+
+def _check_dataclass_slots(node: ast.ClassDef) -> IssueGenerator:
+    for decorator in node.decorator_list:
+        name = decorator.func if isinstance(decorator, ast.Call) else decorator
+        if not is_expected_node(name, "dataclasses", "dataclass"):
+            continue
+        if (
+            isinstance(decorator, ast.Call)
+            and not any(keyword.arg == "slots" for keyword in decorator.keywords)
+        ) or not isinstance(decorator, ast.Call):
+            yield Issue(
+                line=decorator.lineno,
+                column=decorator.col_offset,
+                issue_number="141",
+                message="Dataclasses should specify 'slots' explicitly. "
+                "If dynamic attributes are needed, set 'slots=False' else to True.",
             )
