@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Checks - flak8e-tergeo</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Checks";
+        var mkdocs_page_input_path = "checks.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> flak8e-tergeo
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../install/">Installation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Checks</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#codes">Codes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp000">FTP000</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp001">FTP001</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp002">FTP002</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp003">FTP003</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp004">FTP004</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp005">FTP005</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp006">FTP006</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp007">FTP007</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp008">FTP008</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp009">FTP009</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp010">FTP010</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp011">FTP011</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp012">FTP012</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp013">FTP013</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp014">FTP014</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp015">FTP015</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp016">FTP016</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp017">FTP017</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp018">FTP018</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp019">FTP019</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp020">FTP020</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp021">FTP021</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp022">FTP022</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp023">FTP023</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp024">FTP024</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp025">FTP025</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp026">FTP026</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp027">FTP027</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp028">FTP028</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp029">FTP029</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp030">FTP030</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp031">FTP031</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp032">FTP032</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp033">FTP033</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp034">FTP034</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp035">FTP035</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp036">FTP036</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp037">FTP037</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp038">FTP038</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp039">FTP039</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp040">FTP040</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp041">FTP041</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp042">FTP042</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp043">FTP043</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp044">FTP044</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp045">FTP045</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp046">FTP046</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp047">FTP047</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp048">FTP048</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp049">FTP049</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp050">FTP050</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp051">FTP051</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp052">FTP052</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp053">FTP053</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp054">FTP054</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp055">FTP055</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp056">FTP056</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp057">FTP057</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp058">FTP058</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp059">FTP059</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp060">FTP060</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp061">FTP061</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp062">FTP062</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp063">FTP063</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp064">FTP064</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp065">FTP065</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp066">FTP066</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp067">FTP067</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp068">FTP068</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp069">FTP069</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp070">FTP070</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp071">FTP071</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp072">FTP072</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp073">FTP073</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp074">FTP074</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp075">FTP075</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp076">FTP076</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp078">FTP078</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp077">FTP077</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp079">FTP079</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp080">FTP080</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp081">FTP081</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp082">FTP082</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp083">FTP083</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp084">FTP084</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp085">FTP085</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp086">FTP086</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp087">FTP087</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp088">FTP088</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp089">FTP089</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp090">FTP090</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp091">FTP091</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp092">FTP092</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp093">FTP093</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp094">FTP094</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp095">FTP095</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp096">FTP096</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp097">FTP097</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp098">FTP098</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp099">FTP099</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp100">FTP100</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp101">FTP101</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp102">FTP102</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp103">FTP103</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp104">FTP104</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp105">FTP105</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp106">FTP106</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp107">FTP107</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp108">FTP108</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp109">FTP109</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp110">FTP110</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp111">FTP111</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp112">FTP112</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp113">FTP113</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp114">FTP114</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp115">FTP115</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp116">FTP116</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp117">FTP117</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp118">FTP118</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp119">FTP119</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp120">FTP120</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp121">FTP121</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp122">FTP122</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp123">FTP123</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp124">FTP124</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp125">FTP125</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp126">FTP126</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp127">FTP127</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp128">FTP128</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp129">FTP129</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp130">FTP130</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp131">FTP131</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp132">FTP132</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp133">FTP133</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp134">FTP134</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp135">FTP135</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp136">FTP136</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp137">FTP137</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp138">FTP138</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp139">FTP139</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp140">FTP140</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp200">FTP200</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ftp220">FTP220</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docstyle">Docstyle</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp300">FTP300</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp301">FTP301</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp302">FTP302</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp303">FTP303</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp304">FTP304</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp305">FTP305</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp306">FTP306</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp307">FTP307</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp308">FTP308</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp309">FTP309</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp310">FTP310</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp311">FTP311</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp312">FTP312</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp313">FTP313</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp314">FTP314</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp315">FTP315</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp316">FTP316</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ftp317">FTP317</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configuration/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../plugins/">Plugins</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">flak8e-tergeo</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Checks</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="checks">Checks</h1>
+<h2 id="codes">Codes</h2>
+<ul>
+<li>FTP000: internal errors</li>
+<li>FTP001 - FTP199: general purpose checks</li>
+<li>FTP200 - FTP219: <code>flask</code> and <code>werkzeug</code> checks</li>
+<li>FTP220 - FTP239: <code>requests</code> checks</li>
+<li>FTP300 - FTP399: docstring checks</li>
+</ul>
+<h2 id="ftp000">FTP000</h2>
+<p>Error while loading this plugin or any other internal error.</p>
+<h2 id="ftp001">FTP001</h2>
+<p>Checks if one of the debug modules <code>pdb</code>, <code>ipdb</code>, <code>pudb</code>, <code>wdb</code>, <code>pdbpp</code> and <code>debugger</code> is used.
+Debug modules should not be left in the code.</p>
+<h2 id="ftp002">FTP002</h2>
+<p>Checks if the debug builtin <code>breakpoint</code> is used.
+A breakpoint should not be left in code as its halts the program leading to a stop.</p>
+<h2 id="ftp003">FTP003</h2>
+<p>Checks for usage of <code>datetime.datetime.utcnow</code> without a <code>tz</code> parameter.
+The value returned by it is in current UTC time but without any timezone assigned.
+Instead call <code>datetime.datetime.now</code> with a timezone parameter (<code>tz</code>).</p>
+<h2 id="ftp004">FTP004</h2>
+<p>Checks that the module/file name follows the PEP-8 convention.</p>
+<h2 id="ftp005">FTP005</h2>
+<p>Finds duplicate class fields (multiple assigns to the same name in the class body).
+Most likely this is a bug or duplicated code line.
+Note, that nNo functions or blocks are checked.</p>
+<h2 id="ftp006">FTP006</h2>
+<p>Finds any usage of unicode directionality formatting characters.
+These characters are used to display left-to-right/right-to-left text in the same line and are
+interpreted by the bidi algorithm.
+However, having these characters in source code can lead to attacks like early
+returns because the code is executed in another way than written.
+A normal code review will not detect these issues.
+The easiest way is to ban these characters.
+For details see <a href="https://trojansource.codes/trojan-source.pdf&gt;">this paper</a>.</p>
+<h2 id="ftp007">FTP007</h2>
+<p>Checks for usage of <code>datetime.datetime.utcfromtimestamp</code> without the <code>tz</code> parameter.
+The returned value is the current UTC time but without any timezone assigned.
+Instead call <code>datetime.datetime.fromtimestamp</code> with the timezone parameter (<code>tz</code>).</p>
+<h2 id="ftp008">FTP008</h2>
+<p>Checks for unnecessary parenthesis, like <code>print((1,2,3))</code> or <code>return (a, b)</code>.
+By default, the parenthesis of a return of a single element tuple is not reported as with parenthesis
+the code is more clear.
+This can be disabled by using <code>disallow-parens-in-return-single-element-tuple</code></p>
+<h2 id="ftp009">FTP009</h2>
+<p>Checks for classes extending <code>BaseException</code>. Extend <code>Exception</code> instead.</p>
+<h2 id="ftp010">FTP010</h2>
+<p>Checks if a disallowed developer comment identifier is used.
+Please refer to the developer comment configuration.</p>
+<h2 id="ftp011">FTP011</h2>
+<p>Checks if the tracking id reference in a developer comment is missing.
+Please refer to the developer comment configuration.</p>
+<h2 id="ftp012">FTP012</h2>
+<p>Checks if an invalid tracking id reference in a developer comment is used.
+Please refer to the developer comment configuration.</p>
+<h2 id="ftp013">FTP013</h2>
+<p>Checks if the description of a developer comment is missing.
+Please refer to the developer comment configuration.</p>
+<h2 id="ftp014">FTP014</h2>
+<p>Checks for calls of <code>urllib.parse.urlparse</code>.
+This function can parse a special <code>;parameters</code> part inside the url path which is not recommended.
+The function <code>urllib.parse.urlsplit</code> does basically the same but ignores the
+<code>parameters</code> part and is therefore faster.</p>
+<h2 id="ftp015">FTP015</h2>
+<p>Checks for imports of <code>pkg_resources</code>.
+This module should not be used anymore as better and faster alternatives are available in
+<code>importlib</code> and its backports.</p>
+<h2 id="ftp016">FTP016</h2>
+<p>Finds usage of python2 metaclass declaration with <code>__metaclass__</code> inside the class body.
+Use <code>metaclass=</code> in the class signature instead.</p>
+<h2 id="ftp017">FTP017</h2>
+<p>Finds legacy calls of <code>typing.NamedTuple</code>.
+Instead, extend <code>typing.NamedTuple</code> by creating a new class.</p>
+<h2 id="ftp018">FTP018</h2>
+<p>Finds legacy calls of <code>typing.TypedDict</code>.
+Instead, extend <code>typing.TypedDict</code> by creating a new class.</p>
+<h2 id="ftp019">FTP019</h2>
+<p>Checks if <code>OSError</code> is called with only one argument being an <code>errno</code> constant, e.g. <code>OSError(errno.ENOENT)</code>.
+The parameter is not set as <code>errno</code> attribute on the exception but used value for the error message instead.
+To properly use it, add a 2nd argument containing a message.</p>
+<h2 id="ftp020">FTP020</h2>
+<p>Checks if an encoding comment (<code># -*- coding: utf-8 -*-</code>) is used.
+These comments are not needed in python 3 anymore.</p>
+<h2 id="ftp021">FTP021</h2>
+<p>Checks if a string value (or a part of it) can be replaced with <code>string.ascii_letters</code>.</p>
+<h2 id="ftp022">FTP022</h2>
+<p>Checks if a string value (or a part of it) can be replaced with <code>string.ascii_lowercase</code>.</p>
+<h2 id="ftp023">FTP023</h2>
+<p>Checks if a string value (or a part of it) can be replaced with <code>string.ascii_uppercase</code>.</p>
+<h2 id="ftp024">FTP024</h2>
+<p>Checks if a string value (or a part of it) can be replaced with <code>string.digits</code>.</p>
+<h2 id="ftp025">FTP025</h2>
+<p>Checks for <code>isinstance</code> calls with an one-element tuple.
+Replace with tuple with the exact value instead and save the time which is needed to construct
+and iterate over the tuple.</p>
+<h2 id="ftp026">FTP026</h2>
+<p>Checks for imports of the following easteregg modules
+- <code>this</code>
+- <code>antigravity</code>
+- <code>__hello__</code>
+- <code>__phello__</code></p>
+<h2 id="ftp027">FTP027</h2>
+<p>Checks for if any of the following easteregg are imported over the <code>__future__</code> module
+- <code>braces</code>
+- <code>barry_as_FLUFL</code>.</p>
+<h2 id="ftp028">FTP028</h2>
+<p>Finds empty doc comments (<code>#:</code>).</p>
+<h2 id="ftp029">FTP029</h2>
+<p>Finds <code>enumeration</code> loops where the index variable is named <code>_</code>.
+Use a classical <code>for</code> loop instead.</p>
+<h2 id="ftp030">FTP030</h2>
+<p>Checks if any unnecessary future import is used.</p>
+<h2 id="ftp031">FTP031</h2>
+<p>Checks if percentage formatting is used in logging calls.</p>
+<h2 id="ftp032">FTP032</h2>
+<p>Checks if a f-string is used in logging calls.</p>
+<h2 id="ftp033">FTP033</h2>
+<p>Checks if str.format is used in logging calls.</p>
+<h2 id="ftp034">FTP034</h2>
+<p>Checks if <code>exc_info=True</code> is used in <code>.exception()</code> logging calls.
+This argument is redundant.</p>
+<h2 id="ftp035">FTP035</h2>
+<p>Checks if the deprecated logging method <code>.warn()</code> is used.</p>
+<h2 id="ftp036">FTP036</h2>
+<p>Checks if <code>exc_info=True</code> is used in error logging calls.
+Use <code>.exception()</code> instead.</p>
+<h2 id="ftp037">FTP037</h2>
+<p>Checks if keys used in the <code>extra</code> dict of logging calls clashes with existing
+<code>logging.LogRecord</code> fields.
+This can lead to errors during runtime.</p>
+<h2 id="ftp038">FTP038</h2>
+<p>Checks if <code>float('NaN')</code> is used.
+Use <code>math.nan</code> instead.</p>
+<h2 id="ftp039">FTP039</h2>
+<p>Checks if a dunder is used in the middle of the name like <code>a__b</code>.
+Double underscores at the start and at the end are ignored.</p>
+<h2 id="ftp040">FTP040</h2>
+<p>Checks if a file is in a folder without an __init__.py file.
+The error is reported on the first line of the file.
+If files are checked which should not be part of a namespace package (e.g. setup.py), a <em>noqa</em>
+comment or "per-file-ignores" can be used.</p>
+<h2 id="ftp041">FTP041</h2>
+<p>Checks if a module is used which is not specified as a requirement.
+Please refer to the requirement check configuration.</p>
+<h2 id="ftp042">FTP042</h2>
+<p>Checks if a class defines a magic method like <code>__hex__</code> which is legacy from python2 and is no
+longer needed.</p>
+<h2 id="ftp043">FTP043</h2>
+<p>Checks if a function starting with <code>get_</code> has no return or yield statement.
+Consider to rename the function as the name implies a return value.
+A function will be ignored, if it's a stub (e.g. just has a pass statement or only throws an exception)</p>
+<h2 id="ftp044">FTP044</h2>
+<p>Checks if an exception is raised from itself, e.g. <code>raise exc from exc</code>.</p>
+<h2 id="ftp045">FTP045</h2>
+<p>Checks if a interactive python function is called
+- <code>help</code>
+- <code>exit</code></p>
+<h2 id="ftp046">FTP046</h2>
+<p>Checks if an except block only contains a reraise of the caught exception.
+Remove the try-except as it does not anything.</p>
+<h2 id="ftp047">FTP047</h2>
+<p>Checks if a too generic exception (<code>Exception</code> and <code>BaseException</code>) is raised.
+Consider to raise a more concrete exception instead.</p>
+<h2 id="ftp048">FTP048</h2>
+<p>Checks if a float is used as a dict key.
+Floats have precision errors, so using them as keys is unreliable and can lead to errors.</p>
+<h2 id="ftp049">FTP049</h2>
+<p>Checks if a single element unpacking is used (e.g. <code>(a,) = my_list</code>).
+It can be simplified to <code>a = mylist[0]</code></p>
+<h2 id="ftp050">FTP050</h2>
+<p>Checks if a <code>print</code> statement is used.</p>
+<h2 id="ftp051">FTP051</h2>
+<p>Checks if a <code>pprint.pprint</code> statement is used.</p>
+<h2 id="ftp052">FTP052</h2>
+<p>Checks if a <code>pprint.pp</code> statement is used.</p>
+<h2 id="ftp053">FTP053</h2>
+<p>Checks if a <code>pprint.PrettyPrinter</code> statement is used.</p>
+<h2 id="ftp054">FTP054</h2>
+<p>Checks if a union type annotation can utilize the new syntax of PEP 604.
+For example, <code>a: Union[Foo, Bar]</code> can be rewritten to <code>a: Foo|bar</code>.</p>
+<h2 id="ftp055">FTP055</h2>
+<p>Checks if an optional type annotations can utilize the new syntax of PEP 604.
+For example, <code>a: Optional[Foo]</code> can be rewritten to <code>a: Foo|None</code>.</p>
+<h2 id="ftp056">FTP056</h2>
+<p>Checks if a builtin alias in the <code>typing</code> module can be rewritten as the builtin itself
+as of PEP 585.
+E.g. <code>typing.List[str]</code> can be changed to <code>list[str]</code>.</p>
+<h2 id="ftp057">FTP057</h2>
+<p>Checks if relative imports are used.</p>
+<h2 id="ftp058">FTP058</h2>
+<p>Checks if an unnecessary import alias is used, e.g. <code>import foo as foo</code>.</p>
+<h2 id="ftp059">FTP059</h2>
+<p>Checks if an argument in a function call has a pointless starred expression.
+For single starred expressions, lists, dicts, tuples, sets, strings and bytes are checked.
+As an example, <code>foo(*[1, 2, 3])</code> can be simplified to <code>foo(1, 2, 3)</code>.
+For double starred expressions, only dicts are checked.
+An issue is only raised if all keys of the dict are strings, else the dict is not considered
+static and will be ignore.
+As an example, <code>foo(**{'a': 1, 'b': 2})</code> can be simplified to <code>foo(a=1, b=2)</code>.</p>
+<h2 id="ftp060">FTP060</h2>
+<p>Checks if a percentage formatting is used</p>
+<h2 id="ftp061">FTP061</h2>
+<p>Checks if <code>"".format()</code> is used</p>
+<h2 id="ftp062">FTP062</h2>
+<p>Checks if <code>str.format</code> is used</p>
+<h2 id="ftp063">FTP063</h2>
+<p>Check if <code>contextlib.wraps</code> is used. The call will work at runtime, but <code>wraps</code> comes
+originally from <code>functools.wraps</code> and <code>contextlib</code> doesn't re-export it, so it
+should be considered as an implementation detail which is not stable.
+Therefore <code>functools.wraps</code> should be used.</p>
+<h2 id="ftp064">FTP064</h2>
+<p>Check if <code>__debug__</code> is used. This constant is false when python is not started in optimized
+<code>-O</code> mode. Because this mode is basically never used and having code which only runs when not
+running in a special mode can have unexpected side effects, this constant should not be used.</p>
+<h2 id="ftp065">FTP065</h2>
+<p>Check if <code>collections.namedtuple</code> is used. <code>typing.NamedTuple</code> should be used
+instead, since it integrates nicer with IDE's and type checkers</p>
+<h2 id="ftp066">FTP066</h2>
+<p>Check if an <code>enum.Enum</code> subclass is used which also extends <code>int</code>, so e.g.
+<code>class MyEnum(Enum, int)</code>.
+For that the alias <code>enum.IntEnum</code> can be used</p>
+<h2 id="ftp067">FTP067</h2>
+<p>Check if an <code>enum.Enum</code> subclass is used which also extends <code>str</code>, so e.g.
+<code>class MyEnum(Enum, str)</code>.
+For that the alias <code>enum.StrEnum</code> can be used.
+The check is only active for python3.11+</p>
+<h2 id="ftp068">FTP068</h2>
+<p>Check if a call of <code>subprocess.run</code> has the value <code>subprocess.PIPE</code> assigned
+to both <code>stdout</code> and <code>stderr</code>. In this case, it can be simplified to <code>capture_output=True</code>.</p>
+<h2 id="ftp069">FTP069</h2>
+<p>Check if a variable has a name which can lead to confusion like <code>pi = 5</code> or <code>nan = 4</code>.</p>
+<h2 id="ftp070">FTP070</h2>
+<p>Checks for super calls with arguments</p>
+<h2 id="ftp071">FTP071</h2>
+<p>Check for assign and return statements.
+Normally the check also finds statements like <code>a: int = 2; return a</code>.
+To configure the step to ignore assignments with annotations, use <code>ignore-annotation-in-assign-return</code>.
+By default the check is disabled if the variable name happens to be part of a global/nonlocal statement.
+The check is also suppressed, if the assign-return is part of a <code>try</code> block and in the
+corresponding <code>finally</code> block the variable is used</p>
+<h2 id="ftp072">FTP072</h2>
+<p>Checks for unicode string prefixes like <code>u"abc"</code></p>
+<h2 id="ftp073">FTP073</h2>
+<p>Checks for the usage of <code>functools.lru_cache</code> which can be replaced with
+<code>functools.cache</code>.
+The check is only active if <code>functools.lru_cache</code> is somehow imported.</p>
+<h2 id="ftp074">FTP074</h2>
+<p>Checks if a <code>functools.cache</code> or <code>functools.lru_cache</code> is used on a class method.
+Since the <code>self</code> argument is cached as well, garbage collection is blocked, leading to memory leaks.
+If the method is decorated with <code>staticmethod</code> or <code>classmethod</code>, the issue doesn't happen.
+Note, that the check only considers methods which are defined as a direct child of a class.</p>
+<h2 id="ftp075">FTP075</h2>
+<p>Check if <code>subprocess.run</code> or <code>subprocess.Popen</code> is called with <code>universal_newlines</code>.
+This keyword argument can be replaced with <code>text</code> which is more readable</p>
+<h2 id="ftp076">FTP076</h2>
+<p>Checks for import of <code>from re import DEBUG</code> or usage of <code>re.DEBUG</code></p>
+<h2 id="ftp078">FTP078</h2>
+<p>Checks for type comments which should be replaced by annotations. <code>type:ignore</code> is ignored</p>
+<h2 id="ftp077">FTP077</h2>
+<p>Check if in a union, <code>None</code> always comes last.
+For instance <code>a: int|float|None</code> is okay, but <code>a: int|None|float</code> is not.
+It is active for type annotations, type aliases and <code>isinstance</code> calls.
+This check does not consider <code>typing.Optional</code></p>
+<h2 id="ftp079">FTP079</h2>
+<p>Checks for unnecessary lambda statement which can be replaced with their built-in function
+alternative, e.g. <code>lambda: []</code> with <code>list</code></p>
+<h2 id="ftp080">FTP080</h2>
+<p>Checks for implicit concatenated strings on the same line</p>
+<h2 id="ftp081">FTP081</h2>
+<p>Checks for missing <code>onerror</code> keyword in <code>os.walk</code>.
+The check is only active if <code>os.walk</code> is somehow imported.</p>
+<h2 id="ftp082">FTP082</h2>
+<p>Checks for unnecessary usage of <code>metaclass=abc.ABCMeta</code>, which can be simplified to <code>abc.ABC</code></p>
+<h2 id="ftp083">FTP083</h2>
+<p>Checks for unnecessary usage of <code>str()</code>, like <code>str("a")</code></p>
+<h2 id="ftp084">FTP084</h2>
+<p>Checks for unnecessary usage of <code>int()</code>, like <code>int(1)</code></p>
+<h2 id="ftp085">FTP085</h2>
+<p>Checks for unnecessary usage of <code>float()</code>, like <code>float(1.1)</code></p>
+<h2 id="ftp086">FTP086</h2>
+<p>Checks for unnecessary usage of <code>bool()</code>, like <code>bool(True)</code></p>
+<h2 id="ftp087">FTP087</h2>
+<p>Checks for imports of <code>xml.etree.cElementTree</code></p>
+<h2 id="ftp088">FTP088</h2>
+<p>Checks for the usage of <code>io.open</code> which can be simplified to <code>open</code>.</p>
+<h2 id="ftp089">FTP089</h2>
+<p>Checks for the usage of <code>OSError</code> aliases
+<code>EnvironmentError</code>, <code>IOError</code> and <code>WindowsError</code>.
+In addition, it also finds usage and imports of <code>socket.error</code> and <code>select.error</code>.
+In this case, calls like <code>raise socket.error()</code> are not checked.</p>
+<h2 id="ftp090">FTP090</h2>
+<p>Checks for unsorted <code>__all__</code> attributes on any level.
+The check is only done if the type is a list, tuple or set during parsing
+(e.g. <code>list</code> is a function and not a list during parsing).
+Only items which are strings are used in the sort check, all others are ignored.</p>
+<h2 id="ftp091">FTP091</h2>
+<p>Checks if backslashes are used to split long lines.</p>
+<h2 id="ftp092">FTP092</h2>
+<p>Checks for unnecessary usage of 0 as starting point with no step size defined
+in <code>range</code> call.</p>
+<h2 id="ftp093">FTP093</h2>
+<p>Find functions starting with <code>is_/have_/has_/can_</code> which have a non-boolean return type.
+<code>typing.TypeGuard</code> is accepted as an alternative to a boolean.
+Functions with no return type annotation are ignored.</p>
+<h2 id="ftp094">FTP094</h2>
+<p>Find cases where the <code>__slot__</code> attribute is assigned something else than a tuple or dict,
+like <code>__slots__ = []</code> or <code>__slots__ = get_slots()</code>.
+In general, using e.g. a list or single string is fine, but always using a tuple or dict
+is more consistent and recommended</p>
+<h2 id="ftp095">FTP095</h2>
+<p>Checks for unnecessary use of unpack operators.</p>
+<h2 id="ftp096">FTP096</h2>
+<p>Find functions which are decorated with <code>property</code>, <code>classmethod</code> or
+<code>staticmethod</code> but are outside of a class.</p>
+<h2 id="ftp097">FTP097</h2>
+<p>Find enums without <code>enum.unique</code> decorator to make sure no duplicate values are assigned.</p>
+<h2 id="ftp098">FTP098</h2>
+<p>Checks for usage of <code>multiprocessing.set_start_method</code>.
+A multiprocessing Context should be used instead.</p>
+<h2 id="ftp099">FTP099</h2>
+<p>Since python 3.11 the <code>datetime.timezone.utc</code> constant is also accessible with
+<code>datetime.UTC</code> which is found by this check</p>
+<h2 id="ftp100">FTP100</h2>
+<p>Find <code>print("")</code> which can be simplified to <code>print()</code></p>
+<h2 id="ftp101">FTP101</h2>
+<p>Find unpack operators inside of a dict which can be rewritten with the dict union operator.
+E.g. <code>{**a, **b}</code> can be rewritten to <code>a|b</code> and <code>{**a, 'b': 2}</code> to <code>a|{'b': 2}</code>.
+The check ignores unpacks in the middle of the dict, e.g. <code>{'a': 1, **b, 'c': 3}</code>.</p>
+<h2 id="ftp102">FTP102</h2>
+<p>Find <code>Path(".")</code> of <code>pathlib.Path</code> which can be simplified to <code>Path()</code></p>
+<h2 id="ftp103">FTP103</h2>
+<p>Find usage of the OS dependent <code>pathlib</code> classes <code>pathlib.PosixPath</code>,
+<code>pathlib.WindowsPath</code>, <code>pathlib.PurePosixPath</code> and
+<code>pathlib.PureWindowsPath</code>.
+These classes can be replaced with <code>pathlib.Path</code> and <code>pathlib.PurePath</code>,
+because they are OS independent and create the correct OS dependent class behind the scenes</p>
+<h2 id="ftp104">FTP104</h2>
+<p>Finds <code>typing.Never</code> and <code>typing.NoReturn</code> in unions in type annotations and type alias.
+These types are redundant in unions and can be removed.</p>
+<h2 id="ftp105">FTP105</h2>
+<p>Find nested <code>typing.Union</code> types like <code>Union[Union[int, str], float]</code>.
+These can be simplified to <code>Union[int, str, float]</code></p>
+<h2 id="ftp106">FTP106</h2>
+<p>Find <code>typing.Union</code> with a single element, e.g. <code>Union[int]</code>. This can be simplified to
+<code>int</code></p>
+<h2 id="ftp107">FTP107</h2>
+<p>Find usage of <code>typing.Never</code> in return annotations.
+Instead use <code>typing.NoReturn</code></p>
+<h2 id="ftp108">FTP108</h2>
+<p>Find usage of <code>typing.NoReturn</code> in non-return annotations (arguments and assignments).
+Usage in <code>Callable</code> like <code>x = Callable[[int], NoReturn]</code> is ignored.
+Instead use <code>typing.Never</code>.</p>
+<h2 id="ftp109">FTP109</h2>
+<p>Checks for unnecessary usage of <code>bytes()</code>, like <code>bytes(b'abc'')</code></p>
+<h2 id="ftp110">FTP110</h2>
+<p>Find <code>str()</code> which can be simplified to <code>""</code></p>
+<h2 id="ftp111">FTP111</h2>
+<p>Find <code>int()</code> which can be simplified to <code>0</code></p>
+<h2 id="ftp112">FTP112</h2>
+<p>Find <code>float()</code> which can be simplified to <code>0.0</code></p>
+<h2 id="ftp113">FTP113</h2>
+<p>Find <code>bool()</code> which can be simplified to <code>False</code></p>
+<h2 id="ftp114">FTP114</h2>
+<p>Find <code>bytes()</code> which can be simplified to <code>b""</code></p>
+<h2 id="ftp115">FTP115</h2>
+<p>Find invisible unicode characters in source code</p>
+<h2 id="ftp116">FTP116</h2>
+<p>Find named expressions (walrus operator <code>:=</code>) in assert statements</p>
+<h2 id="ftp117">FTP117</h2>
+<p>Find functions calling <code>warnings.warn</code> but which are also decorated with
+<code>warnings.deprecated</code> or <code>typing_extensions.deprecated</code></p>
+<h2 id="ftp118">FTP118</h2>
+<p>Find functions calling <code>warnings.warn</code> but which could use
+<code>warnings.deprecated</code> or <code>typing_extensions.deprecated</code></p>
+<h2 id="ftp119">FTP119</h2>
+<p>Checks for unsorted <code>__slots__</code> attributes on any level.
+The check is only done if the type is a list, tuple or set during parsing.
+Only items which are strings are used in the sort check; all others are ignored.</p>
+<h2 id="ftp120">FTP120</h2>
+<p>Find assignments to <code>__slots__</code> outside of a class. The assignment can be wrapped into
+constructs like an <code>if</code> but the first <em>container</em> needs to be a class and not a function or
+module</p>
+<h2 id="ftp121">FTP121</h2>
+<p>Find calls of soft-deprecated <code>os</code> functions which should be replaced with
+<code>subprocess</code> calls like <code>os.popen</code> or <code>os.spawnv</code></p>
+<h2 id="ftp122">FTP122</h2>
+<p>Find methods decorated with both <code>classmethod</code> and <code>property</code>.
+Through the different python versions the behavior is unstable and should be avoided</p>
+<h2 id="ftp123">FTP123</h2>
+<p>Finds usage of <code>typing.Generator</code> where the last argument in the subscript is <code>None</code>,
+because with PEP696 these can be omitted. The check is only active if</p>
+<ul>
+<li>running python 3.13+</li>
+<li>a <code>from __future__ import annotations</code> import is present in the module</li>
+<li>the current code is inside a <code>typing.TYPE_CHECKING</code> block</li>
+</ul>
+<p>Also, the check will only consider type annotations (to prevent invalid syntax) if
+at least one of the following conditions is true:</p>
+<ul>
+<li>python 3.12 or below is used</li>
+<li>the code is not inside a <code>typing.TYPE_CHECKING</code> block</li>
+</ul>
+<h2 id="ftp124">FTP124</h2>
+<p>Find assignments to <code>__all__</code> on non-module level, e.g. in classes or functions</p>
+<h2 id="ftp125">FTP125</h2>
+<p>Checks if the <code>typing.override</code> decorator is the first decorator applied to a function.
+If descriptor based decorators like <code>@property</code> are present, too, <code>typing.override</code> should be the
+seconds decorator applied.</p>
+<p>See <a href="https://peps.python.org/pep-0698/#limitations-of-setting-override">here</a> for details why the order matters</p>
+<h2 id="ftp126">FTP126</h2>
+<p>Checks if <code>typing.TypeAlias</code> is used.
+With <a href="https://peps.python.org/pep-0695/">PEP 695</a> the <code>type</code> statement should be used instead.
+The check is only active for python 3.12 and onwards</p>
+<h2 id="ftp127">FTP127</h2>
+<p>Checks if <code>typing.TypeVar</code> is used.
+With <a href="https://peps.python.org/pep-0695/">PEP 695</a>, <code>TypeVar</code>s are no longer needed.
+The check is only active for python 3.12 and onwards</p>
+<h2 id="ftp128">FTP128</h2>
+<p>Checks if <code>typing.Generic</code> is used.
+With <a href="https://peps.python.org/pep-0695/">PEP 695</a>, <code>Generic</code> is no longer needed.
+The check is only active for python 3.12 and onwards</p>
+<h2 id="ftp129">FTP129</h2>
+<p>Checks if the cause of a raised error is the same as the caught error, e.g.</p>
+<pre><code class="language-python">except ValueError:
+    raise MyError(&quot;some message&quot;) from ValueError
+</code></pre>
+<p>This is most likely a bug and should be replaced with</p>
+<pre><code class="language-python">except ValueError as err:
+    raise MyError(&quot;some message&quot;) from err
+</code></pre>
+<h2 id="ftp130">FTP130</h2>
+<p>Checks if <code>string.Template</code> is used with python 3.14 onwards.
+Use t-strings (PEP 750) instead.</p>
+<h2 id="ftp131">FTP131</h2>
+<p>Checks if <code>re.compile</code> is called with a string constant within a
+* function
+* for loop
+* while loop
+* lambda</p>
+<p>As the regex is recompiled each time the construct is called but won't change, it can be moved
+to a constant on module level.</p>
+<h2 id="ftp132">FTP132</h2>
+<p>Checks if a module functions of <code>re</code> like <code>re.fullmatch</code> is called with a constant string
+within a
+* function
+* for loop
+* while loop
+* lambda</p>
+<p>As the regex is recompiled each time the construct is called but won't change, the pattern can be
+compiled and stored in a constant and be used instead.</p>
+<h2 id="ftp133">FTP133</h2>
+<p>Checks <code>bz2</code>, <code>gzip</code>, <code>lzma</code> or <code>zlib</code> are imported without using the <code>compression</code> namespace.
+With python3.14 these packages should be imported like <code>import compression.bz2</code> instead of
+<code>import bz2</code>.
+The check is only active for python 3.14 and onwards.</p>
+<h2 id="ftp134">FTP134</h2>
+<p>Checks if <code>isinstance</code> is called with a tuple which can be replaced with a union type.
+For example <code>isinstance(foo, (str, int))</code> can be rewritten to <code>isinstance(foo, str|int)</code>.</p>
+<h2 id="ftp135">FTP135</h2>
+<p>Checks if <code>issubclass</code> is called with a tuple which can be replaced with a union type.
+For example <code>issubclass(Foo, (A, B))</code> can be rewritten to <code>issubclass(Foo, A|B)</code>.</p>
+<h2 id="ftp136">FTP136</h2>
+<p>Checks if <code>type(None)</code> is used within <code>isinstance</code> when called with a union type.
+For example <code>isinstance(foo, (str, type(None)))</code> can be rewritten to <code>isinstance(foo, str|None)</code>.</p>
+<h2 id="ftp137">FTP137</h2>
+<p>Checks for mocking of <code>open</code> using <code>unittest.mock</code> or <code>pytest-mock</code>. Instead of mocking the builtin, mock <code>open</code> in the specific module where it's imported and used.</p>
+<h2 id="ftp138">FTP138</h2>
+<p>Finds calls of <code>sys</code> trace functions like <code>sys.settrace</code>.</p>
+<h2 id="ftp139">FTP139</h2>
+<p>Checks if <code>profile</code> or <code>cProfile</code> are imported as with python 3.15 <code>profiling.tracing</code> should be used.
+The check is only active for python 3.15 and onwards.</p>
+<h2 id="ftp140">FTP140</h2>
+<p>Checks if <code>encoding="UTF-8"</code> is used in any function call as UTF-8 is the default encoding
+starting with python 3.15.
+The check is only active for python 3.15 and onwards.</p>
+<h2 id="ftp200">FTP200</h2>
+<p>Find calls of <code>flask.abort</code> and <code>werkzeug.exceptions.abort</code>.
+Instead of calling this helper function raise the appropriate exception directly</p>
+<h2 id="ftp220">FTP220</h2>
+<p>Find usage of <code>requests.codes</code> which should be replaced with <code>http.HTTPStatus</code></p>
+<h2 id="docstyle">Docstyle</h2>
+<p>Rules to make docstrings PEP 257 compliant inspired by <a href="https://github.com/PyCQA/pydocstyle">pydocstyle</a>.
+These rules are meant for projects which cannot or don't want to use ruff,, e.g. because flake8 is still used in parallel.</p>
+<h3 id="ftp300">FTP300</h3>
+<p>Checks if a public package has a docstring in it's <code>__init__</code> file.</p>
+<h3 id="ftp301">FTP301</h3>
+<p>Checks if a public class has a docstring.</p>
+<h3 id="ftp302">FTP302</h3>
+<p>Checks if a public method has a docstring.</p>
+<h3 id="ftp303">FTP303</h3>
+<p>Checks if a public function has a docstring.</p>
+<h3 id="ftp304">FTP304</h3>
+<p>Checks if a magic method (e.g. <code>__eq__</code>) has a docstring.
+<code>__init__</code> methods are ignored</p>
+<h3 id="ftp305">FTP305</h3>
+<p>Checks if a <code>__init__</code> method has a docstring.</p>
+<h3 id="ftp306">FTP306</h3>
+<p>Checks if an overridden method (decorated with <code>typing.override</code>) has a docstring.</p>
+<h3 id="ftp307">FTP307</h3>
+<p>Checks if a public module has a docstring.</p>
+<h3 id="ftp308">FTP308</h3>
+<p>Checks if a docstring is completely empty.</p>
+<h3 id="ftp309">FTP309</h3>
+<p>Checks if the first line of a docstring is empty.
+The first line is considered the summary.</p>
+<h3 id="ftp310">FTP310</h3>
+<p>Checks that in a multiline docstring the first line is followed by an empty line.</p>
+<h3 id="ftp311">FTP311</h3>
+<p>Checks if the first line ends with a period.</p>
+<h3 id="ftp312">FTP312</h3>
+<p>Checks that a function/method decorated with <code>typing.overload</code> has no docstring.</p>
+<h3 id="ftp313">FTP313</h3>
+<p>Checks if a magic function (e.g. module level <code>__getattr__</code>) has a docstring.</p>
+<h3 id="ftp314">FTP314</h3>
+<p>Checks that no empty line is present between a function/method docstring and the function body</p>
+<h3 id="ftp315">FTP315</h3>
+<p>Checks that the closing <code>"""</code> is on a separate line in a multiline docstring</p>
+<h3 id="ftp316">FTP316</h3>
+<p>Checks that a docstring starts with an uppercase letter or number unless the word is part of
+<code>ftp-docstyle-lowercase-words</code></p>
+<h3 id="ftp317">FTP317</h3>
+<p>Checks if triple quotes (<code>"""</code> or <code>'''</code>) are used for docstrings</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../install/" class="btn btn-neutral float-left" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../configuration/" class="btn btn-neutral float-right" title="Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../install/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
