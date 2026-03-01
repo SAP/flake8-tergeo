@@ -55,6 +55,12 @@ FTP128 = partial(
     issue_number="FTP128",
     message="Use the new generic syntax instead of Generic.",
 )
+FTP141 = partial(
+    Issue,
+    issue_number="FTP141",
+    message="Dataclasses should specify 'slots' explicitly. "
+    "If dynamic attributes are needed, set 'slots=False' else to True.",
+)
 
 
 def FTP082(line: int, column: int, clazz: str) -> Issue:  # pylint:disable=invalid-name
@@ -247,6 +253,25 @@ def test_ftp128(
             FTP128(line=10, column=9),
             FTP128(line=11, column=9),
             FTP128(line=12, column=15),
+        ]
+    else:
+        assert not results
+
+
+@pytest.mark.parametrize(
+    "imp,func,found",
+    [
+        ("from foo import dataclass", "dataclass", False),
+        ("from dataclasses import dataclass", "dataclass", True),
+        ("import dataclasses", "dataclasses.dataclass", True),
+    ],
+)
+def test_ftp141(runner: Flake8RunnerFixture, imp: str, func: str, found: bool) -> None:
+    results = runner(filename="ftp141.txt", issue_number="FTP141", imp=imp, func=func)
+    if found:
+        assert results == [
+            FTP141(line=15, column=2),
+            FTP141(line=18, column=2),
         ]
     else:
         assert not results

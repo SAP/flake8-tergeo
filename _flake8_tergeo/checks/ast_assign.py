@@ -14,7 +14,7 @@ from _flake8_tergeo.type_definitions import IssueGenerator
 BAD_NAMES = ["pi", "e", "tau", "inf", "nan"]
 
 
-@dataclass
+@dataclass(slots=True)
 class Assignment:
     """Abstract representation of an assignment."""
 
