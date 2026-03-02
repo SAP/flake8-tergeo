@@ -624,6 +624,11 @@ Checks if `encoding="UTF-8"` is used in any function call as UTF-8 is the defaul
 starting with python 3.15.
 The check is only active for python 3.15 and onwards.
 
+## FTP141
+Checks if `slots` in `@dataclass` is set explicitly.
+As slots save performance and memory its recommended to set it to True.
+If dynamic attributes are needed, set the value to False and add a comment explaining the background.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
