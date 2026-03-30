@@ -629,6 +629,30 @@ Checks if `slots` in `@dataclass` is set explicitly.
 As slots save performance and memory its recommended to set it to True.
 If dynamic attributes are needed, set the value to False and add a comment explaining the background.
 
+## FTP142
+Checks for bare `raise` statements in `except` blocks where the exception was caught with an alias.
+When using a bare `raise`, the fact that the except block was reached and executed is hidden from
+the traceback. Using `raise err` instead preserves this information, which can be helpful for
+debugging as the except block may have had side effects that are otherwise not understandable.
+
+Example of code that triggers this check:
+```python
+try:
+    do_something()
+except Exception as err:
+    something()
+    raise  # FTP142: Use 'raise err' instead
+```
+
+Recommended fix:
+```python
+try:
+    do_something()
+except Exception as err:
+    something()
+    raise err
+```
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
