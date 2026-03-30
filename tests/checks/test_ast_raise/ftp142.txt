@@ -1,0 +1,66 @@
+# code without issues
+
+# explicit reraise with alias - OK
+try:
+    do()
+except Exception as err:
+    raise err
+
+# explicit reraise with alias and condition - OK
+try:
+    do()
+except Exception as err:
+    if str(err) != "something":
+        raise err
+
+# raise different exception - OK
+try:
+    do()
+except Exception as err:
+    raise ValueError("new error")
+
+# raise with from - OK
+try:
+    do()
+except Exception as err:
+    raise ValueError("new error") from err
+
+# bare raise outside except block - OK
+def foo():
+    raise
+
+# code with issues
+
+# bare raise with alias
+try:
+    do()
+except Exception as err:
+    raise
+
+# bare raise without alias
+try:
+    do()
+except Exception:
+    raise
+
+# bare raise with alias and condition
+try:
+    do()
+except Exception as err:
+    if str(err) != "something":
+        raise
+
+# bare raise with alias in tuple except
+try:
+    do()
+except (ValueError, TypeError) as err:
+    raise
+
+# nested try-except, outer has alias
+try:
+    do()
+except Exception as outer_err:
+    try:
+        do_more()
+    except ValueError as inner_err:
+        raise

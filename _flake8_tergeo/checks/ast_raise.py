@@ -18,6 +18,7 @@ def check_raise(node: ast.Raise) -> IssueGenerator:
     yield from _check_raise_too_generic(node)
     yield from _check_raise_from_itself(node)
     yield from _check_raise_caught_class(node)
+    yield from _check_bare_raise_with_alias(node)
 
 
 def _check_raise_too_generic(node: ast.Raise) -> IssueGenerator:
@@ -94,3 +95,29 @@ def _check_raise_caught_class(node: ast.Raise) -> IssueGenerator:
         and stringify(except_node.type) == cause
     ):
         yield _get_129_issue(node)
+
+
+def _check_bare_raise_with_alias(node: ast.Raise) -> IssueGenerator:
+    """Check for bare raise in except block where exception was caught with alias.
+
+    When using a bare `raise`, the fact that the except block was reached and
+    executed is hidden from the traceback. Using `raise err` instead preserves
+    this information, which can be helpful for debugging.
+    """
+    # Only check bare raise statements (no exception specified)
+    if node.exc is not None:
+        return
+
+    except_node = _get_except(node)
+    if not except_node:
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="142",
+        message=(
+            "Use 'raise <err>' instead of bare 'raise' "
+            "to preserve the exception chain in traceback."
+        ),
+    )
