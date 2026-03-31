@@ -2,6 +2,16 @@
 
 <!-- towncrier release notes start -->
 
+## 26.3.31.0 (2026-03-31)
+
+### Features
+
+- Added FTP142: Detect bare `raise` statements in `except` blocks
+- Added FTP143: Check for raising a class instead of an instance (e.g., `raise Exception` instead of `raise Exception()`).
+- FTP140 which can find unnecessary UTF-8 encodings
+- FTP141 which finds dataclasses where the `slots` keyword is not specified explicitly
+
+
 ## 26.2.20.0 (2026-02-20)
 
 ### Features
