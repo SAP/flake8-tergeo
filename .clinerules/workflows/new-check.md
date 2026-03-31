@@ -47,7 +47,8 @@ Follow the existing patterns in the codebase:
 
 1. Use the `@register` decorator with the appropriate AST node type
 2. Yield `Issue` objects with `line`, `column`, `issue_number`, and `message`
-3. Keep the check function focused and well-documented
+3. Keep the check function focused and well-documented with comments
+4. Keep docstrings to a minimum
 
 Example structure:
 
@@ -113,7 +114,7 @@ Create a news fragment in the `news/` directory:
 
 ```bash
 towncrier create +.feature
-# the new file is echoed on teh console
+# the new file is echoed on the console
 echo "Added FTPxxx: Brief description of the check." > filename
 ```
 
@@ -123,6 +124,7 @@ Run the full linting:
 
 ```bash
 # Run linting
+git add --all
 pre-commit run --all-files
 ```
 

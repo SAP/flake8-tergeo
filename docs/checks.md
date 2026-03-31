@@ -653,6 +653,13 @@ except Exception as err:
     raise err
 ```
 
+## FTP143
+Checks for raising a class instead of an instance.
+Raising a class directly (e.g., `raise Exception`) is valid Python but is considered bad practice.
+It's better to raise an instance (e.g., `raise Exception()` or `raise Exception("message")`).
+
+Variables (names starting with lowercase letters) are allowed as they typically hold exception instances.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

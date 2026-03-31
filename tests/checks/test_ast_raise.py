@@ -30,6 +30,11 @@ FTP142 = partial(
         "to preserve the exception chain in traceback."
     ),
 )
+FTP143 = partial(
+    Issue,
+    issue_number="FTP143",
+    message="Raise an instance instead of a class.",
+)
 
 
 def FTP047(*, line: int, column: int, exc: str) -> Issue:  # pylint:disable=invalid-name
@@ -69,4 +74,15 @@ def test_ftp142(runner: Flake8RunnerFixture) -> None:
         FTP142(line=51, column=9),
         FTP142(line=57, column=5),
         FTP142(line=66, column=9),
+    ]
+
+
+def test_ftp143(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp143.txt", issue_number="FTP143")
+    assert results == [
+        FTP143(line=18, column=1),
+        FTP143(line=19, column=1),
+        FTP143(line=20, column=1),
+        FTP143(line=21, column=1),
+        FTP143(line=22, column=1),
     ]
