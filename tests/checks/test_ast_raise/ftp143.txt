@@ -1,0 +1,22 @@
+# Valid code - raising instances
+raise Exception()
+raise Exception("message")
+raise ValueError()
+raise ValueError("error message")
+raise CustomError()
+raise CustomError("custom message")
+raise module.CustomError()
+raise module.CustomError("message")
+
+# Valid code - raising variables (lowercase names)
+raise err
+raise error
+raise my_exception
+raise caught_error
+
+# Invalid code - raising classes instead of instances
+raise Exception
+raise ValueError
+raise CustomError
+raise module.CustomError
+raise some_module.nested.MyException

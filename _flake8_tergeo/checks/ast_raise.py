@@ -19,6 +19,7 @@ def check_raise(node: ast.Raise) -> IssueGenerator:
     yield from _check_raise_from_itself(node)
     yield from _check_raise_caught_class(node)
     yield from _check_bare_raise_with_alias(node)
+    yield from _check_raise_class_instead_of_instance(node)
 
 
 def _check_raise_too_generic(node: ast.Raise) -> IssueGenerator:
@@ -120,4 +121,22 @@ def _check_bare_raise_with_alias(node: ast.Raise) -> IssueGenerator:
             "Use 'raise <err>' instead of bare 'raise' "
             "to preserve the exception chain in traceback."
         ),
+    )
+
+
+def _check_raise_class_instead_of_instance(node: ast.Raise) -> IssueGenerator:
+    """Check for raising a class instead of an instance."""
+    if not isinstance(node.exc, ast.Name | ast.Attribute):
+        return
+    name = stringify(node.exc)
+
+    # For simple names without dots, skip if starts with lowercase (likely a variable)
+    if "." not in name and name[0].islower():
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="143",
+        message="Raise an instance instead of a class.",
     )
