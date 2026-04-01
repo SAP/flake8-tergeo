@@ -80,9 +80,9 @@ def test_ftp142(runner: Flake8RunnerFixture) -> None:
 def test_ftp143(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp143.txt", issue_number="FTP143")
     assert results == [
-        FTP143(line=18, column=1),
-        FTP143(line=19, column=1),
-        FTP143(line=20, column=1),
-        FTP143(line=21, column=1),
         FTP143(line=22, column=1),
+        FTP143(line=23, column=1),
+        FTP143(line=24, column=1),
+        FTP143(line=25, column=1),
+        FTP143(line=26, column=1),
     ]

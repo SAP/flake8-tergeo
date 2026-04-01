@@ -130,8 +130,10 @@ def _check_raise_class_instead_of_instance(node: ast.Raise) -> IssueGenerator:
         return
     name = stringify(node.exc)
 
-    # For simple names without dots, skip if starts with lowercase (likely a variable)
-    if "." not in name and name[0].islower():
+    # For simple names without dots, skip if starts with lowercase/_ (likely a variable)
+    if "." not in name and (
+        name[0].islower() or name[0] == "_" or name == "NotImplemented"
+    ):
         return
 
     yield Issue(
