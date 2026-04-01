@@ -2,6 +2,14 @@
 
 <!-- towncrier release notes start -->
 
+## 26.4.1.0 (2026-04-01)
+
+### Features
+
+- Improved FTP143 to ignore `NotImplemented`
+- Improved FTP143 to understand variables starting with an underscore
+
+
 ## 26.3.31.0 (2026-03-31)
 
 ### Features
