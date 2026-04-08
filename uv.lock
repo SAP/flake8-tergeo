@@ -530,7 +530,7 @@ dev = [
     { name = "types-flake8-bugbear", specifier = "==25.11.29.20260408" },
     { name = "types-flake8-builtins", specifier = "==3.1.0.20260408" },
     { name = "types-flake8-simplify", specifier = "==0.30.0.20260408" },
-    { name = "types-flake8-typing-imports", specifier = "==1.17.0.20251011" },
+    { name = "types-flake8-typing-imports", specifier = "==1.17.0.20260408" },
     { name = "uv", specifier = "==0.11.3" },
     { name = "yesqa", specifier = "==1.5.0" },
 ]
@@ -1327,11 +1327,11 @@ wheels = [
 
 [[package]]
 name = "types-flake8-typing-imports"
-version = "1.17.0.20251011"
+version = "1.17.0.20260408"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ed/f0/a910c3a06dd7a6b7050e1041fc00ee810794f318c30a80d6ac728c5c24b9/types_flake8_typing_imports-1.17.0.20251011.tar.gz", hash = "sha256:9c4891133453d552bcade50a89eed315fe5f4890f695114c0bf8d0dfd1a4c50c", size = 8178, upload-time = "2025-10-11T02:44:47.526Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bc/62/f621489d7f4d12c34e21e4853dc7a1166adaaa5fd3e2a2ac4317ec983a29/types_flake8_typing_imports-1.17.0.20260408.tar.gz", hash = "sha256:ace244205506861a8143a4dbb862bf124ad6e776853deb295e9585b4cfd9c600", size = 8247, upload-time = "2026-04-08T04:29:29.617Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bb/a7/6a628aebd43a81776f7c697164758d49608f7606e49adcc33e958ab4ecba/types_flake8_typing_imports-1.17.0.20251011-py3-none-any.whl", hash = "sha256:a651a75de16ef19bfc3d8c65831ee70f9ff54bcdc42fdd69b7e755a9082cbc93", size = 7978, upload-time = "2025-10-11T02:44:46.558Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/ac/cfd802524de1eee494e4791ac220efc4bd1129199143326b9852e0a9510b/types_flake8_typing_imports-1.17.0.20260408-py3-none-any.whl", hash = "sha256:1013030a6a76e92786511e63266e86401dd6d81f3c62c8f2f869523852930054", size = 7978, upload-time = "2026-04-08T04:29:28.855Z" },
 ]
 
 [[package]]
