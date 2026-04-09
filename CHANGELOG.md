@@ -2,6 +2,14 @@
 
 <!-- towncrier release notes start -->
 
+## 26.4.9.0 (2026-04-09)
+
+### Fixes
+
+- Fixed FTP142: the recommendation was in the wrong way round. Instead of preferring `raise err`,
+  `raise` should be used
+
+
 ## 26.4.1.0 (2026-04-01)
 
 ### Features
