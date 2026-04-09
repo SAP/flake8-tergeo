@@ -25,10 +25,7 @@ FTP129 = partial(
 FTP142 = partial(
     Issue,
     issue_number="FTP142",
-    message=(
-        "Use 'raise <err>' instead of bare 'raise' "
-        "to preserve the exception chain in traceback."
-    ),
+    message="Use bare 'raise' instead of 'raise <err>' to preserve the original traceback.",
 )
 FTP143 = partial(
     Issue,
@@ -69,11 +66,10 @@ def test_ftp129(runner: Flake8RunnerFixture) -> None:
 def test_ftp142(runner: Flake8RunnerFixture) -> None:
     results = runner(filename="ftp142.txt", issue_number="FTP142")
     assert results == [
-        FTP142(line=38, column=5),
-        FTP142(line=44, column=5),
-        FTP142(line=51, column=9),
-        FTP142(line=57, column=5),
-        FTP142(line=66, column=9),
+        FTP142(line=51, column=5),
+        FTP142(line=58, column=9),
+        FTP142(line=64, column=5),
+        FTP142(line=73, column=9),
     ]
 
 
