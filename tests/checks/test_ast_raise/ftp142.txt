@@ -1,17 +1,23 @@
 # code without issues
 
-# explicit reraise with alias - OK
+# bare raise with alias - OK (preferred)
 try:
     do()
 except Exception as err:
-    raise err
+    raise
 
-# explicit reraise with alias and condition - OK
+# bare raise without alias - OK
+try:
+    do()
+except Exception:
+    raise
+
+# bare raise with alias and condition - OK
 try:
     do()
 except Exception as err:
     if str(err) != "something":
-        raise err
+        raise
 
 # raise different exception - OK
 try:
@@ -29,38 +35,39 @@ except Exception as err:
 def foo():
     raise
 
-# code with issues
-
-# bare raise with alias
+# raise different variable than caught alias - OK
 try:
     do()
 except Exception as err:
-    raise
+    other_err = ValueError("other")
+    raise other_err
 
-# bare raise without alias
+# code with issues
+
+# raise err with alias - should use bare raise
 try:
     do()
-except Exception:
-    raise
+except Exception as err:
+    raise err
 
-# bare raise with alias and condition
+# raise err with alias and condition
 try:
     do()
 except Exception as err:
     if str(err) != "something":
-        raise
+        raise err
 
-# bare raise with alias in tuple except
+# raise err with alias in tuple except
 try:
     do()
 except (ValueError, TypeError) as err:
-    raise
+    raise err
 
-# nested try-except, outer has alias
+# nested try-except, inner raises inner alias
 try:
     do()
 except Exception as outer_err:
     try:
         do_more()
     except ValueError as inner_err:
-        raise
+        raise inner_err

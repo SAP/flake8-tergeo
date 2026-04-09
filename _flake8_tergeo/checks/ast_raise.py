@@ -99,28 +99,36 @@ def _check_raise_caught_class(node: ast.Raise) -> IssueGenerator:
 
 
 def _check_bare_raise_with_alias(node: ast.Raise) -> IssueGenerator:
-    """Check for bare raise in except block where exception was caught with alias.
+    """Check for raise err in except block where err is the caught exception alias.
 
-    When using a bare `raise`, the fact that the except block was reached and
-    executed is hidden from the traceback. Using `raise err` instead preserves
-    this information, which can be helpful for debugging.
+    When re-raising the caught exception, prefer bare `raise` over `raise err`.
+    A bare `raise` preserves the original traceback, while `raise err` creates
+    a new traceback starting from that point, which can lose context.
     """
-    # Only check bare raise statements (no exception specified)
-    if node.exc is not None:
+    # Only check raise statements with an exception specified
+    if node.exc is None:
+        return
+
+    # Only check simple Name nodes (e.g., `raise err`)
+    if not isinstance(node.exc, ast.Name):
         return
 
     except_node = _get_except(node)
     if not except_node:
         return
 
+    # Check if the raised name matches the exception alias
+    if except_node.name is None:
+        return
+
+    if node.exc.id != except_node.name:
+        return
+
     yield Issue(
         line=node.lineno,
         column=node.col_offset,
         issue_number="142",
-        message=(
-            "Use 'raise <err>' instead of bare 'raise' "
-            "to preserve the exception chain in traceback."
-        ),
+        message="Use bare 'raise' instead of 'raise <err>' to preserve the original traceback.",
     )
 
 
