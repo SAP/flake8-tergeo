@@ -1,0 +1,10 @@
+# code without issues
+a = 123
+foo.{name} = 123
+obj.{name} = "value"
+result = re.{name}("pattern", text)
+
+# code with issues
+{name} = 123
+{name}: int = 456
+foo = {name} = 789

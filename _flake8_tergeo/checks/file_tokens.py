@@ -86,10 +86,10 @@ def _check_unicode_prefix(file_tokens: Sequence[tokenize.TokenInfo]) -> IssueGen
     for token in file_tokens:
         if token.type != tokenize.STRING:
             continue
-        match = _STRING_PATTERN.match(token.string)
-        if not match:  # pragma: no cover
+        string_match = _STRING_PATTERN.match(token.string)
+        if not string_match:  # pragma: no cover
             continue
-        if match.group(1).lower() == "u":
+        if string_match.group(1).lower() == "u":
             yield Issue(
                 line=token.start[0],
                 column=token.start[1],

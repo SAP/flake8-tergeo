@@ -316,8 +316,8 @@ def parse_options(options: Namespace) -> None:
 
     for req in _requires(options.distribution_name):
         requirement = Requirement(req)
-        match = EXTRA_PATTERN.fullmatch(str(requirement.marker))
-        extra = match.group("extra") if match else INSTALL_REQUIRE_EXTRA
+        extra_match = EXTRA_PATTERN.fullmatch(str(requirement.marker))
+        extra = extra_match.group("extra") if extra_match else INSTALL_REQUIRE_EXTRA
         requirements_by_extra[extra].append(requirement)
 
     # Recursively resolve extras to handle cases where extras reference other extras

@@ -6,6 +6,7 @@ import ast
 from dataclasses import dataclass
 
 from _flake8_tergeo.ast_util import get_parent, get_parents, is_expected_node
+from _flake8_tergeo.checks.shared import check_soft_keyword_name
 from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
@@ -56,6 +57,7 @@ def check_assign(node: ast.Assign | ast.AnnAssign) -> IssueGenerator:
         yield from _check_sorted_assigns(assignment)
         yield from _check_single_element_unpacking(assignment)
         yield from _check_bad_name(assignment)
+        yield from _check_soft_keyword_name(assignment)
         yield from _check_invalid_slots_type(assignment)
         yield from _check_slots_assign(assignment)
         yield from _check_all_only_on_module(assignment)
@@ -145,6 +147,13 @@ def _check_bad_name(assignment: Assignment) -> IssueGenerator:
             message=f"Using a variable named {target.id} can lead to confusion. "
             "Consider using another name.",
         )
+
+
+def _check_soft_keyword_name(assignment: Assignment) -> IssueGenerator:
+    """Check for assignments to soft-keyword names."""
+    target = assignment.target
+    if isinstance(target, ast.Name):
+        yield from check_soft_keyword_name(target.id, target)
 
 
 def _check_invalid_slots_type(assignment: Assignment) -> IssueGenerator:

@@ -14,9 +14,10 @@ from _flake8_tergeo.ast_util import (
     is_in_type_statement,
 )
 from _flake8_tergeo.interfaces import Issue
-from _flake8_tergeo.type_definitions import IssueGenerator
+from _flake8_tergeo.type_definitions import AnyFunctionDef, IssueGenerator
 
 BOTTOM_TYPES = ["Never", "NoReturn"]
+SOFT_KEYWORDS = ["match", "case", "type"]
 
 
 def check_annotation_order(
@@ -75,4 +76,17 @@ def check_bottom_type_in_union(
             column=node.col_offset,
             issue_number="104",
             message="Bottom types (Never/NoReturn) should not be used in unions.",
+        )
+
+
+def check_soft_keyword_name(
+    name: str, node: ast.Name | AnyFunctionDef | ast.arg
+) -> IssueGenerator:
+    """Check if the name is a soft keyword and if so, yield an issue."""
+    if name in SOFT_KEYWORDS:
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="144",
+            message=f"Avoid using '{name}' as it is a soft keyword.",
         )

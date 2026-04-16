@@ -1,0 +1,17 @@
+# code without issues
+def foo(a, b): pass
+def bar(text, pattern): pass
+async def baz(x): pass
+def qux(*, key): pass
+def quux(**kwargs): pass
+def corge(*args): pass
+
+# code with issues
+def foo({name}): pass
+def bar(a, {name}): pass
+async def baz({name}, b): pass
+def qux(*, {name}): pass
+def quux({name}, /, b): pass
+def corge(*{name}): pass
+def grault(**{name}): pass
+def {name}(): pass

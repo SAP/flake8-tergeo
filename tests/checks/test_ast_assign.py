@@ -8,6 +8,7 @@ import pytest
 
 from _flake8_tergeo import Issue
 from _flake8_tergeo.checks import ast_assign
+from _flake8_tergeo.checks.shared import SOFT_KEYWORDS
 from tests.conftest import Flake8RunnerFixture
 
 FTP090 = partial(Issue, issue_number="FTP090", message="Found unsorted __all__.")
@@ -41,12 +42,24 @@ FTP126 = partial(
     issue_number="FTP126",
     message="TypeAlias is deprecated and the type statements should be used instead.",
 )
+_FTP144 = partial(
+    Issue,
+    issue_number="FTP144",
+    message="Avoid using '{name}' as it is a soft keyword.",
+)
 
 
 def FTP069(  # pylint: disable=invalid-name
     *, line: int, column: int, name: str
 ) -> Issue:
     issue = _FTP069(line=line, column=column)
+    return issue._replace(message=issue.message.format(name=name))
+
+
+def FTP144(  # pylint: disable=invalid-name
+    *, line: int, column: int, name: str
+) -> Issue:
+    issue = _FTP144(line=line, column=column)
     return issue._replace(message=issue.message.format(name=name))
 
 
@@ -150,3 +163,13 @@ def test_ftp126(
         assert results == [FTP126(line=9, column=1)]
     else:
         assert not results
+
+
+@pytest.mark.parametrize("name", SOFT_KEYWORDS)
+def test_ftp144(runner: Flake8RunnerFixture, name: str) -> None:
+    results = runner(filename="ftp144.txt", issue_number="FTP144", name=name)
+    assert results == [
+        FTP144(line=8, column=1, name=name),
+        FTP144(line=9, column=1, name=name),
+        FTP144(line=10, column=7, name=name),
+    ]

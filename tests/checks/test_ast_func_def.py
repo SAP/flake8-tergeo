@@ -9,6 +9,7 @@ from dirty_equals import IsOneOf
 from pytest_mock import MockerFixture
 
 from _flake8_tergeo import Issue, ast_func_def
+from _flake8_tergeo.checks.shared import SOFT_KEYWORDS
 from tests.conftest import Flake8RunnerFixture
 from tests.util import LenientIssue
 
@@ -60,6 +61,11 @@ FTP125 = partial(
     message="The override decorator should be the first decorator or "
     "if present placed directly below descriptor based decorators.",
 )
+_FTP144 = partial(
+    Issue,
+    issue_number="FTP144",
+    message="Avoid using '{name}' as it is a soft keyword.",
+)
 
 
 def FTP042(  # pylint:disable=invalid-name
@@ -88,6 +94,13 @@ def FTP096(  # pylint:disable=invalid-name
 ) -> LenientIssue:
     issue = _FTP096(line=line, column=column)
     return issue._replace(message=issue.message.format(descriptor=descriptor))
+
+
+def FTP144(  # pylint:disable=invalid-name
+    *, line: int, column: int, name: str
+) -> Issue:
+    issue = _FTP144(line=line, column=column)
+    return issue._replace(message=issue.message.format(name=name))
 
 
 @ignore_parameters
@@ -243,3 +256,18 @@ class TestFTP125:
             FTP125(line=30, column=2),
             FTP125(line=35, column=2),
         ]
+
+
+@pytest.mark.parametrize("name", SOFT_KEYWORDS)
+def test_ftp144(runner: Flake8RunnerFixture, name: str) -> None:
+    results = runner(filename="ftp144.txt", issue_number="FTP144", name=name)
+    assert results == [
+        FTP144(line=10, column=9, name=name),
+        FTP144(line=11, column=12, name=name),
+        FTP144(line=12, column=15, name=name),
+        FTP144(line=13, column=12, name=name),
+        FTP144(line=14, column=10, name=name),
+        FTP144(line=15, column=12, name=name),
+        FTP144(line=16, column=14, name=name),
+        FTP144(line=17, column=1, name=name),
+    ]

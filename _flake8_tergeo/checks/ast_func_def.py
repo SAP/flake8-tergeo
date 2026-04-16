@@ -9,6 +9,7 @@ from flake8.options.manager import OptionManager
 
 from _flake8_tergeo.ast_util import get_parent, is_expected_node, is_stub, stringify
 from _flake8_tergeo.base import get_plugin
+from _flake8_tergeo.checks.shared import check_soft_keyword_name
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register_add_options, register_function_def
 from _flake8_tergeo.type_definitions import AnyFunctionDef, IssueGenerator
@@ -40,6 +41,8 @@ def check_func_def(node: AnyFunctionDef) -> IssueGenerator:
     yield from _check_class_property(node)
     yield from _check_valid_return_annotation(node)
     yield from _check_override_first_decorator(node)
+    yield from _check_soft_keyword_parameter(node)
+    yield from _check_function_name(node)
 
 
 def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
@@ -291,3 +294,20 @@ def _check_override_first_decorator(node: AnyFunctionDef) -> IssueGenerator:
             message="The override decorator should be the first decorator or "
             "if present placed directly below descriptor based decorators.",
         )
+
+
+def _check_soft_keyword_parameter(node: AnyFunctionDef) -> IssueGenerator:
+    """Check for function parameters using soft-keyword names."""
+    for arg in (
+        *node.args.args,
+        *node.args.posonlyargs,
+        *node.args.kwonlyargs,
+        *([] if node.args.vararg is None else [node.args.vararg]),
+        *([] if node.args.kwarg is None else [node.args.kwarg]),
+    ):
+        yield from check_soft_keyword_name(arg.arg, arg)
+
+
+def _check_function_name(node: AnyFunctionDef) -> IssueGenerator:
+    """Check for function names using soft-keyword names."""
+    yield from check_soft_keyword_name(node.name, node)

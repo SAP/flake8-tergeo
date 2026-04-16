@@ -660,6 +660,11 @@ It's better to raise an instance (e.g., `raise Exception()` or `raise Exception(
 
 Variables (names starting with lowercase letters) are allowed as they typically hold exception instances.
 
+## FTP144
+Checks if a function, parameter or variables is named after a soft keyword.
+Soft keywords have special meaning in certain contexts (e.g., `match` in `match`/`case` statements)
+and using them as variable names can lead to confusion.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
