@@ -109,6 +109,8 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_mock_builtins_open(node)
     yield from _check_sys_trace_functions(node)
     yield from _check_utf_8_encoding(node)
+    yield from _check_warnings_warn_skip_file_prefixes(node)
+    yield from _check_warnings_warn_stacklevel(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -889,3 +891,32 @@ def _check_utf_8_encoding(node: ast.Call) -> IssueGenerator:
                     "needed."
                 ),
             )
+
+
+def _check_warnings_warn_skip_file_prefixes(node: ast.Call) -> IssueGenerator:
+    if not is_expected_node(node.func, "warnings", "warn"):
+        return
+
+    keyword_names = {keyword.arg for keyword in node.keywords}
+    if "skip_file_prefixes" in keyword_names and "stacklevel" in keyword_names:
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="145",
+            message="Do not use 'skip_file_prefixes' and 'stacklevel' together "
+            "in warnings.warn; 'skip_file_prefixes' overrides 'stacklevel'.",
+        )
+
+
+def _check_warnings_warn_stacklevel(node: ast.Call) -> IssueGenerator:
+    if not is_expected_node(node.func, "warnings", "warn"):
+        return
+
+    keyword_names = {keyword.arg for keyword in node.keywords}
+    if "stacklevel" in keyword_names and "skip_file_prefixes" not in keyword_names:
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="146",
+            message="Use 'skip_file_prefixes' instead of 'stacklevel' in warnings.warn.",
+        )

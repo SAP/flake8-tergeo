@@ -258,6 +258,17 @@ FTP140 = partial(
         "Remove the encoding argument or specify a different encoding if needed."
     ),
 )
+FTP145 = partial(
+    Issue,
+    issue_number="FTP145",
+    message="Do not use 'skip_file_prefixes' and 'stacklevel' together "
+    "in warnings.warn; 'skip_file_prefixes' overrides 'stacklevel'.",
+)
+FTP146 = partial(
+    Issue,
+    issue_number="FTP146",
+    message="Use 'skip_file_prefixes' instead of 'stacklevel' in warnings.warn.",
+)
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -1125,3 +1136,20 @@ def test_ftp140(
         issue_number="FTP140",
         args=("--ftp-python-version", python_version),
     ) == ([FTP140(line=8, column=1)] if find_by_version else [])
+
+
+def test_ftp145(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp145.txt", issue_number="FTP145")
+    assert results == [
+        FTP145(line=13, column=1),
+        FTP145(line=14, column=1),
+    ]
+
+
+def test_ftp146(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp146.txt", issue_number="FTP146")
+    assert results == [
+        FTP146(line=12, column=1),
+        FTP146(line=13, column=1),
+        FTP146(line=14, column=1),
+    ]
