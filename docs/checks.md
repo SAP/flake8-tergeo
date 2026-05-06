@@ -665,6 +665,15 @@ Checks if a function, parameter or variables is named after a soft keyword.
 Soft keywords have special meaning in certain contexts (e.g., `match` in `match`/`case` statements)
 and using them as variable names can lead to confusion.
 
+## FTP145
+Checks if `warnings.warn` is called with both `skip_file_prefixes` and `stacklevel` as keyword
+arguments. The `skip_file_prefixes` parameter overrides `stacklevel`, making `stacklevel` redundant
+and potentially misleading. Use one or the other, but not both.
+
+## FTP146
+Checks if `warnings.warn` is called with `stacklevel` as a keyword argument. The `skip_file_prefixes` parameter is preferred over `stacklevel`
+as it is more robust and does not require manual counting of stack frames.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

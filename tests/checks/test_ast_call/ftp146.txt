@@ -1,0 +1,14 @@
+import warnings
+
+# code without issues
+warnings.warn("msg", skip_file_prefixes=("/foo",))
+warnings.warn("msg")
+warnings.warn("msg", category=DeprecationWarning)
+warnings.warn("msg", category=DeprecationWarning, skip_file_prefixes=("/foo",))
+warn("msg", stacklevel=2)
+foo("msg", stacklevel=2)
+
+# code with issues
+warnings.warn("msg", stacklevel=2)
+warnings.warn("msg", stacklevel=3)
+warnings.warn("msg", category=DeprecationWarning, stacklevel=2)
