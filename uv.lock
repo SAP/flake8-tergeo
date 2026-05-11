@@ -533,7 +533,7 @@ dev = [
     { name = "towncrier", specifier = "==25.8.0" },
     { name = "types-flake8", specifier = "==7.3.0.20260508" },
     { name = "types-flake8-bugbear", specifier = "==25.11.29.20260408" },
-    { name = "types-flake8-builtins", specifier = "==3.1.0.20260408" },
+    { name = "types-flake8-builtins", specifier = "==3.1.0.20260508" },
     { name = "types-flake8-simplify", specifier = "==0.30.0.20260408" },
     { name = "types-flake8-typing-imports", specifier = "==1.17.0.20260408" },
     { name = "uv", specifier = "==0.11.11" },
@@ -1311,14 +1311,14 @@ wheels = [
 
 [[package]]
 name = "types-flake8-builtins"
-version = "3.1.0.20260408"
+version = "3.1.0.20260508"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "types-flake8" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/28/32/a1bb3a94ff0470d986822fe6685b685aab04d579b9d4f5e9a487e010ea60/types_flake8_builtins-3.1.0.20260408.tar.gz", hash = "sha256:3e7699b9ac4bce0a12e0237915a199487ab7084b06e2902a6f1327e662ac1b9b", size = 8520, upload-time = "2026-04-08T04:37:18.192Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a1/d7/d2d63c5ed30bb52703a761f742b28319324e3038da907d912f9f6c165541/types_flake8_builtins-3.1.0.20260508.tar.gz", hash = "sha256:632f63607f3197cb6ba2d40403c53f2f7dc3dc352913182e72e552d0bde632d2", size = 8560, upload-time = "2026-05-08T04:52:55.831Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/eb/f9320a0ab3a2c6840b787697fce9343cfa77241420fbe3ab489231b7c315/types_flake8_builtins-3.1.0.20260408-py3-none-any.whl", hash = "sha256:303979faa59348464f56192aaaede775e9894fbf42b656af32ae038079765e63", size = 7969, upload-time = "2026-04-08T04:37:17.291Z" },
+    { url = "https://files.pythonhosted.org/packages/0d/2f/b25396cef1ab4f97d41abdc877643ee7b4dafff9a93a086f3bf982d830f0/types_flake8_builtins-3.1.0.20260508-py3-none-any.whl", hash = "sha256:0084f84a46c50792e124916b40bf492b4e4e842e6c092d1c51fe685915b01984", size = 7963, upload-time = "2026-05-08T04:52:54.772Z" },
 ]
 
 [[package]]
