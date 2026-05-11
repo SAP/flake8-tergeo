@@ -65,7 +65,7 @@ dev = [
     "pylint==4.0.5",
     "black==26.3.1",
     "isort==8.0.1",
-    "mypy==1.20.2",
+    "mypy==2.0.0",
     "flake8==7.3.0",
     "types-flake8==7.3.0.20260508",
     "types-flake8-simplify==0.30.0.20260408",
@@ -148,7 +148,6 @@ show_column_numbers = true
 show_error_codes = true
 show_traceback = true
 strict = true
-strict_bytes = true
 strict_concatenate = true
 strict_equality_for_none = true
 strict_optional = true
