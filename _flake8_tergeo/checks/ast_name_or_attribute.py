@@ -28,7 +28,7 @@ OS_ALIASES = ["EnvironmentError", "IOError", "WindowsError"]
 try:
     _metadata_version("pytest-mock")
     _PYTEST_MOCK_INSTALLED = True
-except PackageNotFoundError:
+except PackageNotFoundError:  #  pragma: no cover
     _PYTEST_MOCK_INSTALLED = False
 
 _MOCK_ATTRS: frozenset[str] = frozenset(getattr(unittest.mock, "__all__", []))
