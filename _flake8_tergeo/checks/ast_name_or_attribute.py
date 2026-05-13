@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import ast
+import unittest.mock
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _metadata_version
 from typing import TypeAlias
 
 from _flake8_tergeo.ast_util import (
     get_parent,
     get_parents,
+    get_parents_info,
+    in_annotation,
     in_args_assign_annotation,
     is_expected_node,
     stringify,
@@ -19,6 +24,15 @@ from _flake8_tergeo.type_definitions import IssueGenerator
 
 NameOrAttribute: TypeAlias = ast.Name | ast.Attribute
 OS_ALIASES = ["EnvironmentError", "IOError", "WindowsError"]
+
+try:
+    _metadata_version("pytest-mock")
+    _PYTEST_MOCK_INSTALLED = True
+except PackageNotFoundError:
+    _PYTEST_MOCK_INSTALLED = False
+
+_MOCK_ATTRS: frozenset[str] = frozenset(getattr(unittest.mock, "__all__", []))
+MOCK_DECORATOR_ARG_ALLOWED: frozenset[str] = frozenset({"ANY", "Mock", "MagicMock"})
 BUILTINS = ["Tuple", "List", "Dict", "Set", "FrozenSet", "Type"]
 OS_DEPENDENT_PATH = ["PurePosixPath", "PureWindowsPath", "PosixPath", "WindowsPath"]
 
@@ -46,6 +60,7 @@ def check_name_or_attribute(node: NameOrAttribute) -> IssueGenerator:
     yield from _check_valid_arg_assign_annotation(node)
     yield from _check_datetime_utcnow(node)
     yield from _check_datetime_utcfromtimestamp(node)
+    yield from _check_unittest_mock(node)
 
 
 def _check_builtin_os_alias(node: ast.Name) -> IssueGenerator:
@@ -262,4 +277,30 @@ def _check_datetime_utcfromtimestamp(node: NameOrAttribute) -> IssueGenerator:
             "Found usage/import of datetime.utcfromtimestamp. "
             "Consider to use datetime.fromtimestamp(tz=)."
         ),
+    )
+
+
+def _is_within_decorator(node: ast.AST) -> bool:
+    return any(
+        field_name == "decorator_list" for (field_name, _) in get_parents_info(node)
+    )
+
+
+def _check_unittest_mock(node: NameOrAttribute) -> IssueGenerator:
+    if not _PYTEST_MOCK_INSTALLED:
+        return
+    leaf = stringify(node).rsplit(".", maxsplit=1)[-1]
+    if leaf not in _MOCK_ATTRS:
+        return
+    if not is_expected_node(node, "unittest.mock", leaf):
+        return
+    if in_annotation(node):
+        return
+    if leaf in MOCK_DECORATOR_ARG_ALLOWED and _is_within_decorator(node):
+        return
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="240",
+        message=f"Use pytest-mock instead of unittest.mock.{leaf}.",
     )

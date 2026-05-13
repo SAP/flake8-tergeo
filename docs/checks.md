@@ -7,6 +7,7 @@
 * FTP001 - FTP199: general purpose checks
 * FTP200 - FTP219: `flask` and `werkzeug` checks
 * FTP220 - FTP239: `requests` checks
+* FTP240 - FTP299: `pytest` checks
 * FTP300 - FTP399: docstring checks
 
 ## FTP000
@@ -680,6 +681,14 @@ Instead of calling this helper function raise the appropriate exception directly
 
 ## FTP220
 Find usage of `requests.codes` which should be replaced with `http.HTTPStatus`
+
+## FTP240
+Detects usage of `unittest.mock` when `pytest-mock` is installed as using the `mocker`
+is preferred.
+Exceptions:
+
+- Usage inside type annotations (parameter, variable, or return annotations)
+- `ANY`, `Mock`, and `MagicMock` when within decorators
 
 ## Docstyle
 Rules to make docstrings PEP 257 compliant inspired by [pydocstyle](https://github.com/PyCQA/pydocstyle).

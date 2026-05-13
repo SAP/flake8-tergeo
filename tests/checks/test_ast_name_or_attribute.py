@@ -7,7 +7,10 @@ from functools import partial
 import pytest
 
 from _flake8_tergeo import Issue, ast_name_or_attribute
-from _flake8_tergeo.checks.ast_name_or_attribute import OS_DEPENDENT_PATH
+from _flake8_tergeo.checks.ast_name_or_attribute import (
+    MOCK_DECORATOR_ARG_ALLOWED,
+    OS_DEPENDENT_PATH,
+)
 from tests.conftest import Flake8RunnerFixture
 
 FTP099 = partial(
@@ -85,6 +88,11 @@ FTP007 = partial(
         "Consider to use datetime.fromtimestamp(tz=)."
     ),
 )
+_FTP240 = partial(
+    Issue,
+    issue_number="FTP240",
+    message="Use pytest-mock instead of unittest.mock.{attr}.",
+)
 
 
 def FTP056(  # pylint: disable=invalid-name
@@ -102,6 +110,13 @@ def FTP089(  # pylint: disable=invalid-name
 ) -> Issue:
     issue = _FTP089(line=line, column=column)
     return issue._replace(message=issue.message.format(alias=alias))
+
+
+def FTP240(  # pylint: disable=invalid-name
+    *, line: int, column: int, attr: str
+) -> Issue:
+    issue = _FTP240(line=line, column=column)
+    return issue._replace(message=issue.message.format(attr=attr))
 
 
 def test_ftp089(runner: Flake8RunnerFixture) -> None:
@@ -428,3 +443,33 @@ class TestFTP007:
             filename="ftp007.txt", issue_number="FTP007", imp=imp, func=func
         )
         assert results == [FTP007(line=3, column=1)]
+
+
+class TestFTP240:
+    @pytest.mark.parametrize(
+        "imp,attr,attr_name",
+        [
+            ("import unittest.mock", "unittest.mock.patch", "patch"),
+            ("import unittest.mock as mock", "mock.patch", "patch"),
+            ("from unittest.mock import patch", "patch", "patch"),
+            ("from unittest.mock import Mock", "Mock", "Mock"),
+        ],
+    )
+    def test_ftp240(
+        self, runner: Flake8RunnerFixture, imp: str, attr: str, attr_name: str
+    ) -> None:
+        results = runner(
+            filename="ftp240.txt", issue_number="FTP240", imp=imp, attr=attr
+        )
+
+        if attr_name in MOCK_DECORATOR_ARG_ALLOWED:
+            assert results == [
+                FTP240(line=12, column=1, attr=attr_name),
+                FTP240(line=15, column=5, attr=attr_name),
+            ]
+        else:
+            assert results == [
+                FTP240(line=12, column=1, attr=attr_name),
+                FTP240(line=15, column=5, attr=attr_name),
+                FTP240(line=17, column=2, attr=attr_name),
+            ]
