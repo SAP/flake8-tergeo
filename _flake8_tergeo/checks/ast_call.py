@@ -14,6 +14,7 @@ from _flake8_tergeo.ast_util import (
     is_expected_node,
     stringify,
 )
+from _flake8_tergeo.base import get_plugin
 from _flake8_tergeo.global_options import get_python_version
 from _flake8_tergeo.interfaces import Issue
 from _flake8_tergeo.registry import register
@@ -111,6 +112,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_utf_8_encoding(node)
     yield from _check_warnings_warn_skip_file_prefixes(node)
     yield from _check_warnings_warn_stacklevel(node)
+    yield from _check_os_chmod_mode(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -920,3 +922,34 @@ def _check_warnings_warn_stacklevel(node: ast.Call) -> IssueGenerator:
             issue_number="146",
             message="Use 'skip_file_prefixes' instead of 'stacklevel' in warnings.warn.",
         )
+
+
+def _check_os_chmod_mode(node: ast.Call) -> IssueGenerator:
+    for func_name in ("chmod", "fchmod"):
+        if not is_expected_node(node.func, "os", func_name):
+            continue
+
+        mode_node: ast.expr | None = None
+        if len(node.args) >= 2:
+            mode_node = node.args[1]
+        else:
+            kws = [kw.value for kw in node.keywords if kw.arg == "mode"]
+            mode_node = kws[0] if kws else None
+
+        if mode_node is None:
+            return
+
+        if not is_constant_node(mode_node, int) or isinstance(mode_node.value, bool):
+            return
+
+        lines = get_plugin().lines
+        source_at_col = lines[mode_node.lineno - 1][mode_node.col_offset :]
+        if not source_at_col.startswith(("0o", "0O")):
+            yield Issue(
+                line=node.lineno,
+                column=node.col_offset,
+                issue_number="147",
+                message=f"Mode argument of os.{func_name} must use octal notation (e.g. 0o755) "
+                "if plain numbers are used.",
+            )
+        return
