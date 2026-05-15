@@ -1,0 +1,18 @@
+{imp}
+from unittest.mock import ANY, Mock, MagicMock
+
+# code without issues
+def foo(x: {attr}) -> None: pass
+def bar() -> {attr}: pass
+
+@pytest.mark.parametrize("value", [ANY, Mock(), MagicMock()])
+def foo(mocker, value): pass
+
+# code with issues
+{attr}
+
+def foo(mocker):
+    {attr}()
+
+@{attr}
+def foo(): pass
