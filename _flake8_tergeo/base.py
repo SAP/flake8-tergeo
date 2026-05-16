@@ -150,6 +150,7 @@ class Flake8TergeoPlugin:
             "lines": lines,
         }
         self.filename = filename
+        self.lines = lines
 
         global _PLUGIN
         _PLUGIN = self

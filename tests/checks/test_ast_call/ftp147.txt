@@ -1,0 +1,20 @@
+{imp}
+
+# valid — octal notation
+{func}('/tmp/file', 0o755)
+{func}('/tmp/file', 0O644)
+{func}('/tmp/file', mode=0o600)
+# valid — not a constant
+{func}('/tmp/file', variable)
+{func}('/tmp/file', mask | 0o755)
+# valid — no mode argument
+{func}('/tmp/file')
+
+# invalid — decimal
+{func}('/tmp/file', 755)
+# invalid — hex
+{func}('/tmp/file', 0x1ED)
+# invalid — binary
+{func}('/tmp/file', 0b101111101)
+# invalid — decimal keyword
+{func}('/tmp/file', mode=755)

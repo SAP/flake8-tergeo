@@ -269,6 +269,19 @@ FTP146 = partial(
     issue_number="FTP146",
     message="Use 'skip_file_prefixes' instead of 'stacklevel' in warnings.warn.",
 )
+_FTP147 = partial(
+    Issue,
+    issue_number="FTP147",
+    message="Mode argument of os.{func} must use octal notation (e.g. 0o755) "
+    "if plain numbers are used.",
+)
+
+
+def FTP147(  # pylint:disable=invalid-name
+    *, line: int, column: int, func: str
+) -> Issue:
+    issue = _FTP147(line=line, column=column)
+    return issue._replace(message=issue.message.format(func=func))
 
 
 def FTP073(  # pylint:disable=invalid-name
@@ -1152,4 +1165,25 @@ def test_ftp146(runner: Flake8RunnerFixture) -> None:
         FTP146(line=12, column=1),
         FTP146(line=13, column=1),
         FTP146(line=14, column=1),
+    ]
+
+
+@pytest.mark.parametrize(
+    "imp,func,func_name",
+    [
+        ("import os", "os.chmod", "chmod"),
+        ("from os import chmod", "chmod", "chmod"),
+        ("import os", "os.fchmod", "fchmod"),
+        ("from os import fchmod", "fchmod", "fchmod"),
+    ],
+)
+def test_ftp147(
+    runner: Flake8RunnerFixture, imp: str, func: str, func_name: str
+) -> None:
+    results = runner(filename="ftp147.txt", issue_number="FTP147", imp=imp, func=func)
+    assert results == [
+        FTP147(line=14, column=1, func=func_name),
+        FTP147(line=16, column=1, func=func_name),
+        FTP147(line=18, column=1, func=func_name),
+        FTP147(line=20, column=1, func=func_name),
     ]
