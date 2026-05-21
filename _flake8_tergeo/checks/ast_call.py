@@ -925,7 +925,7 @@ def _check_warnings_warn_stacklevel(node: ast.Call) -> IssueGenerator:
 
 
 def _check_os_chmod_mode(node: ast.Call) -> IssueGenerator:
-    for func_name in ("chmod", "fchmod"):
+    for func_name in ("chmod", "fchmod", "lchmod"):
         if not is_expected_node(node.func, "os", func_name):
             continue
 
