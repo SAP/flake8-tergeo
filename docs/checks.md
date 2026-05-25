@@ -675,6 +675,11 @@ and potentially misleading. Use one or the other, but not both.
 Checks if `warnings.warn` is called with `stacklevel` as a keyword argument. The `skip_file_prefixes` parameter is preferred over `stacklevel`
 as it is more robust and does not require manual counting of stack frames.
 
+## FTP147
+Checks that the `mode` argument of `os.chmod` and `os.fchmod` is written using octal notation
+(e.g. `0o755`) if the constants of the `stat` module are not used. Decimal integers (`755`) or hex integers (`0x1ED`) are hard to read as Unix
+permission bits. Use octal notation to make the intended permissions explicit.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
