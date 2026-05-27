@@ -22,7 +22,6 @@ from tests import conftest
 
 class TestFlake8TergeoPlugin:
     def test_metadata(self) -> None:
-        assert Flake8TergeoPlugin.off_by_default
         assert Flake8TergeoPlugin.name
         assert Flake8TergeoPlugin.version
 

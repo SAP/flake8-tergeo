@@ -124,7 +124,7 @@ class Flake8TergeoPlugin:
 
     name: ClassVar[str] = "flake8-tergeo"
     version: ClassVar[str] = version("flake8-tergeo")
-    off_by_default: ClassVar[bool] = True
+    off_by_default: ClassVar[bool] = False
     module_load_error: ClassVar[ImportError | None] = None
 
     _setup_performed: ClassVar[bool] = False

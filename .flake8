@@ -6,8 +6,6 @@ select =
     E,  # flake8-pycodestyle
     F,  # flake8-pyflakes
     W,  # flake8-pycodestyle
-enable-extensions =
-    FT,  # flake8-tergeo
 ignore=
     # conflict with black formatter
     W503,E203,E704,
