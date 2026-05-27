@@ -190,8 +190,6 @@ def run_tests(path: Path, issue_number: str, args: tuple[str, ...]) -> list[Issu
             "-m",
             "flake8",
             "--isolated",
-            "--enable-extensions",
-            "FT",
             "--format",
             "json",
             "--select",
