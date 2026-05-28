@@ -2,6 +2,20 @@
 
 <!-- towncrier release notes start -->
 
+## 26.5.28.0 (2026-05-28)
+
+### Features
+
+- Added FTP144: Check for function names, parameter or variables to be named after a python soft keyword
+- Added FTP146: Detect `warnings.warn` calls using `stacklevel`
+- Added FTP147: Mode argument of `os.chmod` and `os.fchmod` must use octal notation (e.g. `0o755`)
+  if the constants of the `stat` module are not used.
+- Added FTP240: Detect usage of ``unittest.mock`` attributes when ``pytest-mock`` is installed.
+- FTP145: Flag simultaneous use of 'skip_file_prefixes' and 'stacklevel' in warnings.warn
+- The plugin is now active by default when installed. This makes the configuration
+  `enable-extension = FT` obsolete
+
+
 ## 26.4.9.0 (2026-04-09)
 
 ### Fixes
