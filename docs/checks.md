@@ -670,6 +670,7 @@ and using them as variable names can lead to confusion.
 Checks if `warnings.warn` is called with both `skip_file_prefixes` and `stacklevel` as keyword
 arguments. The `skip_file_prefixes` parameter overrides `stacklevel`, making `stacklevel` redundant
 and potentially misleading. Use one or the other, but not both.
+The check is only active for python 3.12 and onwards.
 
 ## FTP146
 Checks if `warnings.warn` is called with `stacklevel` as a keyword argument. The `skip_file_prefixes` parameter is preferred over `stacklevel`

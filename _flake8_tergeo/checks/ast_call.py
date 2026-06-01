@@ -896,6 +896,8 @@ def _check_utf_8_encoding(node: ast.Call) -> IssueGenerator:
 
 
 def _check_warnings_warn_skip_file_prefixes(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 12):
+        return
     if not is_expected_node(node.func, "warnings", "warn"):
         return
 
