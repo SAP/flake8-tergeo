@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## 26.6.1.0 (2026-06-01)
+
+### Fixes
+
+- Fixed an issue causing FTP145 to be incorrectly reported for Python versions prior to 3.12
+
+
 ## 26.5.28.0 (2026-05-28)
 
 ### Features
