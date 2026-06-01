@@ -464,12 +464,12 @@ class TestFTP240:
 
         if attr_name in MOCK_DECORATOR_ARG_ALLOWED:
             assert results == [
-                FTP240(line=12, column=1, attr=attr_name),
-                FTP240(line=15, column=5, attr=attr_name),
+                FTP240(line=16, column=1, attr=attr_name),
+                FTP240(line=19, column=5, attr=attr_name),
             ]
         else:
             assert results == [
-                FTP240(line=12, column=1, attr=attr_name),
-                FTP240(line=15, column=5, attr=attr_name),
-                FTP240(line=17, column=2, attr=attr_name),
+                FTP240(line=16, column=1, attr=attr_name),
+                FTP240(line=19, column=5, attr=attr_name),
+                FTP240(line=21, column=2, attr=attr_name),
             ]

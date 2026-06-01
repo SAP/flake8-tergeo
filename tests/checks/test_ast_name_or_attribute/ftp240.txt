@@ -1,9 +1,13 @@
 {imp}
 from unittest.mock import ANY, Mock, MagicMock
+from typing import TypeAlias, cast
 
 # code without issues
 def foo(x: {attr}) -> None: pass
 def bar() -> {attr}: pass
+cast(Mock, x)
+X: TypeAlias = Callable[[], Mock]
+class Sub(MagicMock): pass
 
 @pytest.mark.parametrize("value", [ANY, Mock(), MagicMock()])
 def foo(mocker, value): pass

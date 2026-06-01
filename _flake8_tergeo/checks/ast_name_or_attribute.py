@@ -11,10 +11,14 @@ from typing import TypeAlias
 from _flake8_tergeo.ast_util import (
     get_parent,
     get_parents,
-    get_parents_info,
     in_annotation,
     in_args_assign_annotation,
     is_expected_node,
+    is_in_cast_call,
+    is_in_class_def,
+    is_in_decorator,
+    is_in_type_alias,
+    is_in_type_statement,
     stringify,
 )
 from _flake8_tergeo.global_options import get_python_version
@@ -280,12 +284,6 @@ def _check_datetime_utcfromtimestamp(node: NameOrAttribute) -> IssueGenerator:
     )
 
 
-def _is_within_decorator(node: ast.AST) -> bool:
-    return any(
-        field_name == "decorator_list" for (field_name, _) in get_parents_info(node)
-    )
-
-
 def _check_unittest_mock(node: NameOrAttribute) -> IssueGenerator:
     if not _PYTEST_MOCK_INSTALLED:
         return
@@ -294,9 +292,16 @@ def _check_unittest_mock(node: NameOrAttribute) -> IssueGenerator:
         return
     if not is_expected_node(node, "unittest.mock", leaf):
         return
-    if in_annotation(node):
+    if (
+        in_annotation(node)
+        or is_in_type_alias(node)
+        or is_in_type_statement(node)
+        or is_in_cast_call(node)
+    ):
         return
-    if leaf in MOCK_DECORATOR_ARG_ALLOWED and _is_within_decorator(node):
+    if is_in_class_def(node):
+        return
+    if leaf in MOCK_DECORATOR_ARG_ALLOWED and is_in_decorator(node):
         return
     yield Issue(
         line=node.lineno,
