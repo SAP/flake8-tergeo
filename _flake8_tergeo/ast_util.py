@@ -285,6 +285,26 @@ def is_in_type_alias(node: ast.AST) -> bool:
     return is_expected_node(result[0].annotation, "typing", "TypeAlias")
 
 
+def is_in_class_def(node: ast.AST) -> bool:
+    """Check if a node is in a class definition."""
+    return any(isinstance(parent, ast.ClassDef) for parent in get_parents(node))
+
+
+def is_in_decorator(node: ast.AST) -> bool:
+    """Check if a node is in a decorator."""
+    return any(
+        field_name == "decorator_list" for (field_name, _) in get_parents_info(node)
+    )
+
+
+def is_in_cast_call(node: ast.AST) -> bool:
+    """Check if a node is in a cast call."""
+    return any(
+        isinstance(parent, ast.Call) and is_expected_node(parent.func, "typing", "cast")
+        for parent in get_parents(node)
+    )
+
+
 def flatten_bin_op(node: ast.BinOp) -> list[ast.AST]:
     """Flatten a binary operation node into a list of its operands."""
     nodes = []

@@ -694,6 +694,9 @@ is preferred.
 Exceptions:
 
 - Usage inside type annotations (parameter, variable, or return annotations)
+- Usage within type statements or aliases
+- Usage within class definitions
+- Usage within `typing.cast` calls
 - `ANY`, `Mock`, and `MagicMock` when within decorators
 
 ## Docstyle
