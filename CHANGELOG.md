@@ -2,6 +2,16 @@
 
 <!-- towncrier release notes start -->
 
+## 26.6.1.2 (2026-06-01)
+
+### Features
+
+- FTP240 ignores now the usage of `unitest.mock` attributes in
+  * type aliases
+  * class definitions
+  * `typing.cast` calls
+
+
 ## 26.6.1.1 (2026-06-01)
 
 ### Fixes
