@@ -8,6 +8,8 @@ def bar() -> {attr}: pass
 cast(Mock, x)
 X: TypeAlias = Callable[[], Mock]
 class Sub(MagicMock): pass
+class WithClassAttr:
+    x = {attr}
 
 @pytest.mark.parametrize("value", [ANY, Mock(), MagicMock()])
 def foo(mocker, value): pass
@@ -17,6 +19,10 @@ def foo(mocker, value): pass
 
 def foo(mocker):
     {attr}()
+
+class WithMethod:
+    def x(self):
+        {attr}()
 
 @{attr}
 def foo(): pass
