@@ -286,8 +286,13 @@ def is_in_type_alias(node: ast.AST) -> bool:
 
 
 def is_in_class_def(node: ast.AST) -> bool:
-    """Check if a node is in a class definition."""
-    return any(isinstance(parent, ast.ClassDef) for parent in get_parents(node))
+    """Check if a node is directly in a class body (not inside a nested method/function)."""
+    for parent in get_parents(node):
+        if isinstance(parent, ast.ClassDef):
+            return True
+        if isinstance(parent, ast.FunctionDef | ast.AsyncFunctionDef):
+            return False
+    return False
 
 
 def is_in_decorator(node: ast.AST) -> bool:
