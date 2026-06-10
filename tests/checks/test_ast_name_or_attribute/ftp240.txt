@@ -6,6 +6,7 @@ from typing import TypeAlias, cast
 def foo(x: {attr}) -> None: pass
 def bar() -> {attr}: pass
 cast(Mock, x)
+isinstance(x, Mock)
 X: TypeAlias = Callable[[], Mock]
 class Sub(MagicMock): pass
 class WithClassAttr:

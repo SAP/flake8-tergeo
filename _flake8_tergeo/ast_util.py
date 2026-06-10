@@ -310,6 +310,16 @@ def is_in_cast_call(node: ast.AST) -> bool:
     )
 
 
+def is_in_isinstance_call(node: ast.AST) -> bool:
+    """Check if a node is in an isinstance call."""
+    return any(
+        isinstance(parent, ast.Call)
+        and isinstance(parent.func, ast.Name)
+        and parent.func.id == "isinstance"
+        for parent in get_parents(node)
+    )
+
+
 def flatten_bin_op(node: ast.BinOp) -> list[ast.AST]:
     """Flatten a binary operation node into a list of its operands."""
     nodes = []

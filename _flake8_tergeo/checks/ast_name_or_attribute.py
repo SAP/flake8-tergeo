@@ -17,6 +17,7 @@ from _flake8_tergeo.ast_util import (
     is_in_cast_call,
     is_in_class_def,
     is_in_decorator,
+    is_in_isinstance_call,
     is_in_type_alias,
     is_in_type_statement,
     stringify,
@@ -297,6 +298,7 @@ def _check_unittest_mock(node: NameOrAttribute) -> IssueGenerator:
         or is_in_type_alias(node)
         or is_in_type_statement(node)
         or is_in_cast_call(node)
+        or is_in_isinstance_call(node)
     ):
         return
     if is_in_class_def(node):
