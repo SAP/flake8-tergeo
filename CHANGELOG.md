@@ -2,6 +2,14 @@
 
 <!-- towncrier release notes start -->
 
+## 26.6.10.0 (2026-06-10)
+
+### Fixes
+
+- FTP240 now ignores instance calls
+- Fixed an issue causing FTP240 to not consider methods within classes
+
+
 ## 26.6.1.2 (2026-06-01)
 
 ### Features
