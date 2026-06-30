@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configuration - flak8e-tergeo</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configuration";
+        var mkdocs_page_input_path = "configuration.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> flak8e-tergeo
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../install/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checks/">Checks</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Configuration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#global-configuration">Global Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#auto-manage-configuration">Auto-manage Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#developer-comments">Developer Comments</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#requirements-check">Requirements check</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docstyle">Docstyle</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../plugins/">Plugins</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">flak8e-tergeo</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configuration">Configuration</h1>
+<h2 id="global-configuration">Global Configuration</h2>
+<ul>
+<li><code>ftp-python-version</code>: used for checks depending on a python version, e.g. if a certain feature
+  is enabled or not. By default the current python interpreter version</li>
+<li><code>ftp-pyproject-toml-file</code>: path to the <code>pyproject.toml</code> file is any exists</li>
+</ul>
+<h2 id="auto-manage-configuration">Auto-manage Configuration</h2>
+<p>If <code>ftp-auto-manage-options</code> is enabled, certain options of wrapped flake8 plugins are automatically
+set to new default values if they are not specified via the flake8 command line or configuration file.
+Please note that the list of these options and their default values may change between minor versions.
+The default setting is false.</p>
+<p>If enabled, the following options are automatically managed:</p>
+<ul>
+<li><code>ftp-min-python-version</code> (by <code>flake8-typing-imports</code>): this options specified the minimum python
+  version supported or used by the project. It is set to the same value as <code>ftp-python-version</code>.
+  As not all patch versions of python are recognized by this plugin
+  (it then throws an <code>unknown version</code> error), the version is adjusted to the next supported patch
+  version while staying in the same major/minor version.</li>
+</ul>
+<h2 id="developer-comments">Developer Comments</h2>
+<p>Developer comments are comments such as <em>TODO xxx</em> or <em>FIXME later</em>.</p>
+<p>With these options it is possible to enforce certain style rules for these comments, such as:
+* disallow certain identifier like <em>FIXME</em>
+* enforce identifier to a tracking system like jira (e.g. <code>SOME-123 TODO this needs to be done</code>)
+* enforce a description</p>
+<p>Please note, that the check is case-insensitive, meaning that all dev comment identifier, comments and
+project ids are converted to uppercase for comparison.</p>
+<ul>
+<li><code>ftp-dev-comments-tracking-project-ids</code>: defines the tracking projects which must be present in a dev comment.
+  If the configuration is not set, the check will not be executed. By default an empty list</li>
+<li><code>ftp-dev-comments-allowed-synonyms</code>: List of valid dev comment identifiers. The default value is <em>TODO</em></li>
+<li><code>ftp-dev-comments-disallowed-synonyms</code>: List of invalid dev comment identifier. Defaults to <em>FIXME</em></li>
+<li><code>ftp-dev-comments-enforce-description</code>: Checks if after the dev comment identifier (and optionally after
+  the tracking project id) additional text is present. By default false</li>
+</ul>
+<h2 id="requirements-check">Requirements check</h2>
+<p>Check if a library is imported but not specified as a requirement.
+This check only works with projects installed in their environment, meaning that projects not using
+setuptools or poetry but pure requirement.txt files are not supported.</p>
+<p>This check is not active if the configuration <code>ftp-distribution-name</code> is not set.</p>
+<p>The check will go through all import statements and check if it's listed as a requirement.
+Most projects will use packages which are not part of the requirements. e.g. <code>my-project</code> uses
+the packages <code>my_project</code> and in it's test code <code>tests</code>.
+These need to be specified inside the configuration <code>ftp-distribution-name</code>.</p>
+<p>Also not always does the package match the distribution name, e.g. <code>git</code> is distributed as
+<code>gitpython</code>.
+In this case the configuration <code>ftp-requirements-mapping</code> allows to specify a mapping.
+When namespace packages like <code>opentelemetry</code> are used, the packages are split over multiple
+distributions.
+The mapping of <code>ftp-requirements-mapping</code> can consume nested packages as it's key.
+For instance, <code>ftp-requirements-mapping</code> could be written as
+<code>ftp-requirements-mapping = opentelemetry.trace:opentelemetry-api,opentelemetry.sdk:opentelemetry-sdk</code>.</p>
+<p>With the above the matching algorithm is as followed:</p>
+<ol>
+<li>Transform the import/import-from statement to a string (<code>from foo.bar import baz</code> -&gt; <code>foo.bar.baz</code>)</li>
+<li>Check if the package starts any mapping key of <code>ftp-requirements-mapping</code></li>
+<li>If yes, use the mapped distribution name</li>
+<li>If not extract the first part (<code>foo.bar</code> -&gt; <code>foo</code>) and use it as the distribution name</li>
+<li>Check if the distribution name is part of the project requirements, a stdlib module or listed
+   in <code>ftp-requirements-packages</code></li>
+</ol>
+<p>Please note, that these checks base on the current working directory to map the current analysed file
+to a module name.
+Therefore, always execute <code>flake8</code> in the projects root folder, else the behavior and findings
+of this check is not defined.
+Also, if files are given directly to the flake8 command, the path should be relative to the
+projects root folder.</p>
+<ul>
+<li><code>ftp-distribution-name</code>: name of the project</li>
+<li><code>ftp-requirements-packages</code>: comma-separated list of the packages defined by this project
+  (e.g. <code>tests</code> and <code>my_package</code>)</li>
+<li><code>ftp-requirements-mapping</code>: a comma-separated list of mappings between the packages and distributable names</li>
+<li><code>ftp-requirements-ignore-type-checking-block</code>: if set to true, the check will ignore type checking
+  blocks (<code>typing.TYPE_CHECKING</code>)</li>
+<li><code>ftp-requirements-module-extra-mapping</code>: comma separate list of mappings in the format
+  <code>&lt;module&gt; | extra [extra]</code>. Each mapping defines, that the given modules and all submodules
+  are allowed to use the requirements specified in the extras or group.
+  The module name can also limit itself to a function or class inside the module,
+  e.g. for a class <code>A</code> with a method <code>foo</code> in the module <code>mod</code> the mapping would be <code>mod::A::foo</code>.
+  If multiples module names match to the file under check, the extra lists are combined.
+  If the option is not set, all modules can import all requirements from all extras
+  In order to also use group names, the option <code>ftp-pyproject-toml-file</code> needs to be set</li>
+</ul>
+<h2 id="docstyle">Docstyle</h2>
+<ul>
+<li><code>ftp-docstyle-lowercase-words</code>: a list of words which are allowed to be lowercase even if they
+  start a docstring</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../checks/" class="btn btn-neutral float-left" title="Checks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../plugins/" class="btn btn-neutral float-right" title="Plugins">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../checks/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../plugins/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
