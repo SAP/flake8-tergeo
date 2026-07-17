@@ -66,6 +66,11 @@ _FTP144 = partial(
     issue_number="FTP144",
     message="Avoid using '{name}' as it is a soft keyword.",
 )
+_FTP148 = partial(
+    Issue,
+    issue_number="FTP148",
+    message="Function has too many parameters ({count}). Consider using keyword-only parameters.",
+)
 
 
 def FTP042(  # pylint:disable=invalid-name
@@ -101,6 +106,13 @@ def FTP144(  # pylint:disable=invalid-name
 ) -> Issue:
     issue = _FTP144(line=line, column=column)
     return issue._replace(message=issue.message.format(name=name))
+
+
+def FTP148(  # pylint:disable=invalid-name
+    *, line: int, column: int, count: int
+) -> Issue:
+    issue = _FTP148(line=line, column=column)
+    return issue._replace(message=issue.message.format(count=count))
 
 
 @ignore_parameters
@@ -190,6 +202,12 @@ def test_add_options(mocker: MockerFixture) -> None:
             parse_from_config=True,
             action="store_true",
         ),
+        mocker.call(
+            "--max-non-kwonly-parameters",
+            parse_from_config=True,
+            type=int,
+            default=7,
+        ),
     ]
 
 
@@ -270,4 +288,31 @@ def test_ftp144(runner: Flake8RunnerFixture, name: str) -> None:
         FTP144(line=15, column=12, name=name),
         FTP144(line=16, column=14, name=name),
         FTP144(line=17, column=1, name=name),
+    ]
+
+
+@pytest.mark.parametrize(
+    "imp,override,ignore_override",
+    [
+        ("from typing import override", "override", True),
+        ("import typing", "typing.override", True),
+        ("import foo", "foo.override", False),
+        ("from foo import override", "override", False),
+    ],
+)
+def test_ftp148(
+    runner: Flake8RunnerFixture, imp: str, override: str, ignore_override: bool
+) -> None:
+    results = runner(
+        filename="ftp148.txt",
+        issue_number="FTP148",
+        imp=imp,
+        override=override,
+        args=("--ftp-max-non-kwonly-parameters=5",),
+    )
+    assert results == [
+        *([] if ignore_override else [FTP148(line=19, column=1, count=6)]),
+        FTP148(line=32, column=1, count=6),
+        FTP148(line=35, column=1, count=6),
+        FTP148(line=39, column=5, count=6),
     ]

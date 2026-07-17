@@ -681,6 +681,14 @@ Checks that the `mode` argument of `os.chmod` and `os.fchmod` is written using o
 (e.g. `0o755`) if the constants of the `stat` module are not used. Decimal integers (`755`) or hex integers (`0x1ED`) are hard to read as Unix
 permission bits. Use octal notation to make the intended permissions explicit.
 
+## FTP148
+Checks if a function has too many positional parameters.
+Functions with many parameters are difficult to call correctly and maintain.
+Consider introducing keyword-only parameters (using `*`) to make call sites explicit.
+The threshold is configurable via `--max-non-kwonly-parameters` (default: 7).
+Functions that already use positional-only or keyword-only parameters are not checked.
+Functions decorated with `@typing.override` are not checked.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

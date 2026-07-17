@@ -43,6 +43,7 @@ def check_func_def(node: AnyFunctionDef) -> IssueGenerator:
     yield from _check_override_first_decorator(node)
     yield from _check_soft_keyword_parameter(node)
     yield from _check_function_name(node)
+    yield from _check_too_many_parameters(node)
 
 
 def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
@@ -125,6 +126,12 @@ def add_options(option_manager: OptionManager) -> None:
         "--ignore-annotation-in-assign-return",
         parse_from_config=True,
         action="store_true",
+    )
+    option_manager.add_option(
+        "--max-non-kwonly-parameters",
+        parse_from_config=True,
+        type=int,
+        default=7,
     )
 
 
@@ -311,3 +318,28 @@ def _check_soft_keyword_parameter(node: AnyFunctionDef) -> IssueGenerator:
 def _check_function_name(node: AnyFunctionDef) -> IssueGenerator:
     """Check for function names using soft-keyword names."""
     yield from check_soft_keyword_name(node.name, node)
+
+
+def _check_too_many_parameters(node: AnyFunctionDef) -> IssueGenerator:
+    if node.args.posonlyargs or node.args.kwonlyargs:
+        return
+    if any(
+        is_expected_node(decorator, "typing", "override")
+        for decorator in node.decorator_list
+    ):
+        return
+
+    args = node.args.args
+    count = len(args)
+    if args and args[0].arg in {"self", "cls"} and _has_class_parent(node):
+        count -= 1
+
+    threshold = get_plugin().get_options().max_non_kwonly_parameters
+    if count > threshold:
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="148",
+            message=f"Function has too many parameters ({count}). "
+            "Consider using keyword-only parameters.",
+        )

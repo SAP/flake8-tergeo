@@ -17,7 +17,7 @@ ignore=
     FTP305,FTP306,FTP304,FTP313
 max-complexity = 10
 per-file-ignores =
-    tests/*:FTU019,FTP301,FTP302,FTP303
+    tests/*:FTU019,FTP301,FTP302,FTP303,FTP148
     _flake8_tergeo/*:FTB028
     scripts/*:FTP040,FTP050
 

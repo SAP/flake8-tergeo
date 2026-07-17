@@ -1,0 +1,39 @@
+{imp}
+
+# code without issues
+
+# exactly at threshold (5)
+def foo(a, b, c, d, e): pass
+
+# below threshold
+def bar(a, b): pass
+
+# already has kwonly args
+def with_kwonly(a, b, c, d, e, f, *, g): pass
+
+# already has posonly args
+def with_posonly(a, b, c, d, e, f, /): pass
+
+# decorated with typing.override
+@{override}
+def overridden(a, b, c, d, e, f): pass
+
+# method: self + 5 regular args = 5 counted
+class Foo:
+    def method(self, a, b, c, d, e): pass
+
+# cls method: cls + 5 regular args = 5 counted
+class Bar:
+    def method(cls, a, b, c, d, e): pass
+
+# code with issues
+
+# plain function with 6 params (exceeds threshold of 5)
+def too_many(a, b, c, d, e, f): pass
+
+# async function with 6 params
+async def async_too_many(a, b, c, d, e, f): pass
+
+# method: self + 6 regular args = 6 counted
+class Baz:
+    def method(self, a, b, c, d, e, f): pass

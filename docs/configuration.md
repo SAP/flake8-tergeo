@@ -96,3 +96,8 @@ projects root folder.
 
 * `ftp-docstyle-lowercase-words`: a list of words which are allowed to be lowercase even if they
   start a docstring
+
+## FTP148 — Parameter Count
+
+* `ftp-max-non-kwonly-parameters`: maximum number of positional parameters allowed before FTP148
+  is triggered. `self` and `cls` are excluded from the count for methods. Defaults to 7.
