@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Plugins - flak8e-tergeo</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Plugins";
+        var mkdocs_page_input_path = "plugins.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> flak8e-tergeo
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../install/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checks/">Checks</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../configuration/">Configuration</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Plugins</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#plugin-list">Plugin List</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">flak8e-tergeo</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Plugins</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="plugins">Plugins</h1>
+<p>flake8-tergeo is a flake8 plugin that also includes other essential plugins and manages their execution and configuration.
+This integration provides several benefits:</p>
+<ol>
+<li><strong>Simplified Management</strong>: Managing multiple flake8 plugins individually can be cumbersome,
+    especially when dealing with different versions and configurations.
+    flake8-tergeo simplifies this by including a curated list of important plugins with fixed versions,
+    ensuring compatibility and reducing the overhead of manual management.</li>
+<li><strong>Consistent Configuration</strong>: flake8-tergeo can handle the configuration of the included plugins.
+    All configuration values are prefixed with <code>ftp</code>.
+    This ensures that all plugins are configured consistently, reducing the risk of
+    misconfiguration and making it easier to maintain the code quality standards across the project.</li>
+<li><strong>Unified Error Codes</strong>: The error code prefixes of the included plugins are replaced with new ones,
+    providing a unified and consistent error reporting system.</li>
+<li><strong>Curated Plugin List</strong>: The included plugin list is fixed and curated, meaning that only the
+    most important and relevant plugins are included. This reduces the noise from less useful plugins
+    and focuses on the most critical checks for your project.</li>
+<li><strong>Resilience to Unmaintained Plugins</strong>: If a plugin becomes unmaintained or certain checks are broken,
+    flake8-tergeo can seamlessly replace them or provide fixes out of the box.
+    This ensures continuous and reliable code quality checks without requiring manual intervention.</li>
+</ol>
+<p>By using flake8-tergeo, users can benefit from a streamlined and efficient code quality
+management process, ensuring that their code adheres to best practices with minimal effort.</p>
+<h2 id="plugin-list">Plugin List</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Plugin</th>
+<th>Original Prefix</th>
+<th>Description</th>
+<th>Disabled Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FTB</td>
+<td>flake8-bugbear</td>
+<td>B</td>
+<td>Checks for common issues</td>
+<td>001, 016, 950</td>
+</tr>
+<tr>
+<td>FTU</td>
+<td>flake8-builtins</td>
+<td>A</td>
+<td>Checks for overwritten built-in methods</td>
+<td></td>
+</tr>
+<tr>
+<td>FTC</td>
+<td>flake8-comprehensions</td>
+<td>C</td>
+<td>Checks set/list/dict comprehensions</td>
+<td></td>
+</tr>
+<tr>
+<td>FTT</td>
+<td>flake8-pytest-style</td>
+<td>PT</td>
+<td>Checks common style issues or inconsistencies with pytest-based tests</td>
+<td>004, 005, 013, 019</td>
+</tr>
+<tr>
+<td>FTM</td>
+<td>flake8-simplify</td>
+<td>SIM</td>
+<td>Checks for simplifications in your code</td>
+<td>116, 901</td>
+</tr>
+<tr>
+<td>FTY</td>
+<td>flake8-typing-imports</td>
+<td>TYP</td>
+<td>Checks for incompatible use of the typing module for a defined python version</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../configuration/" class="btn btn-neutral float-left" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../configuration/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
