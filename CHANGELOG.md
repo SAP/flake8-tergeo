@@ -2,6 +2,17 @@
 
 <!-- towncrier release notes start -->
 
+## 26.9.10.0 (2026-09-10)
+
+### Features
+
+- Added FTP148: Check for functions with too many positional parameters.
+
+### Changes
+
+- Updated flake8-bugbear to 26.9.9
+
+
 ## 26.6.10.0 (2026-06-10)
 
 ### Fixes
