@@ -618,7 +618,7 @@ dev = [
     { name = "toml-sort", specifier = "==0.24.4" },
     { name = "towncrier", specifier = "==26.9.0" },
     { name = "types-flake8", specifier = "==7.3.0.20260508" },
-    { name = "types-flake8-bugbear", specifier = "==25.11.29.20260518" },
+    { name = "types-flake8-bugbear", specifier = "==26.9.9.20260911" },
     { name = "types-flake8-builtins", specifier = "==3.1.0.20260508" },
     { name = "types-flake8-simplify", specifier = "==0.30.0.20260408" },
     { name = "types-flake8-typing-imports", specifier = "==1.17.0.20260408" },
@@ -1479,11 +1479,11 @@ wheels = [
 
 [[package]]
 name = "types-flake8-bugbear"
-version = "25.11.29.20260518"
+version = "26.9.9.20260911"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e9/f8/5495d7c211b30571f4f83ef3baf30a4264219d6c9976e6b3d398f827a962/types_flake8_bugbear-25.11.29.20260518.tar.gz", hash = "sha256:373c3ac1ae510764d2c63bc197369445df06b72afa9ad90ff7519826a567faa6", size = 11696, upload-time = "2026-05-18T06:04:48.736Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/16/fe/77b480475f31b4445e3a4bfc30d6f3ef6b5bc0bca30a71e416aa4ff90906/types_flake8_bugbear-26.9.9.20260911.tar.gz", hash = "sha256:977b6acd52a5cad7732198cf4845e3bb604dbd197e588b921e3346a722ae5d91", size = 11913, upload-time = "2026-09-11T06:45:17.035Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/18/74b220ec112200be6e626935097ee805ab557111e85bac04e86da9408e97/types_flake8_bugbear-25.11.29.20260518-py3-none-any.whl", hash = "sha256:e49a29b4c5c056214574d04d7310d9dda22b501f650127cb72f5288a967b2af2", size = 9810, upload-time = "2026-05-18T06:04:47.943Z" },
+    { url = "https://files.pythonhosted.org/packages/01/b4/1c9193cbe5629a936e655ddfd0d1fb6809e18211f922e42832b0f0297025/types_flake8_bugbear-26.9.9.20260911-py3-none-any.whl", hash = "sha256:b15a95266aca0c9fd78b114535fa5cda8b0f7ff26705d7da5020c09ac964f9e1", size = 9888, upload-time = "2026-09-11T06:45:16.099Z" },
 ]
 
 [[package]]
