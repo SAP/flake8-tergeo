@@ -123,7 +123,7 @@ def test_ftp015(runner: Flake8RunnerFixture) -> None:
 
 
 @pytest.mark.parametrize(
-    "version,find_annotations", [("3.10.0", False), ("3.14.1", True)]
+    "version,find_annotations", [("3.13.0", False), ("3.14.1", True)]
 )
 def test_ftp030(
     runner: Flake8RunnerFixture, version: str, find_annotations: bool
@@ -205,7 +205,7 @@ def test_ftp058(runner: Flake8RunnerFixture) -> None:
 
 
 @pytest.mark.parametrize(
-    "python_version,find_by_version", [("3.10.0", False), ("3.14.1", True)]
+    "python_version,find_by_version", [("3.13.0", False), ("3.14.1", True)]
 )
 @pytest.mark.parametrize(
     "imp,find_by_imp,module",
@@ -241,7 +241,7 @@ def test_ftp133(
 
 
 @pytest.mark.parametrize(
-    "python_version,find_by_version", [("3.10.0", False), ("3.15.1", True)]
+    "python_version,find_by_version", [("3.14.0", False), ("3.15.1", True)]
 )
 @pytest.mark.parametrize(
     "imp,find_by_imp",

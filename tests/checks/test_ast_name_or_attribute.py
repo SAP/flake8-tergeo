@@ -247,14 +247,6 @@ def test_ftp056(
 
 
 class TestFTP099:
-    params = pytest.mark.parametrize(
-        "imp,utc",
-        [
-            ("import datetime", "datetime.timezone.utc"),
-            ("from datetime import timezone", "timezone.utc"),
-        ],
-    )
-
     def test_ftp099_ignore(self, runner: Flake8RunnerFixture) -> None:
         assert not runner(
             filename="ftp099_ignore.txt",
@@ -262,26 +254,16 @@ class TestFTP099:
             args=("--ftp-python-version", "3.11.0"),
         )
 
-    @params
-    def test_ftp099_311(self, runner: Flake8RunnerFixture, imp: str, utc: str) -> None:
-        results = runner(
-            filename="ftp099.txt",
-            issue_number="FTP099",
-            args=("--ftp-python-version", "3.11.0"),
-            imp=imp,
-            utc=utc,
-        )
+    @pytest.mark.parametrize(
+        "imp,utc",
+        [
+            ("import datetime", "datetime.timezone.utc"),
+            ("from datetime import timezone", "timezone.utc"),
+        ],
+    )
+    def test_ftp099(self, runner: Flake8RunnerFixture, imp: str, utc: str) -> None:
+        results = runner(filename="ftp099.txt", issue_number="FTP099", imp=imp, utc=utc)
         assert results == [FTP099(line=3, column=5), FTP099(line=4, column=5)]
-
-    @params
-    def test_ftp099_310(self, runner: Flake8RunnerFixture, imp: str, utc: str) -> None:
-        assert not runner(
-            filename="ftp099.txt",
-            issue_number="FTP099",
-            args=("--ftp-python-version", "3.10.0"),
-            imp=imp,
-            utc=utc,
-        )
 
 
 def test_ftp039(runner: Flake8RunnerFixture) -> None:

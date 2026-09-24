@@ -179,30 +179,12 @@ class TestFTP067:
     )
 
     def test_ftp067_ignore(self, runner: Flake8RunnerFixture) -> None:
-        assert not runner(
-            filename="ftp067_ignore.txt",
-            issue_number="FTP067",
-            args=("--ftp-python-version", "3.11.0"),
-        )
+        assert not runner(filename="ftp067_ignore.txt", issue_number="FTP067")
 
     @params
-    def test_ftp067_310(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
-        assert not runner(
-            filename="ftp067.txt",
-            issue_number="FTP067",
-            args=("--ftp-python-version", "3.10.0"),
-            imp=imp,
-            enum=enum,
-        )
-
-    @params
-    def test_ftp067_311(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
+    def test_ftp067(self, runner: Flake8RunnerFixture, imp: str, enum: str) -> None:
         results = runner(
-            filename="ftp067.txt",
-            issue_number="FTP067",
-            args=("--ftp-python-version", "3.11.0"),
-            imp=imp,
-            enum=enum,
+            filename="ftp067.txt", issue_number="FTP067", imp=imp, enum=enum
         )
         assert results == [
             FTP067(line=6, column=1),
@@ -231,7 +213,7 @@ def test_ftp005(runner: Flake8RunnerFixture) -> None:
     ],
 )
 @pytest.mark.parametrize(
-    "version,find_by_version", [("3.10.0", False), ("3.12.0", True)]
+    "version,find_by_version", [("3.11.0", False), ("3.12.0", True)]
 )
 def test_ftp128(
     runner: Flake8RunnerFixture,
