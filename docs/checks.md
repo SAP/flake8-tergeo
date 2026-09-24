@@ -688,6 +688,13 @@ The threshold is configurable via `--max-non-kwonly-parameters` (default: 7).
 Functions that already use positional-only or keyword-only parameters are not checked.
 Functions decorated with `@typing.override` are not checked.
 
+## FTP149
+Checks for calls of `re.match` (only relevant for Python 3.15 and newer).
+Starting with Python 3.15, `re.match` is soft-deprecated in favor of `re.prefixmatch`, which
+makes the anchored, prefix-matching behavior explicit and avoids confusion with the unanchored
+`match` semantics used by other languages.
+Use `re.prefixmatch` instead.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
