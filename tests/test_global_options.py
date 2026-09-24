@@ -30,7 +30,7 @@ def test_register_global_options(mocker: MockerFixture) -> None:
 
 @pytest.mark.parametrize(
     "version,parsed_version",
-    [("3.11.0", (3, 11, 0)), ("3.10.6", (3, 10, 6)), ("3.14.0b1", (3, 14, 0))],
+    [("3.11.0", (3, 11, 0)), ("3.11.6", (3, 11, 6)), ("3.14.0b1", (3, 14, 0))],
 )
 def test_parse_global_options(
     mocker: MockerFixture, version: str, parsed_version: tuple[int, int, int]

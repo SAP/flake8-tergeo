@@ -294,7 +294,6 @@ For that the alias `enum.IntEnum` can be used
 Check if an `enum.Enum` subclass is used which also extends `str`, so e.g.
 `class MyEnum(Enum, str)`.
 For that the alias `enum.StrEnum` can be used.
-The check is only active for python3.11+
 
 ## FTP068
 Check if a call of `subprocess.run` has the value `subprocess.PIPE` assigned
