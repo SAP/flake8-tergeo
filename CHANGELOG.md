@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## 26.9.24.0 (2026-09-24)
+
+### Removals
+
+- Removed support for python3.10
+
+
 ## 26.9.10.0 (2026-09-10)
 
 ### Features
