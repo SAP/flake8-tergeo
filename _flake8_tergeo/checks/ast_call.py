@@ -113,6 +113,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_warnings_warn_skip_file_prefixes(node)
     yield from _check_warnings_warn_stacklevel(node)
     yield from _check_os_chmod_mode(node)
+    yield from _check_re_match(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -957,3 +958,17 @@ def _check_os_chmod_mode(node: ast.Call) -> IssueGenerator:
                 "if plain numbers are used.",
             )
         return
+
+
+def _check_re_match(node: ast.Call) -> IssueGenerator:
+    if get_python_version() < (3, 15):
+        return
+    if not is_expected_node(node.func, "re", "match"):
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="149",
+        message="re.match is soft-deprecated since Python 3.15; use re.prefixmatch instead.",
+    )

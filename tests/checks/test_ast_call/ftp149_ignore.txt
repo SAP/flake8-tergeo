@@ -1,0 +1,9 @@
+import re_
+from re import foo
+from foo import match
+
+re.search("a", "b")
+re.foo("a", "b")
+foo.match("a", "b")
+match("a", "b")
+bar.match("a", "b")
