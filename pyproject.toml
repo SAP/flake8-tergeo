@@ -76,7 +76,7 @@ dev = [
     "astpretty==3.0.0",
     "pyupgrade==3.21.2",
     "toml-sort==0.25.0",
-    "uv==0.12.17",
+    "uv==0.12.18",
     "towncrier==26.9.0",
 ]
 test = [
