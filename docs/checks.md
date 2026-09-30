@@ -695,6 +695,12 @@ makes the anchored, prefix-matching behavior explicit and avoids confusion with 
 `match` semantics used by other languages.
 Use `re.prefixmatch` instead.
 
+## FTP150
+Checks for functions/methods decorated with `contextlib.contextmanager` which have a return
+annotation of `Iterator` (imported from `typing` or `collections.abc`).
+While `Iterator` works, `Generator` is the recommended return annotation for context manager
+functions, so `Generator` should be used instead.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly
