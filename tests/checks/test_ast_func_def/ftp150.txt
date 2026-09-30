@@ -1,0 +1,26 @@
+{imp}
+import contextlib
+from contextlib import contextmanager
+from collections.abc import Generator
+
+# code without issues
+def foo() -> {iterator}: pass
+
+@contextmanager
+def foo() -> Generator[int]: pass
+
+@contextmanager
+def foo(): pass
+
+@other
+def foo() -> {iterator}: pass
+
+# code with issues
+@contextmanager
+def foo() -> {iterator}: pass
+
+@contextmanager
+def foo() -> {iterator}[int]: pass
+
+@contextlib.contextmanager
+def foo() -> {iterator}: pass

@@ -71,6 +71,12 @@ _FTP148 = partial(
     issue_number="FTP148",
     message="Function has too many parameters ({count}). Consider using keyword-only parameters.",
 )
+FTP150 = partial(
+    Issue,
+    issue_number="FTP150",
+    message="A function decorated with contextlib.contextmanager should use "
+    "Generator instead of Iterator as return annotation.",
+)
 
 
 def FTP042(  # pylint:disable=invalid-name
@@ -273,6 +279,40 @@ class TestFTP125:
             FTP125(line=27, column=2),
             FTP125(line=30, column=2),
             FTP125(line=35, column=2),
+        ]
+
+
+class TestFTP150:
+    @pytest.mark.parametrize(
+        "imp,iterator",
+        [
+            ("import foo", "foo.Iterator"),
+            ("from foo import Iterator", "Iterator"),
+            ("from foo import typing", "typing.Iterator"),
+        ],
+    )
+    def test_ignore(self, runner: Flake8RunnerFixture, imp: str, iterator: str) -> None:
+        assert not runner(
+            filename="ftp150.txt", issue_number="FTP150", imp=imp, iterator=iterator
+        )
+
+    @pytest.mark.parametrize(
+        "imp,iterator",
+        [
+            ("from typing import Iterator", "Iterator"),
+            ("import typing", "typing.Iterator"),
+            ("from collections.abc import Iterator", "Iterator"),
+            ("import collections.abc", "collections.abc.Iterator"),
+        ],
+    )
+    def test(self, runner: Flake8RunnerFixture, imp: str, iterator: str) -> None:
+        results = runner(
+            filename="ftp150.txt", issue_number="FTP150", imp=imp, iterator=iterator
+        )
+        assert results == [
+            FTP150(line=20, column=1),
+            FTP150(line=23, column=1),
+            FTP150(line=26, column=1),
         ]
 
 

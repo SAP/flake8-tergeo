@@ -44,6 +44,7 @@ def check_func_def(node: AnyFunctionDef) -> IssueGenerator:
     yield from _check_soft_keyword_parameter(node)
     yield from _check_function_name(node)
     yield from _check_too_many_parameters(node)
+    yield from _check_contextmanager_iterator(node)
 
 
 def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
@@ -342,4 +343,29 @@ def _check_too_many_parameters(node: AnyFunctionDef) -> IssueGenerator:
             issue_number="148",
             message=f"Function has too many parameters ({count}). "
             "Consider using keyword-only parameters.",
+        )
+
+
+def _check_contextmanager_iterator(node: AnyFunctionDef) -> IssueGenerator:
+    if not node.returns:
+        return
+    # only functions decorated with contextlib.contextmanager are relevant
+    if not any(
+        is_expected_node(decorator, "contextlib", "contextmanager")
+        for decorator in node.decorator_list
+    ):
+        return
+    # the annotation can be a plain Iterator or a subscripted one like Iterator[int]
+    annotation = node.returns
+    if isinstance(annotation, ast.Subscript):
+        annotation = annotation.value
+    if is_expected_node(annotation, "typing", "Iterator") or is_expected_node(
+        annotation, "collections.abc", "Iterator"
+    ):
+        yield Issue(
+            line=node.lineno,
+            column=node.col_offset,
+            issue_number="150",
+            message="A function decorated with contextlib.contextmanager should use "
+            "Generator instead of Iterator as return annotation.",
         )
