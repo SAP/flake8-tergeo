@@ -269,6 +269,11 @@ FTP146 = partial(
     issue_number="FTP146",
     message="Use 'skip_file_prefixes' instead of 'stacklevel' in warnings.warn.",
 )
+FTP149 = partial(
+    Issue,
+    issue_number="FTP149",
+    message="re.match is soft-deprecated since Python 3.15; use re.prefixmatch instead.",
+)
 _FTP147 = partial(
     Issue,
     issue_number="FTP147",
@@ -1195,3 +1200,39 @@ def test_ftp147(
         FTP147(line=18, column=1, func=func_name),
         FTP147(line=20, column=1, func=func_name),
     ]
+
+
+class TestFTP149:
+    def test_ftp149_ignore(self, runner: Flake8RunnerFixture) -> None:
+        assert not runner(
+            filename="ftp149_ignore.txt",
+            issue_number="FTP149",
+            args=("--ftp-python-version", "3.15.1"),
+        )
+
+    @pytest.mark.parametrize(
+        "imp,func",
+        [
+            ("import re", "re.match"),
+            ("from re import match", "match"),
+        ],
+    )
+    @pytest.mark.parametrize(
+        "python_version,find_by_version", [("3.14.0", False), ("3.15.1", True)]
+    )
+    def test_ftp149(
+        self,
+        runner: Flake8RunnerFixture,
+        imp: str,
+        func: str,
+        python_version: str,
+        find_by_version: bool,
+    ) -> None:
+        results = runner(
+            filename="ftp149.txt",
+            issue_number="FTP149",
+            args=("--ftp-python-version", python_version),
+            imp=imp,
+            func=func,
+        )
+        assert results == ([FTP149(line=3, column=1)] if find_by_version else [])
