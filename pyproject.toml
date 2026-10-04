@@ -64,7 +64,7 @@ dev = [
     "pylint==4.0.10",
     "black==26.5.1",
     "isort==9.0.2",
-    "mypy==2.3.1",
+    "mypy==2.4.0",
     "flake8==7.4.1",
     "types-flake8==7.4.0.20260923",
     "types-flake8-simplify==0.30.0.20260408",
