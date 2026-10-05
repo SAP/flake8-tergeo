@@ -1,3 +1,4 @@
+# pylint: disable=abstract-method
 """Fixtures used by flake8 tests."""
 
 from __future__ import annotations
