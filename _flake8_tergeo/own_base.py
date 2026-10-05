@@ -36,7 +36,7 @@ class OwnOptionManager(AbstractOptionManager):
         self._option_manager.add_option(*args, **kwargs)
 
 
-class OwnChecker(AbstractChecker):
+class OwnChecker(AbstractChecker):  # pylint: disable=abstract-method
     """Base class of all checks."""
 
     prefix = "P"
