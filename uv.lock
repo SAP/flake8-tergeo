@@ -581,7 +581,7 @@ dev = [
     { name = "toml-sort", specifier = "==0.25.0" },
     { name = "towncrier", specifier = "==26.9.0" },
     { name = "types-flake8", specifier = "==7.5.0.20261029" },
-    { name = "types-flake8-bugbear", specifier = "==26.9.9.20260911" },
+    { name = "types-flake8-bugbear", specifier = "==26.10.27.20261103" },
     { name = "types-flake8-builtins", specifier = "==3.1.0.20260508" },
     { name = "types-flake8-simplify", specifier = "==0.30.0.20260408" },
     { name = "types-flake8-typing-imports", specifier = "==1.17.0.20260408" },
@@ -1400,11 +1400,11 @@ wheels = [
 
 [[package]]
 name = "types-flake8-bugbear"
-version = "26.9.9.20260911"
+version = "26.10.27.20261103"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/16/fe/77b480475f31b4445e3a4bfc30d6f3ef6b5bc0bca30a71e416aa4ff90906/types_flake8_bugbear-26.9.9.20260911.tar.gz", hash = "sha256:977b6acd52a5cad7732198cf4845e3bb604dbd197e588b921e3346a722ae5d91", size = 11913, upload-time = "2026-09-11T06:45:17.035Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/01/7a/95c18d07d6b7a34ed0187cab4f75966e30aaa42b984cd37c65ef85bb8bc4/types_flake8_bugbear-26.10.27.20261103.tar.gz", hash = "sha256:c3075570c762ed9ccf040e956919e499200e76a3b000b48e675be776914c0145", size = 12086, upload-time = "2026-11-03T08:45:26.669Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/01/b4/1c9193cbe5629a936e655ddfd0d1fb6809e18211f922e42832b0f0297025/types_flake8_bugbear-26.9.9.20260911-py3-none-any.whl", hash = "sha256:b15a95266aca0c9fd78b114535fa5cda8b0f7ff26705d7da5020c09ac964f9e1", size = 9888, upload-time = "2026-09-11T06:45:16.099Z" },
+    { url = "https://files.pythonhosted.org/packages/be/b3/23b4d84fa6f1d67673a0568e8ab320715ae526b6fb2dd984a5cac7d3589c/types_flake8_bugbear-26.10.27.20261103-py3-none-any.whl", hash = "sha256:ca6f37f70c5b9d69b8f90df875c6e3cf9b0363525794d5ee5f8f7a28d593ee0b", size = 10077, upload-time = "2026-11-03T08:45:25.649Z" },
 ]
 
 [[package]]
