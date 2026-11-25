@@ -150,11 +150,11 @@ def _get_extras(options: _Options, node: ast.Import | ast.ImportFrom) -> list[st
             if location.module == file_module and location.identifier:
                 for identifier_part in identifier_parts:
                     if location.identifier == identifier_part:
-                        extras.extend(activate_extras)
+                        extras += activate_extras
                         break
 
             if location.module == part:
-                extras.extend(activate_extras)
+                extras += activate_extras
                 break
 
     return extras
@@ -266,13 +266,11 @@ def resolve_extra(
         if requirement.extras and _normalize(requirement.name) == distribution_name:
             # This requirement references other extras, resolve them recursively
             for referenced_extra in requirement.extras:
-                packages.extend(
-                    resolve_extra(
-                        extra_name=referenced_extra,
-                        visited=visited.copy(),
-                        requirements_by_extra=requirements_by_extra,
-                        distribution_name=distribution_name,
-                    )
+                packages += resolve_extra(
+                    extra_name=referenced_extra,
+                    visited=visited.copy(),
+                    requirements_by_extra=requirements_by_extra,
+                    distribution_name=distribution_name,
                 )
         else:
             # Regular dependency, add it to the list
@@ -326,13 +324,13 @@ def parse_options(options: Namespace) -> None:
     )
 
     for extra, packages in resolved_extras.items():
-        requirements_allow_list[extra].extend(packages)
+        requirements_allow_list[extra] += packages
 
     for group, requirement in _get_from_dependency_groups():
         requirements_allow_list[group].append(_normalize(requirement.name))
 
-    requirements_allow_list[INSTALL_REQUIRE_EXTRA].extend(stdlib_module_names)
-    requirements_allow_list[INSTALL_REQUIRE_EXTRA].extend(options.requirements_packages)
+    requirements_allow_list[INSTALL_REQUIRE_EXTRA] += stdlib_module_names
+    requirements_allow_list[INSTALL_REQUIRE_EXTRA] += options.requirements_packages
 
 
 @register_add_options

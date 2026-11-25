@@ -701,6 +701,12 @@ annotation of `Iterator` (imported from `typing` or `collections.abc`).
 While `Iterator` works, `Generator` is the recommended return annotation for context manager
 functions, so `Generator` should be used instead.
 
+## FTP151
+Checks for calls of `.extend()`. For lists, prefer `items += values` over
+`items.extend(values)` to avoid the method call overhead.
+The check does not infer the receiver type and also reports methods on other types,
+such as `bytearray`, `array.array`, `collections.deque`, or custom classes.
+
 ## FTP200
 Find calls of `flask.abort` and `werkzeug.exceptions.abort`.
 Instead of calling this helper function raise the appropriate exception directly

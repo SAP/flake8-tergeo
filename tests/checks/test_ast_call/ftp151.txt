@@ -1,0 +1,24 @@
+from collections import deque
+
+items = []
+values = [1, 2]
+
+# Valid: augmented assignment, other methods, and method references.
+items += values
+items.append(3)
+method = items.extend
+items.extended(values)
+
+# A plain function named extend is not a method call.
+extend(values)
+
+# Violations: receiver types are deliberately not inferred.
+items.extend(values)
+obj.items.extend(values)
+groups[0].extend(values)
+deque().extend(values)
+
+
+def add_values(items, values):
+    # An unknown receiver is reported too.
+    items.extend(values)

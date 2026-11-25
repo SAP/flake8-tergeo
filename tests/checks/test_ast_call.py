@@ -10,6 +10,9 @@ from _flake8_tergeo import Issue, ast_call
 from _flake8_tergeo.checks.ast_call import RE_FUNCTIONS
 from tests.conftest import Flake8RunnerFixture
 
+FTP151 = partial(
+    Issue, issue_number="FTP151", message="Use += instead of .extend() for lists."
+)
 FTP081 = partial(
     Issue, issue_number="FTP081", message="Missing onerror keyword in os.walk call."
 )
@@ -1236,3 +1239,14 @@ class TestFTP149:
             func=func,
         )
         assert results == ([FTP149(line=3, column=1)] if find_by_version else [])
+
+
+def test_ftp151(runner: Flake8RunnerFixture) -> None:
+    results = runner(filename="ftp151.txt", issue_number="FTP151")
+    assert results == [
+        FTP151(line=16, column=1),
+        FTP151(line=17, column=1),
+        FTP151(line=18, column=1),
+        FTP151(line=19, column=1),
+        FTP151(line=24, column=5),
+    ]
