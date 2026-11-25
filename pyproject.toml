@@ -67,7 +67,7 @@ dev = [
     "isort==9.0.2",
     "mypy==2.4.1",
     "flake8==7.5.0",
-    "types-flake8==7.5.0.20261029",
+    "types-flake8==7.5.0.20261122",
     "types-flake8-simplify==0.30.0.20260408",
     "types-flake8-builtins==3.2.0.20261103",
     "types-flake8-bugbear==26.10.27.20261103",

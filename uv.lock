@@ -580,7 +580,7 @@ dev = [
     { name = "pyupgrade", specifier = "==3.22.0" },
     { name = "toml-sort", specifier = "==0.26.0" },
     { name = "towncrier", specifier = "==26.9.0" },
-    { name = "types-flake8", specifier = "==7.5.0.20261029" },
+    { name = "types-flake8", specifier = "==7.5.0.20261122" },
     { name = "types-flake8-bugbear", specifier = "==26.10.27.20261103" },
     { name = "types-flake8-builtins", specifier = "==3.2.0.20261103" },
     { name = "types-flake8-simplify", specifier = "==0.30.0.20260408" },
@@ -1409,14 +1409,14 @@ wheels = [
 
 [[package]]
 name = "types-flake8"
-version = "7.5.0.20261029"
+version = "7.5.0.20261122"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "types-pyflakes" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8e/47/a9e9ec7c3746d6c8ce667abfddcba7098a4312b6bcecbf1ce52b7f6ef8af/types_flake8-7.5.0.20261029.tar.gz", hash = "sha256:1aa0dbd38d1839bed6cf8c0f6b5df2bc084483d912949bca8491eb5b2b9761b7", size = 15342, upload-time = "2026-10-29T07:44:39.714Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d2/61/1fbece5c633ef8c8a7d7967f843e064dc2ad1c533e98614694b3cf4c085e/types_flake8-7.5.0.20261122.tar.gz", hash = "sha256:7a8257f8a4a441e7d58cbb3c5de16daba86583141b8fbddef71fd48ed47c6f01", size = 15393, upload-time = "2026-11-22T09:00:48.239Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8b/b4/e9185f75b79e0c15d7f5782e1649a91983ce1c8de3d48515436fb4cc5092/types_flake8-7.5.0.20261029-py3-none-any.whl", hash = "sha256:e738026d7d540c683385af4a893790204fa0cdba33edb799f8fc82aee1f91b4a", size = 20768, upload-time = "2026-10-29T07:44:38.811Z" },
+    { url = "https://files.pythonhosted.org/packages/14/8c/3bfcda538d88f34ec977b61de539a8827c78ebe970f2dbd670348dba01a9/types_flake8-7.5.0.20261122-py3-none-any.whl", hash = "sha256:a2984de886290b575123a6046f87f9316989f37867c134c177b12bd554fb4329", size = 20775, upload-time = "2026-11-22T09:00:47.436Z" },
 ]
 
 [[package]]
