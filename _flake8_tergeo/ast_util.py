@@ -324,7 +324,7 @@ def flatten_bin_op(node: ast.BinOp) -> list[ast.AST]:
     """Flatten a binary operation node into a list of its operands."""
     nodes = []
     if isinstance(node.left, ast.BinOp):
-        nodes.extend(flatten_bin_op(node.left))
+        nodes += flatten_bin_op(node.left)
     else:
         nodes.append(node.left)
     nodes.append(node.right)

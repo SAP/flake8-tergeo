@@ -114,6 +114,7 @@ def check_call(node: ast.Call) -> IssueGenerator:
     yield from _check_warnings_warn_stacklevel(node)
     yield from _check_os_chmod_mode(node)
     yield from _check_re_match(node)
+    yield from _check_list_extend(node)
 
 
 def _check_os_walk(node: ast.Call) -> IssueGenerator:
@@ -971,4 +972,16 @@ def _check_re_match(node: ast.Call) -> IssueGenerator:
         column=node.col_offset,
         issue_number="149",
         message="re.match is soft-deprecated since Python 3.15; use re.prefixmatch instead.",
+    )
+
+
+def _check_list_extend(node: ast.Call) -> IssueGenerator:
+    if not isinstance(node.func, ast.Attribute) or node.func.attr != "extend":
+        return
+
+    yield Issue(
+        line=node.lineno,
+        column=node.col_offset,
+        issue_number="151",
+        message="Use += instead of .extend() for lists.",
     )

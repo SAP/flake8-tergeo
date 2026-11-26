@@ -54,7 +54,7 @@ def _check_assign_and_return(node: AnyFunctionDef) -> IssueGenerator:
 
     for subnode in ast.walk(node):
         if isinstance(subnode, ast.Global | ast.Nonlocal):
-            to_ignore.extend(subnode.names)
+            to_ignore += subnode.names
 
         if not previous_node:
             previous_node = subnode
